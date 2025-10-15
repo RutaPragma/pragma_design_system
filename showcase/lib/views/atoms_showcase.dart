@@ -462,7 +462,7 @@ class AtomsShowcase extends StatelessWidget {
                           label: '2',
                           backgroundColor: DSColorsFoundations.error,
                         ),
-                        Text('DSBadge.xs', style: DSTypography.displayXSNormal),
+                        Text('default', style: DSTypography.displayXSNormal),
                       ],
                     ),
                     Column(
@@ -475,7 +475,7 @@ class AtomsShowcase extends StatelessWidget {
                           textColor: DSColorsFoundations.textOnPrimary,
                           isCircular: false,
                         ),
-                        Text('DSBadge.xs', style: DSTypography.displayXSNormal),
+                        Text('default', style: DSTypography.displayXSNormal),
                       ],
                     ),
                     Column(
@@ -489,7 +489,7 @@ class AtomsShowcase extends StatelessWidget {
                           backgroundColor: DSColorsFoundations.brandSecondary,
                           textColor: DSColorsFoundations.textOnSecondary,
                         ),
-                        Text('DSBadge.xs', style: DSTypography.displayXSNormal),
+                        Text('Size 30', style: DSTypography.displayXSNormal),
                       ],
                     ),
                   ],

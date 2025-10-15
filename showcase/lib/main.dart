@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         title: 'Moléculas',
         icon: Icons.mobile_friendly_sharp,
         route: MaterialPageRoute(
-          builder: (context) => this,
+          builder: (context) => MoleculesShowcase(),
           fullscreenDialog: false,
         ),
       ),

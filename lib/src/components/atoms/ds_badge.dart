@@ -29,7 +29,7 @@ class DSBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double badgeSize = size ?? DSSizesFoundations.iconSizeMedium;
+    final double badgeSize = size ?? DSSizesFoundations.iconSizeSmall;
     final Color bgColor = backgroundColor ?? DSColorsFoundations.brandSecondary;
     final Color txtColor = textColor ?? DSColorsFoundations.textOnPrimary;
 

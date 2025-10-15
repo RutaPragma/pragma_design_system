@@ -175,12 +175,12 @@ final ThemeData darkTheme = ThemeData(
 
   // === AppBar theme ===
   appBarTheme: AppBarTheme(
-    backgroundColor: DSColorsFoundations.brandPrimaryDark,
-    foregroundColor: DSColorsFoundations.textOnPrimaryDark,
+    backgroundColor: Colors.white,
+    foregroundColor: Colors.black,
     elevation: 2.0,
     centerTitle: false,
     iconTheme: IconThemeData(
-      color: DSColorsFoundations.textOnPrimaryDark,
+      color: Colors.black,
       size: DSSizesFoundations.iconSizeMedium,
     ),
   ),

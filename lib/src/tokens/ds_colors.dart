@@ -39,7 +39,7 @@ class DSColors {
   static const Color textPrimaryDark = Color(0xFFFFFFFF);
   static const Color textSecondaryDark = Color(0xFF4e6c7a);
   static const Color textHintDark = Color(0xFF9E9E9E);
-  static const Color textOnPrimaryDark = Color(0xFF000000);
+  static const Color textOnPrimaryDark = Color(0xFFFFFFFF);
   static const Color textOnSecondaryDark = Color(0xFF000000);
 
   // ===== ESTADOS =====
