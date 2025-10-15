@@ -96,8 +96,8 @@ class MyApp extends StatelessWidget {
             ),
             body: GridView.builder(
               padding: EdgeInsets.symmetric(
-                horizontal: DSSpacingFoundations.spaceMD,
-                vertical: DSSpacingFoundations.spaceMD,
+                horizontal: DSSpacingFoundations.medium,
+                vertical: DSSpacingFoundations.medium,
               ),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,

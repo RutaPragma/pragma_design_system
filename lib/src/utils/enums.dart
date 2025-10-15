@@ -13,3 +13,4 @@ enum DSIconButtonVariant { primary, secondary, disabled }
 enum DSFabVariant { primary, secondary }
 
 enum DSSizeRadius { none, xs, small, medium, large, xl, radiusCircular }
+enum DSSpacin { none, xxs, xs, small, medium, large, xl, xxl }

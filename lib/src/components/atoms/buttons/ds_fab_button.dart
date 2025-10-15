@@ -46,8 +46,9 @@ class DSFabButton extends StatelessWidget {
       onPressed: onPressed,
       backgroundColor: _getBackgroundColor(),
       foregroundColor: _getForegroundColor(),
-      elevation: 4.0,
+      elevation: .0,
       icon: Icon(icon, size: DSSizesFoundations.iconSizeLarge),
+
       label: extended
           ? Text(
               label ?? '',

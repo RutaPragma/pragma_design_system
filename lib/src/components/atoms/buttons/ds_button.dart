@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
 import 'package:pragma_design_system/src/utils/enums.dart';
+import 'package:pragma_design_system/src/utils/helpers.dart';
 
 /// Átomo de botón base del sistema de diseño.
 ///
@@ -25,6 +26,7 @@ class DSButton extends StatelessWidget {
   final Widget? icon;
   final DSSizeRadius radius;
   final DSButtonIconDirection iconDirection;
+  final DSSpacin elevation;
 
   const DSButton({
     super.key,
@@ -36,6 +38,7 @@ class DSButton extends StatelessWidget {
     this.radius = DSSizeRadius.none,
     this.iconDirection = DSButtonIconDirection.left,
     this.icon,
+    this.elevation = DSSpacin.none,
   });
 
   // ===== Tamaño estándar del botón =====
@@ -105,25 +108,6 @@ class DSButton extends StatelessWidget {
     }
   }
 
-  double _getRadius() {
-    switch (radius) {
-      case DSSizeRadius.xs:
-        return DSRadiusFoundations.radiusXS;
-      case DSSizeRadius.small:
-        return DSRadiusFoundations.radiusSM;
-      case DSSizeRadius.medium:
-        return DSRadiusFoundations.radiusMD;
-      case DSSizeRadius.large:
-        return DSRadiusFoundations.radiusLG;
-      case DSSizeRadius.xl:
-        return DSRadiusFoundations.radiusXL;
-      case DSSizeRadius.radiusCircular:
-        return DSRadiusFoundations.radiusCircular;
-      default:
-        return DSRadiusFoundations.none;
-    }
-  }
-
   BorderSide? _getBorder(bool isDark) {
     if (variant == DSButtonVariant.secondary) {
       return BorderSide(
@@ -154,11 +138,11 @@ class DSButton extends StatelessWidget {
           foregroundColor: WidgetStatePropertyAll(_getTextColor(isDark)),
           shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(_getRadius()),
+              borderRadius: BorderRadius.circular(getDSRadius(radius)),
               side: _getBorder(isDark) ?? BorderSide.none,
             ),
           ),
-          elevation: const WidgetStatePropertyAll(0),
+          elevation: WidgetStatePropertyAll(getDSElevation(elevation)),
           padding: WidgetStatePropertyAll(
             EdgeInsets.symmetric(
               horizontal: DSSizesFoundations.separatorMedium,

@@ -11,9 +11,7 @@ class ThemeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDarkMode = context.watch<ThemeBloc>().state.isDarkMode;
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: DSSpacingFoundations.spaceXXS,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: DSSpacingFoundations.xxs),
       child: DSIconButton(
         icon: isDarkMode ? Icons.dark_mode : Icons.light_mode,
         size: DSSize.small,

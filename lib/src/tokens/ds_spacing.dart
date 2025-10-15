@@ -1,6 +1,7 @@
 class DSSpacing {
   DSSpacing._();
 
+  static const double none = 0;
   static const double spaceXXS = 4;
   static const double spaceXS = 8;
   static const double spaceSM = 12;

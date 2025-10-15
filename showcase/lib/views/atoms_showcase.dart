@@ -252,9 +252,30 @@ class AtomsShowcase extends StatelessWidget {
                   radius: DSSizeRadius.radiusCircular,
                   icon: Icon(Icons.apple, size: 24),
                   iconDirection: DSButtonIconDirection.rigth,
+                  elevation: DSSpacin.medium,
                 ),
                 DSSepareted(5),
                 DSButton(size: DSSize.xl, onPressed: () {}, label: 'DSSize.xl'),
+                const SizedBox(height: 40),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                Text('DSButton', style: DSTypography.displayLargeBold),
+                const SizedBox(height: 16),
+                DSFabButton(
+                  // size: DSSize.xs,
+                  onPressed: () {},
+                  label: 'DSSize.xs',
+                  variant: DSFabVariant.primary,
+                  // radius: DSSizeRadius.large,
+                  icon: Icons.plus_one,
+                ),
+                DSSepareted(5),
+
                 const SizedBox(height: 40),
               ],
             ),
