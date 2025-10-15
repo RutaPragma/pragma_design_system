@@ -1,0 +1,51 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Flutter",
+      "type": "dart",
+      "request": "launch",
+      "program": "showcase/lib/main.dart"
+    },
+    {
+      "name": "pragma_design_system",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "pragma_design_system (profile mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "pragma_design_system (release mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    },
+    {
+      "name": "showcase",
+      "cwd": "showcase",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "showcase (profile mode)",
+      "cwd": "showcase",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "showcase (release mode)",
+      "cwd": "showcase",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    }
+  ]
+}
