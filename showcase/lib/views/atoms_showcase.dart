@@ -1,9 +1,34 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/pragma_design_system.dart';
 import 'package:showcase/views/theme_button.dart';
 
 class AtomsShowcase extends StatelessWidget {
-  const AtomsShowcase({super.key});
+  AtomsShowcase({super.key});
+
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+
+  String? _validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Por favor ingresa un correo electrónico';
+    }
+
+    // Regex simple para validar el formato del correo
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    if (!emailRegex.hasMatch(value)) {
+      return 'Ingresa un correo válido';
+    }
+
+    return null;
+  }
+
+  void _submitForm(BuildContext context) {
+    if (_formKey.currentState!.validate()) {
+      log('valid');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -364,26 +389,171 @@ class AtomsShowcase extends StatelessWidget {
             ),
           ),
 
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 16),
-          //   child: Column(
-          //     children: [
-          //       Text('DSFabButton', style: DSTypography.displayLargeBold),
-          //       const SizedBox(height: 16),
-          //       DSFabButton(
-          //         size: DSSize.medium,
-          //         onPressed: () {},
-          //         variant: DSFabVariant.primary,
-          //         radius: DSSizeRadius.xs,
-          //         icon: Icons.apple,
-          //         elevation: DSSpacin.small,
-          //       ),
-          //       DSSepareted(5),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Text('DSInputField', style: DSTypography.displayLargeBold),
+                  const SizedBox(height: 16),
+                  DSInputField(
+                    hintText: 'Escribe aqui',
+                    prefixIcon: DSIcon(
+                      icon: Icons.apple,
+                      color: DSIconColor.secondary,
+                    ),
+                  ),
+                  DSSepareted(5),
+                  DSInputField(
+                    hintText: 'Deshabilitado',
+                    prefixIcon: DSIcon(
+                      icon: Icons.apple,
+                      color: DSIconColor.secondary,
+                    ),
+                    enabled: false,
+                  ),
+                  DSSepareted(5),
+                  DSInputField(
+                    label: 'Ingresa tu email',
+                    controller: _emailController,
+                    suffixIcon: DSIcon(
+                      icon: Icons.email,
+                      color: DSIconColor.secondary,
+                    ),
+                    validator: _validateEmail,
+                    onChanged: (val) => _submitForm(context),
+                  ),
+                  DSSepareted(5),
+                  DSInputField(
+                    label: 'Ingresa tu contraseña',
+                    obscureText: true,
+                  ),
+                  DSSepareted(5),
+                  DSInputField(
+                    label: 'Area',
+                    maxLines: 5,
+                    hintText: 'Escribe...',
+                  ),
+                  DSSepareted(5),
+                ],
+              ),
+            ),
+          ),
 
-          //       const SizedBox(height: 40),
-          //     ],
-          //   ),
-          // ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Text('DSBadge', style: DSTypography.displayLargeBold),
+                const SizedBox(height: 16),
+                GridView.count(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        DSBadge(
+                          label: '2',
+                          backgroundColor: DSColorsFoundations.error,
+                        ),
+                        Text('DSBadge.xs', style: DSTypography.displayXSNormal),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        DSBadge(
+                          label: 'NEW',
+                          backgroundColor: DSColorsFoundations.success,
+                          textColor: DSColorsFoundations.textOnPrimary,
+                          isCircular: false,
+                        ),
+                        Text('DSBadge.xs', style: DSTypography.displayXSNormal),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        DSBadge(
+                          size: 30,
+                          label: 'New',
+                          isMedal: true,
+                          backgroundColor: DSColorsFoundations.brandSecondary,
+                          textColor: DSColorsFoundations.textOnSecondary,
+                        ),
+                        Text('DSBadge.xs', style: DSTypography.displayXSNormal),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Text('DSLoader', style: DSTypography.displayLargeBold),
+                const SizedBox(height: 16),
+                GridView.count(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        DSLoader(
+                          size: 55,
+                          color: DSColorsFoundations.brandSecondary,
+                          duration: Duration(seconds: 3),
+                        ),
+                        Text('Size 55', style: DSTypography.displayXSNormal),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        DSLoader(
+                          label: 'Cargando',
+                          color: const Color.fromARGB(255, 171, 2, 205),
+                          size: 80,
+                        ),
+
+                        Text('Size 80', style: DSTypography.displayXSNormal),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        DSLoader(
+                          label: '',
+                          color: DSColorsFoundations.successDark,
+                          size: 30,
+                        ),
+
+                        Text('Size 30', style: DSTypography.displayXSNormal),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
