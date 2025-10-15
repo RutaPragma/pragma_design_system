@@ -25,7 +25,9 @@ class DSColorsFoundations {
   static const Color backgroundDark = DSColors.bgDark;
 
   static const Color backgroundPrimaryDark = DSColors.bgPrimaryDark;
+  static const Color backgroundOnPrimaryDark = DSColors.bgOnPrimaryDark;
   static const Color backgroundSecondaryDark = DSColors.bgSecondaryDark;
+  static const Color backgroundOnSecondaryDark = DSColors.bgOnSecondaryDark;
   static const Color backgroundLightDark = DSColors.bgLightDark;
 
   // ===== SURFACE =====

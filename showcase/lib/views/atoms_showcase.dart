@@ -260,26 +260,130 @@ class AtomsShowcase extends StatelessWidget {
               ],
             ),
           ),
+
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                Text('DSButton', style: DSTypography.displayLargeBold),
+                Text('DSIcon', style: DSTypography.displayLargeBold),
                 const SizedBox(height: 16),
-                DSFabButton(
-                  // size: DSSize.xs,
-                  onPressed: () {},
-                  label: 'DSSize.xs',
-                  variant: DSFabVariant.primary,
-                  // radius: DSSizeRadius.large,
-                  icon: Icons.plus_one,
+                GridView.count(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        DSFabButton(
+                          size: DSSize.xs,
+                          onPressed: () {},
+                          variant: DSFabVariant.primary,
+                          radius: DSSizeRadius.xs,
+                          icon: Icons.apple,
+                          elevation: DSSpacin.small,
+                        ),
+                        Text('DSSize.xs', style: DSTypography.displayXSNormal),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        DSFabButton(
+                          size: DSSize.small,
+                          onPressed: () {},
+                          variant: DSFabVariant.secondary,
+                          radius: DSSizeRadius.xs,
+                          icon: Icons.apple,
+                          elevation: DSSpacin.small,
+                        ),
+                        Text(
+                          'DSSize.small',
+                          style: DSTypography.displayXSNormal,
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        DSFabButton(
+                          size: DSSize.medium,
+                          onPressed: () {},
+                          variant: DSFabVariant.primary,
+                          radius: DSSizeRadius.xs,
+                          icon: Icons.apple,
+                          elevation: DSSpacin.small,
+                        ),
+                        Text(
+                          'DSSize.medium',
+                          style: DSTypography.displayXSNormal,
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        DSFabButton(
+                          size: DSSize.large,
+                          onPressed: () {},
+                          variant: DSFabVariant.primary,
+                          radius: DSSizeRadius.xs,
+                          icon: Icons.apple,
+                          elevation: DSSpacin.small,
+                        ),
+                        Text(
+                          'DSSize.large',
+                          style: DSTypography.displayXSNormal,
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        DSFabButton(
+                          size: DSSize.xl,
+                          onPressed: () {},
+                          variant: DSFabVariant.secondary,
+                          radius: DSSizeRadius.xs,
+                          icon: Icons.apple,
+                          elevation: DSSpacin.small,
+                        ),
+                        Text('DSSize.xl', style: DSTypography.displayXSNormal),
+                      ],
+                    ),
+                  ],
                 ),
-                DSSepareted(5),
-
-                const SizedBox(height: 40),
               ],
             ),
           ),
+
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 16),
+          //   child: Column(
+          //     children: [
+          //       Text('DSFabButton', style: DSTypography.displayLargeBold),
+          //       const SizedBox(height: 16),
+          //       DSFabButton(
+          //         size: DSSize.medium,
+          //         onPressed: () {},
+          //         variant: DSFabVariant.primary,
+          //         radius: DSSizeRadius.xs,
+          //         icon: Icons.apple,
+          //         elevation: DSSpacin.small,
+          //       ),
+          //       DSSepareted(5),
+
+          //       const SizedBox(height: 40),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );

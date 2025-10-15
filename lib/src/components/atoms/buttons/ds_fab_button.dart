@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pragma_design_system/src/foundations/foundations.dart';
-import 'package:pragma_design_system/src/utils/enums.dart';
+import 'package:pragma_design_system/pragma_design_system.dart';
 
 /// Átomo: DSFabButton
 ///
@@ -12,6 +11,10 @@ class DSFabButton extends StatelessWidget {
   final VoidCallback onPressed;
   final bool extended;
   final DSFabVariant variant;
+  final DSSizeRadius radius;
+  final DSSpacin elevation;
+  final DSSize size;
+  final double? customSize;
 
   const DSFabButton({
     super.key,
@@ -20,48 +23,67 @@ class DSFabButton extends StatelessWidget {
     this.label,
     this.extended = false,
     this.variant = DSFabVariant.primary,
+    this.radius = DSSizeRadius.none,
+    this.elevation = DSSpacin.none,
+    this.size = DSSize.medium,
+    this.customSize,
   });
 
-  Color _getBackgroundColor() {
+  Color _getBackgroundColor(bool isDark) {
     switch (variant) {
       case DSFabVariant.primary:
-        return DSColorsFoundations.brandPrimary;
+        return isDark
+            ? DSColorsFoundations.brandPrimaryDark
+            : DSColorsFoundations.brandPrimary;
       case DSFabVariant.secondary:
-        return DSColorsFoundations.brandSecondary;
+        return isDark
+            ? DSColorsFoundations.brandSecondaryDark
+            : DSColorsFoundations.brandSecondary;
     }
   }
 
-  Color _getForegroundColor() {
+  Color _getForegroundColor(bool isDark) {
     switch (variant) {
       case DSFabVariant.primary:
-        return DSColorsFoundations.textOnPrimary;
+        return isDark
+            ? DSColorsFoundations.textOnPrimaryDark
+            : DSColorsFoundations.textOnPrimary;
       case DSFabVariant.secondary:
-        return DSColorsFoundations.textOnSecondary;
+        return isDark
+            ? DSColorsFoundations.textOnSecondaryDark
+            : DSColorsFoundations.textOnSecondary;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton.extended(
-      onPressed: onPressed,
-      backgroundColor: _getBackgroundColor(),
-      foregroundColor: _getForegroundColor(),
-      elevation: .0,
-      icon: Icon(icon, size: DSSizesFoundations.iconSizeLarge),
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final double dimension = getDsSizeIconButton(size);
 
-      label: extended
-          ? Text(
-              label ?? '',
-              style: DSTypographyFoundations.displayLarge.copyWith(
-                color: _getForegroundColor(),
-              ),
-            )
-          : const SizedBox.shrink(),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(DSRadiusFoundations.radiusXL),
+    return Container(
+      alignment: AlignmentGeometry.center,
+      height: dimension,
+      width: dimension,
+
+      decoration: BoxDecoration(boxShadow: DSShadowsFoundations.shadowSmall),
+
+      child: FloatingActionButton.large(
+        onPressed: onPressed,
+        backgroundColor: _getBackgroundColor(isDark),
+        foregroundColor: _getForegroundColor(isDark),
+        elevation: getDSElevation(elevation),
+
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(getDSRadius(radius)),
+        ),
+        child: Center(
+          child: Icon(
+            icon,
+            size: (customSize ?? getDsSizeIconButton(size)) * 0.6,
+          ),
+        ),
       ),
-      // Si no es extendido, usamos el FAB circular tradicional.
-      isExtended: extended,
     );
   }
 }

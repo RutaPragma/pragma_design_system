@@ -16,7 +16,10 @@ class DSColors {
   static const Color bgDark = Color(0xFF121212);
 
   static const Color bgPrimaryDark = Color(0xFF121212);
+  static const Color bgOnPrimaryDark = Color.fromARGB(46, 255, 255, 255);
   static const Color bgSecondaryDark = Color(0xFF1E1E1E);
+  static const Color bgOnSecondaryDark = Color.fromARGB(21, 218, 217, 217);
+
   static const Color bgLightDark = Color(0xFF2A2A2A);
 
   // ===== SURFACE =====

@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pragma_design_system/src/foundations/ds_colors_foundation.dart';
-import 'package:pragma_design_system/src/foundations/ds_sizes_foundations.dart';
-import 'package:pragma_design_system/src/foundations/ds_radius_foundations.dart';
-import 'package:pragma_design_system/src/foundations/ds_shadows_foundations.dart';
-import 'package:pragma_design_system/src/utils/enums.dart';
+import 'package:pragma_design_system/pragma_design_system.dart';
 
 /// Átomo: DSIconButton
 ///
@@ -29,21 +25,6 @@ class DSIconButton extends StatelessWidget {
     this.customSize,
     this.customColor,
   });
-
-  double _getSize() {
-    switch (size) {
-      case DSSize.xs:
-        return DSSizesFoundations.iconSizeXS * 1.2;
-      case DSSize.small:
-        return DSSizesFoundations.iconSizeSmall * 1.3;
-      case DSSize.medium:
-        return DSSizesFoundations.iconSizeMedium * 1.4;
-      case DSSize.large:
-        return DSSizesFoundations.iconSizeLarge * 1.8;
-      case DSSize.xl:
-        return DSSizesFoundations.iconSizeXL * 1.8;
-    }
-  }
 
   Color _getBackgroundColor(bool isDark) {
     switch (variant) {
@@ -81,7 +62,7 @@ class DSIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double dimension = _getSize();
+    final double dimension = getDsSizeIconButton(size);
     final bool isDisabled =
         variant == DSIconButtonVariant.disabled || onPressed == null;
 
@@ -112,7 +93,7 @@ class DSIconButton extends StatelessWidget {
           color: disabled
               ? DSColorsFoundations.textHint
               : _getIconColor(isDark),
-          size: (customSize ?? _getSize()) * 0.8,
+          size: (customSize ?? getDsSizeIconButton(size)) * 0.8,
         ),
       ),
     );

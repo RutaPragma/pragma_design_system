@@ -37,6 +37,13 @@ final ThemeData lightTheme = ThemeData(
     ),
   ),
 
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    foregroundColor: DSColorsFoundations.textOnPrimary,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(DSRadiusFoundations.radiusSM),
+    ),
+  ),
+
   // Text field / inputs
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
@@ -85,24 +92,31 @@ final ThemeData lightTheme = ThemeData(
 
 final ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
+  useMaterial3: true,
 
-  // Fondo principal de las pantallas.
-  scaffoldBackgroundColor: DSColorsFoundations.backgroundDark,
+  // Fondo principal de las pantallas
+  scaffoldBackgroundColor: DSColorsFoundations.backgroundPrimaryDark,
 
-  // ColorScheme: la fuente de verdad para colores semánticos.
+  // === CORREGIDO: ColorScheme con surfaceTint y ajustes de superficies ===
   colorScheme: ColorScheme(
     brightness: Brightness.dark,
     primary: DSColorsFoundations.brandPrimaryDark,
     onPrimary: DSColorsFoundations.textOnPrimaryDark,
     secondary: DSColorsFoundations.brandSecondaryDark,
     onSecondary: DSColorsFoundations.textOnSecondaryDark,
-    surface: DSColorsFoundations.surfaceDark,
+    surface: DSColorsFoundations.surfaceDark, // Color base de superficies
     onSurface: DSColorsFoundations.textPrimaryDark,
     error: DSColorsFoundations.errorDark,
     onError: DSColorsFoundations.textPrimary,
+    surfaceContainerHighest:
+        DSColorsFoundations.surfaceDark, // Evita overlays oscuros
+    surfaceTint: Colors.red, // 👈 clave: elimina el tinte oscuro de elevación
   ),
 
-  // Elevated buttons
+  // 👇 Añade esta línea al ThemeData base para desactivar el tinte en general
+  // surfaceTintColor: Colors.transparent,
+
+  // === Elevated buttons ===
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: DSColorsFoundations.brandPrimaryDark,
@@ -115,10 +129,20 @@ final ThemeData darkTheme = ThemeData(
         borderRadius: BorderRadius.circular(DSRadiusFoundations.radiusSM),
       ),
       textStyle: DSTypographyFoundations.buttonPrimary,
+      elevation: 2,
+      shadowColor: DSColorsFoundations
+          .backgroundOnPrimaryDark, // 👈 opcional: elimina sombra oscura
     ),
   ),
 
-  // Text field / inputs
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    foregroundColor: DSColorsFoundations.textOnPrimaryDark,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(DSRadiusFoundations.radiusSM),
+    ),
+  ),
+
+  // === Text field / inputs ===
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: DSColorsFoundations.inputFillDark,
@@ -143,13 +167,13 @@ final ThemeData darkTheme = ThemeData(
     ),
   ),
 
-  // Icon theme
+  // === Icon theme ===
   iconTheme: IconThemeData(
     color: DSColorsFoundations.textPrimaryDark,
     size: DSSizesFoundations.iconSizeMedium,
   ),
 
-  // AppBar theme
+  // === AppBar theme ===
   appBarTheme: AppBarTheme(
     backgroundColor: DSColorsFoundations.brandPrimaryDark,
     foregroundColor: DSColorsFoundations.textOnPrimaryDark,
@@ -160,6 +184,4 @@ final ThemeData darkTheme = ThemeData(
       size: DSSizesFoundations.iconSizeMedium,
     ),
   ),
-
-  useMaterial3: true,
 );
