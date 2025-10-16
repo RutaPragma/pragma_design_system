@@ -29,6 +29,7 @@ class DSProductCard extends StatelessWidget {
 
   final Color? btnBackgroundColor;
   final Color? btnTextColor;
+  final BoxFit boxFitImage;
 
   const DSProductCard({
     super.key,
@@ -52,6 +53,7 @@ class DSProductCard extends StatelessWidget {
     this.btnBackgroundColor,
     this.btnTextColor,
     this.cardSize = 100,
+    this.boxFitImage = BoxFit.fill,
   });
 
   @override
@@ -119,7 +121,7 @@ class DSProductCard extends StatelessWidget {
               left: 0,
               right: 0,
               bottom: 100,
-              child: Image.network(imageUrl, fit: BoxFit.fill),
+              child: Image.network(imageUrl, fit: boxFitImage),
             ),
             Positioned(
               bottom: 60,

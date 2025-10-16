@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
         title: 'Organismos',
         icon: Icons.crop_original_outlined,
         route: MaterialPageRoute(
-          builder: (context) => this,
+          builder: (context) => OrganismsShowcase(),
           fullscreenDialog: false,
         ),
       ),
