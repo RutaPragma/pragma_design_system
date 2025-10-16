@@ -1,7 +1,7 @@
 name: pragma_design_system
 description: "Sistema de diseño Flutter basado en Atomic Design. Incluye showcase de componentes y estructuras reutilizables."
 version: 0.0.1
-homepage:
+homepage: https://github.com/RutaPragma/pragma_design_system.git
 
 environment:
   sdk: ^3.9.2
@@ -15,7 +15,6 @@ dependencies:
   flutter_screenutil: ^5.9.0
   gap: ^3.0.1
   intl: ^0.19.0
-
 
 dev_dependencies:
   flutter_test:
