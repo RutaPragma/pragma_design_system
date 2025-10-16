@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/pragma_design_system.dart';
 import 'package:showcase/views/theme_button.dart';
@@ -24,8 +26,8 @@ class MoleculesShowcase extends StatelessWidget {
 
                 DSSearchBar(
                   hintText: "Buscar productos...",
-                  onChanged: (value) => print("Buscando: $value"),
-                  onClear: () => print("Limpió búsqueda"),
+                  onChanged: (value) => log("Buscando: $value"),
+                  onClear: () => log("Limpió búsqueda"),
                 ),
               ],
             ),
@@ -51,7 +53,7 @@ class MoleculesShowcase extends StatelessWidget {
                   buttonLabel: 'Comprar',
                   btnBackgroundColor: Colors.black,
                   btnTextColor: Colors.greenAccent,
-                  onPressed: () => print('Producto agregado'),
+                  onPressed: () => log('Producto agregado'),
                   cardSize: 60,
                 ),
                 DSSepareted(5),
@@ -63,7 +65,7 @@ class MoleculesShowcase extends StatelessWidget {
                   badgeText: "New",
                   isMedal: false,
                   onPressed: () {
-                    print("Producto agregado al carrito");
+                    log("Producto agregado al carrito");
                   },
                   cardSize: 80,
                 ),
@@ -75,7 +77,7 @@ class MoleculesShowcase extends StatelessWidget {
                   price: "\$120.000",
                   badgeText: "New",
                   onPressed: () {
-                    print("Producto agregado al carrito");
+                    log("Producto agregado al carrito");
                   },
                   cardSize: 120,
                 ),
@@ -96,7 +98,7 @@ class MoleculesShowcase extends StatelessWidget {
                   buttonLabel: 'Comprar',
                   btnBackgroundColor: Colors.black,
                   btnTextColor: Colors.greenAccent,
-                  onPressed: () => print('Producto agregado'),
+                  onPressed: () => log('Producto agregado'),
                   cardSize: 180,
                 ),
               ],
