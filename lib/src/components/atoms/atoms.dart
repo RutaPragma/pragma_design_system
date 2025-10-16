@@ -2,6 +2,7 @@ export 'buttons/buttons.dart';
 export 'ds_badge.dart';
 export 'ds_input_field.dart';
 export 'ds_loader.dart';
+export 'ds_rating_stars.dart';
 export 'ds_separeted.dart';
 export 'ds_toggle.dart';
 export 'icons/icons.dart';

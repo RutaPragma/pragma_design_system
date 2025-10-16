@@ -12,6 +12,7 @@ class AtomsShowcase extends StatefulWidget {
 }
 
 class _AtomsShowcaseState extends State<AtomsShowcase> {
+  double rating = 3.4;
   final _formKey = GlobalKey<FormState>();
 
   final _emailController = TextEditingController();
@@ -172,6 +173,29 @@ class _AtomsShowcaseState extends State<AtomsShowcase> {
                     DSSepareted(5),
                   ],
                 ),
+              ],
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Text('DSPriceSummary', style: DSTypography.displayLargeBold),
+                DSSepareted(5),
+                DSRatingStars(
+                  rating: rating,
+                  isInteractive: true,
+                  filledColor: DSColorsFoundations.warning,
+                  halfColor: DSColorsFoundations.warning,
+                  onChanged: (value) {
+                    setState(() => rating = value);
+                  },
+                ),
+
+                DSSepareted(2),
+
+                DSRatingStars(rating: 1.1),
               ],
             ),
           ),

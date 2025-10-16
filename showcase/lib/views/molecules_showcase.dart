@@ -4,8 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:pragma_design_system/pragma_design_system.dart';
 import 'package:showcase/views/theme_button.dart';
 
-class MoleculesShowcase extends StatelessWidget {
+class MoleculesShowcase extends StatefulWidget {
   const MoleculesShowcase({super.key});
+
+  @override
+  State<MoleculesShowcase> createState() => _MoleculesShowcaseState();
+}
+
+class _MoleculesShowcaseState extends State<MoleculesShowcase> {
+ 
 
   @override
   Widget build(BuildContext context) {
