@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
 
 /// Campo de texto base del sistema de diseño.
-/// 
+///
 /// Este átomo estandariza el aspecto de los inputs en toda la aplicación.
 /// Puede ser utilizado para campos de texto, búsqueda, correo, contraseña, etc.
-/// 
-/// - Aplica colores desde [DSColorsFoundations]
-/// - Tamaños desde [DSSizesFoundations]
-/// - Tipografía desde [DSTypographyFoundations]
-/// - Bordes desde [DSRadiusFoundations]
 class DSInputField extends StatelessWidget {
   final String? label;
   final String? hintText;
@@ -42,73 +37,78 @@ class DSInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    final field = TextFormField(
+      controller: controller,
+      keyboardType: keyboardType,
+      obscureText: obscureText,
+      enabled: enabled,
+      validator: validator,
+      onChanged: onChanged,
+      maxLines: maxLines,
+      minLines: minLines,
+      style: DSTypographyFoundations.bodyMedium.copyWith(
+        color: enabled
+            ? DSColorsFoundations.textPrimary
+            : DSColorsFoundations.textHint,
+      ),
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: DSTypographyFoundations.hint.copyWith(
+          color: DSColorsFoundations.textHint,
+        ),
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
+        filled: true,
+        fillColor: DSColorsFoundations.inputFill,
+        isDense: true,
+        contentPadding: EdgeInsets.symmetric(
+          vertical: DSSizesFoundations.separatorSmall,
+          horizontal: DSSizesFoundations.separatorMedium,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(DSRadiusFoundations.radiusSM),
+          borderSide: BorderSide(color: DSColorsFoundations.inputBorder),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(DSRadiusFoundations.radiusSM),
+          borderSide: BorderSide(
+            color: isDark
+                ? DSColorsFoundations.inputFocusDark
+                : DSColorsFoundations.inputFocus,
+          ),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(DSRadiusFoundations.radiusSM),
+          borderSide: BorderSide(color: DSColorsFoundations.buttonDisabled),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(DSRadiusFoundations.radiusSM),
+          borderSide: BorderSide(color: DSColorsFoundations.error),
+        ),
+      ),
+    );
+
+    if (label == null) return field;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        if (label != null)
-          Padding(
-            padding: EdgeInsets.only(
-              bottom: DSSizesFoundations.separatorSmall,
-            ),
-            child: Text(
-              label!,
-              style: DSTypographyFoundations.labelMedium.copyWith(
-                color: enabled
-                    ? DSColorsFoundations.textSecondary
-                    : DSColorsFoundations.textHint,
-              ),
-            ),
-          ),
-        TextFormField(
-          controller: controller,
-          keyboardType: keyboardType,
-          obscureText: obscureText,
-          enabled: enabled,
-          validator: validator,
-          onChanged: onChanged,
-          maxLines: maxLines,
-          minLines: minLines,
-          style: DSTypographyFoundations.bodyMedium.copyWith(
-            color: enabled
-                ? DSColorsFoundations.textPrimary
-                : DSColorsFoundations.textHint,
-          ),
-          decoration: InputDecoration(
-            hintText: hintText,
-            hintStyle: DSTypographyFoundations.hint.copyWith(
-              color: DSColorsFoundations.textHint,
-            ),
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
-            filled: true,
-            fillColor: DSColorsFoundations.inputFill,
-            contentPadding: EdgeInsets.symmetric(
-              vertical: DSSizesFoundations.separatorSmall,
-              horizontal: DSSizesFoundations.separatorMedium,
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius:
-                  BorderRadius.circular(DSRadiusFoundations.radiusSM),
-              borderSide: BorderSide(color: DSColorsFoundations.inputBorder),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius:
-                  BorderRadius.circular(DSRadiusFoundations.radiusSM),
-              borderSide: BorderSide(color: DSColorsFoundations.inputFocus),
-            ),
-            disabledBorder: OutlineInputBorder(
-              borderRadius:
-                  BorderRadius.circular(DSRadiusFoundations.radiusSM),
-              borderSide:
-                  BorderSide(color: DSColorsFoundations.buttonDisabled),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius:
-                  BorderRadius.circular(DSRadiusFoundations.radiusSM),
-              borderSide: BorderSide(color: DSColorsFoundations.error),
+        Padding(
+          padding: EdgeInsets.only(bottom: DSSizesFoundations.separatorSmall),
+          child: Text(
+            label!,
+            style: DSTypographyFoundations.labelMedium.copyWith(
+              color: enabled
+                  ? DSColorsFoundations.textSecondary
+                  : DSColorsFoundations.textHint,
             ),
           ),
         ),
+        field,
       ],
     );
   }

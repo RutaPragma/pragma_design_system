@@ -39,7 +39,7 @@ class DSColors {
   static const Color textPrimaryDark = Color(0xFFFFFFFF);
   static const Color textSecondaryDark = Color(0xFF4e6c7a);
   static const Color textHintDark = Color(0xFF9E9E9E);
-  static const Color textOnPrimaryDark = Color(0xFFFFFFFF);
+  static const Color textOnPrimaryDark = Color(0xFF000000);
   static const Color textOnSecondaryDark = Color(0xFF000000);
 
   // ===== ESTADOS =====
@@ -75,7 +75,7 @@ class DSColors {
 
   static const Color inputBorderDark = Color(0xFF424242);
   static const Color inputFillDark = Color(0xFF2A2A2A);
-  static const Color inputFocusDark = Color(0xFF8E80FF);
+  static const Color inputFocusDark = Color(0xFF4e6c7a);
 
   // ===== DIVIDERS / SOMBRAS =====
   static const Color divider = Color(0xFFE0E0E0);

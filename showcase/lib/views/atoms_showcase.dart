@@ -290,7 +290,7 @@ class AtomsShowcase extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                Text('DSIcon', style: DSTypography.displayLargeBold),
+                Text('DSFabButton', style: DSTypography.displayLargeBold),
                 const SizedBox(height: 16),
                 GridView.count(
                   crossAxisCount: 3,

@@ -1,4 +1,4 @@
-import 'dart:math' as Math;
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
@@ -146,12 +146,12 @@ class _StarBadgePainter extends CustomPainter {
   Path _createStarPath(double cx, double cy, double radius, int points) {
     final Path path = Path();
     final double innerRadius = radius / 1.8;
-    final double angle = (2 * Math.pi) / points;
+    final double angle = (2 * math.pi) / points;
 
     for (int i = 0; i < points * 2; i++) {
       final double r = i.isEven ? radius : innerRadius;
-      final double x = cx + r * Math.cos(i * angle / 2);
-      final double y = cy + r * Math.sin(i * angle / 2);
+      final double x = cx + r * math.cos(i * angle / 2);
+      final double y = cy + r * math.sin(i * angle / 2);
       if (i == 0) {
         path.moveTo(x, y);
       } else {
