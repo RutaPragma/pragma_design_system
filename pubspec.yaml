@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_svg: ^2.0.9
+  flutter_svg: ^2.2.1
   google_fonts: ^6.2.0
   flutter_screenutil: ^5.9.0
   gap: ^3.0.1
@@ -28,8 +28,7 @@ dev_dependencies:
 flutter:
   # To add assets to your package, add an assets section, like this:
   assets:
-    - assets/images/
-    - assets/icons/
+    - assets/icons/png/
     - assets/icons/svg/
   #
   # For details regarding assets in packages, see

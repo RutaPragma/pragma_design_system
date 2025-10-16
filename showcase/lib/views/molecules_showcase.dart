@@ -184,6 +184,72 @@ class MoleculesShowcase extends StatelessWidget {
               ],
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Text('DSPaymentButton', style: DSTypography.displayLargeBold),
+                DSSepareted(5),
+
+                DSPaymentButton(
+                  label: "Pagar con tarjeta",
+                  logo: Image.asset("assets/icons/png/visa.png"),
+                  onPressed: () {},
+                ),
+
+                DSSepareted(5),
+                DSPaymentButton(
+                  logo: Image.asset(
+                    "assets/icons/png/money.png",
+                    color: Colors.white,
+                  ),
+                  label: "Pago en efectivo",
+                  backgroundColor: Colors.black,
+                  textColor: Colors.white,
+                  borderColor: Colors.amber,
+                  trailingIcon: Icons.chevron_right_rounded,
+                  onPressed: () {},
+                ),
+                DSSepareted(5),
+                DSPaymentButton(
+                  label: "Apple Pay",
+                  logo: Image.asset("assets/icons/png/apple-pay.png"),
+                  enabled: false,
+                ),
+                DSSepareted(5),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Text('DSPromoBanner', style: DSTypography.displayLargeBold),
+                DSSepareted(5),
+                DSPromoBanner(
+                  title: "Ofertas de verano",
+                  subtitle: "Hasta 40% de descuento en productos seleccionados",
+                  imageUrl:
+                      "https://nikeco.vtexassets.com/arquivos/ids/809858-1200-auto?v=638807698968530000&width=1200&height=auto&aspect=true",
+                  badgeText: "Nuevo",
+                  buttonLabel: "Comprar ahora",
+                  size: 160,
+                  onPressed: () {},
+                ),
+                DSSepareted(5),
+                DSPromoBanner(
+                  title: "Envío Gratis",
+                  subtitle: "Por compras superiores a \$50.000",
+                  imageUrl:
+                      "https://nikeco.vtexassets.com/arquivos/ids/809858-1200-auto?v=638807698968530000&width=1200&height=auto&aspect=true",
+                  isReversed: true,
+                  backgroundColor: DSColorsFoundations.warning,
+                  textColor: const Color.fromARGB(255, 2, 7, 171),
+                ),
+                DSSepareted(5),
+              ],
+            ),
+          ),
         ],
       ),
     );
