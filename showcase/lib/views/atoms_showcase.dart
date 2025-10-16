@@ -4,11 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:pragma_design_system/pragma_design_system.dart';
 import 'package:showcase/views/theme_button.dart';
 
-class AtomsShowcase extends StatelessWidget {
-  AtomsShowcase({super.key});
+class AtomsShowcase extends StatefulWidget {
+  const AtomsShowcase({super.key});
 
+  @override
+  State<AtomsShowcase> createState() => _AtomsShowcaseState();
+}
+
+class _AtomsShowcaseState extends State<AtomsShowcase> {
   final _formKey = GlobalKey<FormState>();
+
   final _emailController = TextEditingController();
+  var notificationsEnabled = false;
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
@@ -126,6 +133,43 @@ class AtomsShowcase extends StatelessWidget {
                         ),
                       ],
                     ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Text('DSToggle', style: DSTypography.displayLargeBold),
+                DSSepareted(5),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    DSToggle(
+                      value: notificationsEnabled,
+                      label: "Notificaciones",
+                      showLabel: true,
+                      onChanged: (value) {
+                        log('$value', name: 'Change');
+                        setState(() => notificationsEnabled = !value);
+                      },
+                    ),
+                    DSToggle(
+                      value: !notificationsEnabled,
+                      label: "Pagos online",
+                      showLabel: true,
+                      activeColor: DSColorsFoundations.success,
+                      inactiveColor: DSColorsFoundations.error,
+
+                      onChanged: (value) {
+                        log('$value', name: 'Change');
+                        setState(() => notificationsEnabled = value);
+                      },
+                    ),
+                    DSSepareted(5),
                   ],
                 ),
               ],
