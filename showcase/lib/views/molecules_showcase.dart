@@ -104,6 +104,52 @@ class MoleculesShowcase extends StatelessWidget {
               ],
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Text('DSIconCounter', style: DSTypography.displayLargeBold),
+                DSSepareted(5),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    DSIconCounter(
+                      icon: Icons.shopping_cart_outlined,
+                      count: 3,
+                      badgeTextSize: 10,
+                      onTap: () => print("Ir al carrito"),
+                    ),
+
+                    DSIconCounter(
+                      icon: Icons.notifications_none_rounded,
+                      count: 12,
+                      badgeBackgroundColor: Colors.redAccent,
+                      isMedal: false,
+                      badgeTextColor: Colors.white,
+                      iconColor: Colors.black,
+                    ),
+                    DSIconCounter(
+                      icon: Icons.notifications_none_rounded,
+                      count: 100,
+                      badgeBackgroundColor: DSColorsFoundations.brandSecondary,
+                      isMedal: true,
+                      badgeSize: 14,
+                      badgeTextSize: 7,
+                      badgeTextColor: Colors.white,
+                      iconColor: Colors.black,
+                    ),
+
+                    DSIconCounter(
+                      icon: Icons.favorite_border_rounded,
+                      showBadge: false,
+                    ),
+                  ],
+                ),
+                DSSepareted(5),
+              ],
+            ),
+          ),
         ],
       ),
     );

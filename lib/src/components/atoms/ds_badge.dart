@@ -12,6 +12,7 @@ class DSBadge extends StatelessWidget {
   final Color? backgroundColor;
   final Color? textColor;
   final double? size;
+  final double? textSize;
   final bool isCircular;
   final bool isMedal;
   final VoidCallback? onTap;
@@ -25,6 +26,7 @@ class DSBadge extends StatelessWidget {
     this.isCircular = true,
     this.isMedal = false,
     this.onTap,
+    this.textSize,
   });
 
   @override
@@ -51,7 +53,7 @@ class DSBadge extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: DSTypographyFoundations.labelSmall.copyWith(
                   color: txtColor,
-                  fontSize: badgeSize * 0.3,
+                  fontSize: textSize ?? badgeSize * 0.3,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -82,7 +84,7 @@ class DSBadge extends StatelessWidget {
           textAlign: TextAlign.center,
           style: DSTypographyFoundations.bodySmall.copyWith(
             color: txtColor,
-            fontSize: badgeSize * 0.3,
+            fontSize: textSize ?? badgeSize * 0.3,
             fontWeight: FontWeight.bold,
           ),
         ),
