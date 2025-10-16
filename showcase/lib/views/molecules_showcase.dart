@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/pragma_design_system.dart';
 import 'package:showcase/views/theme_button.dart';
@@ -28,6 +26,78 @@ class MoleculesShowcase extends StatelessWidget {
                   hintText: "Buscar productos...",
                   onChanged: (value) => print("Buscando: $value"),
                   onClear: () => print("Limpió búsqueda"),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Text('DSProductCard', style: DSTypography.displayLargeBold),
+
+                DSProductCard(
+                  imageUrl:
+                      'https://nikeco.vtexassets.com/arquivos/ids/733899-1200-auto?v=638708426829470000&width=1200&height=auto&aspect=true',
+                  title: 'Tenis deportivos Nike',
+                  price: '\$249.900',
+                  badgeText: 'New',
+                  badgeBackgroundColor: Colors.redAccent,
+                  badgeTextColor: Colors.white,
+                  badgeSize: 12,
+                  bgColor: Colors.deepPurpleAccent,
+                  textColor: Colors.yellowAccent,
+                  priceColor: Colors.greenAccent,
+                  buttonLabel: 'Comprar',
+                  btnBackgroundColor: Colors.black,
+                  btnTextColor: Colors.greenAccent,
+                  onPressed: () => print('Producto agregado'),
+                  cardSize: 60,
+                ),
+                DSSepareted(5),
+                DSProductCard(
+                  imageUrl:
+                      'https://nikeco.vtexassets.com/arquivos/ids/677932/FD6034_001_A_PREM.jpg?v=638623623839300000',
+                  title: "Zapatillas deportivas Nike Air",
+                  price: "\$120.000",
+                  badgeText: "New",
+                  isMedal: false,
+                  onPressed: () {
+                    print("Producto agregado al carrito");
+                  },
+                  cardSize: 80,
+                ),
+                DSSepareted(5),
+                DSProductCard(
+                  imageUrl:
+                      'https://nikeco.vtexassets.com/arquivos/ids/677932/FD6034_001_A_PREM.jpg?v=638623623839300000',
+                  title: "Zapatillas deportivas Nike Air",
+                  price: "\$120.000",
+                  badgeText: "New",
+                  onPressed: () {
+                    print("Producto agregado al carrito");
+                  },
+                  cardSize: 120,
+                ),
+                DSSepareted(5),
+                DSProductCard(
+                  imageUrl:
+                      'https://nikeco.vtexassets.com/arquivos/ids/733899-1200-auto?v=638708426829470000&width=1200&height=auto&aspect=true',
+                  title: 'Tenis deportivos Nike',
+                  price: '\$249.900',
+                  badgeText: 'Oferta',
+                  badgeBackgroundColor: Colors.redAccent,
+                  badgeTextColor: Colors.white,
+                  badgeSize: 35,
+                  bgColor: Colors.deepPurpleAccent,
+                  textColor: Colors.yellowAccent,
+                  priceColor: Colors.greenAccent,
+                  isMedal: false,
+                  buttonLabel: 'Comprar',
+                  btnBackgroundColor: Colors.black,
+                  btnTextColor: Colors.greenAccent,
+                  onPressed: () => print('Producto agregado'),
+                  cardSize: 180,
                 ),
               ],
             ),
