@@ -10,6 +10,18 @@ import 'package:pragma_design_system/src/foundations/foundations.dart';
 /// - Usa DSIcon y DSBadge
 /// - Respeta el modo claro/oscuro
 /// - Altamente configurable para tamaño, colores, forma y comportamiento
+///
+/// Ejemplo:
+/// ```dart
+/// DSIconCounter(
+///   icon: Icons.notifications_none_rounded,
+///   count: 12,
+///   badgeBackgroundColor: Colors.redAccent,
+///   isMedal: false,
+///   badgeTextColor: Colors.white,
+///   iconColor: Colors.black,
+/// )
+/// ```
 class DSIconCounter extends StatelessWidget {
   final IconData icon;
   final int count;
