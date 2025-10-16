@@ -250,6 +250,27 @@ class MoleculesShowcase extends StatelessWidget {
               ],
             ),
           ),
+
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Text('DSPriceSummary', style: DSTypography.displayLargeBold),
+                DSSepareted(5),
+                DSPriceSummary(
+                  subtotal: 120000,
+                  shipping: 8000,
+                  discount: 20000,
+                  total: 108000,
+                  buttonLabel: "Finalizar compra",
+                  onButtonPressed: () {
+                    print("Compra confirmada");
+                  },
+                ),
+                DSSepareted(2),
+              ],
+            ),
+          ),
         ],
       ),
     );
