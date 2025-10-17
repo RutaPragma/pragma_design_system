@@ -1,5 +1,6 @@
 export 'ds_chip.dart';
 export 'ds_icon_counter.dart';
+export 'ds_order_summary.dart';
 export 'ds_payment_button.dart';
 export 'ds_price_summary.dart';
 export 'ds_product_card.dart';

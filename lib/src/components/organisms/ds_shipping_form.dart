@@ -41,6 +41,7 @@ class _DSShippingFormState extends State<DSShippingForm> {
   final _cityController = TextEditingController();
   final _zipController = TextEditingController();
   final _phoneController = TextEditingController();
+  String isSelectShipping = '';
 
   String? _selectedShippingMethod;
 
@@ -180,8 +181,8 @@ class _DSShippingFormState extends State<DSShippingForm> {
             Wrap(
               spacing: DSSizesFoundations.separatorSmall,
               children: [
-                _buildShippingOption("Estándar", "3-5 días hábiles", accent),
-                _buildShippingOption("Exprés", "1-2 días hábiles", accent),
+                _buildShippingOption("Estándar", "3-5 días hábiles", accent, 0),
+                _buildShippingOption("Exprés", "1-2 días hábiles", accent, 1),
               ],
             ),
 
@@ -199,18 +200,30 @@ class _DSShippingFormState extends State<DSShippingForm> {
     );
   }
 
-  Widget _buildShippingOption(String title, String subtitle, Color accent) {
-    final isSelected = _selectedShippingMethod == title;
+  Widget _buildShippingOption(
+    String title,
+    String subtitle,
+    Color accent,
+    int index,
+  ) {
+    var isSelected = _selectedShippingMethod == title;
+
+    if (isSelectShipping == '' && index == 0) {
+      isSelected = true;
+      _selectedShippingMethod = title;
+    }
     return GestureDetector(
-      onTap: () => setState(() => _selectedShippingMethod = title),
+      onTap: () {
+        isSelectShipping = '0';
+        setState(() => _selectedShippingMethod = title);
+      },
       child: DSChip(
         label: title,
-        // subtitle: subtitle,
+        selected: isSelected,
         backgroundColor: isSelected
             ? accent.withValues(alpha: 0.15)
             : DSColorsFoundations.inputFill,
         textColor: isSelected ? accent : DSColorsFoundations.textSecondary,
-        // showCheck: isSelected,
       ),
     );
   }

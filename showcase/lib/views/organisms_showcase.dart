@@ -165,6 +165,72 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
               ],
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              children: [
+                Text('DSOrderSummary', style: DSTypography.displayLargeBold),
+                DSSepareted(5),
+
+                DSOrderSummary(
+                  orderId: "A12345",
+                  orderDate: "15 Octubre 2025",
+                  orderStatus: "Completado",
+                  products: [
+                    {
+                      "imageUrl":
+                          "https://nikeco.vtexassets.com/arquivos/ids/734189-1200-auto?v=638708427069200000&width=1200&height=auto&aspect=true",
+                      "title": "Air Zoom Pegasus 41",
+                      "price": "\$120.000",
+                      "quantity": 1,
+                    },
+                    {
+                      "imageUrl":
+                          "https://nikeco.vtexassets.com/arquivos/ids/806707-1200-auto?v=638836101621400000&width=1200&height=auto&aspect=true",
+                      "title": "Nike Vomero 18",
+                      "price": "\$80.000",
+                      "quantity": 1,
+                    },
+                  ],
+                  subtotal: "\$200.000",
+                  shipping: "\$10.000",
+                  total: "\$210.000",
+                  actionLabel: "Ver detalles",
+                  onAction: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Ver detalles de la orden")),
+                    );
+                  },
+                ),
+                DSSepareted(5),
+                DSOrderSummary(
+                  orderId: "B67890",
+                  orderDate: "17 Octubre 2025",
+                  orderStatus: "Pendiente",
+                  products: [
+                    {
+                      "imageUrl":
+                          "https://nikeco.vtexassets.com/arquivos/ids/677932/FD6034_001_A_PREM.jpg?v=638623623839300000",
+                      "title": "Smartwatch Deportivo",
+                      "price": "\$350.000",
+                      "quantity": 1,
+                    },
+                  ],
+                  subtotal: "\$350.000",
+                  shipping: "\$0",
+                  total: "\$350.000",
+                  actionLabel: "Rastrear pedido",
+                  // bgColor: DSColorsFoundations.buttonDisabledDark,
+                  // textColor: DSColorsFoundations.textPrimary,
+                  onAction: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Rastrear pedido")),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
