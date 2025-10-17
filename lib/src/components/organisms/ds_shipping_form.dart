@@ -143,24 +143,64 @@ class _DSShippingFormState extends State<DSShippingForm> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+
             const SizedBox(height: 16),
 
-            ///Se construye de forma dinamica el contenido del form, por eso es plano
-            for (var key in _controllers.keys) ...[
-              DSInputField(
-                label: _getFieldLabel(key),
-                hintText: _getFieldHint(key),
-                controller: _controllers[key],
-                validator: (v) {
-                  if (_isFieldRequired(key) &&
-                      (v == null || v.trim().isEmpty)) {
-                    return "Campo obligatorio";
-                  }
-                  return null;
-                },
+            for (var key in _controllers.keys)
+              if (key != "city" && key != "zip") ...[
+                DSInputField(
+                  label: _getFieldLabel(key),
+                  hintText: _getFieldHint(key),
+                  controller: _controllers[key],
+                  validator: (v) {
+                    if (_isFieldRequired(key) &&
+                        (v == null || v.trim().isEmpty)) {
+                      return "Campo obligatorio";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 12),
+              ],
+
+            if (_controllers.containsKey("city") &&
+                _controllers.containsKey("zip"))
+              Row(
+                children: [
+                  Expanded(
+                    child: DSInputField(
+                      label: _getFieldLabel("city"),
+                      hintText: _getFieldHint("city"),
+                      controller: _controllers["city"],
+                      validator: (v) {
+                        if (_isFieldRequired("city") &&
+                            (v == null || v.trim().isEmpty)) {
+                          return "Campo obligatorio";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: DSInputField(
+                      label: _getFieldLabel("zip"),
+                      hintText: _getFieldHint("zip"),
+                      controller: _controllers["zip"],
+                      keyboardType: TextInputType.number,
+                      validator: (v) {
+                        if (_isFieldRequired("zip") &&
+                            (v == null || v.trim().isEmpty)) {
+                          return "Campo obligatorio";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 12),
-            ],
+
+            const SizedBox(height: 16),
 
             if (shippingMethods.isNotEmpty) ...[
               const SizedBox(height: 8),
