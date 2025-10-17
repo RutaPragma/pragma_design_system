@@ -156,11 +156,46 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
               children: [
                 Text('DSShippingForm', style: DSTypography.displayLargeBold),
                 DSSepareted(5),
+
+                // DSShippingForm(
+                //   onSubmit: (data) {
+                //     log("Dirección guardada: $data");
+                //   },
+                //   accentColor: DSColorsFoundations.brandPrimary,
+                // ),
                 DSShippingForm(
-                  onSubmit: (data) {
-                    log("Dirección guardada: $data");
+                  config: {
+                    "title": "Dirección de envío",
+                    "fields": {
+                      "name": {
+                        "label": "Nombre completo",
+                        "hint": "Ej. Juan Pérez",
+                        "required": true,
+                      },
+                      "address": {
+                        "label": "Dirección",
+                        "hint": "Ej. Calle 56 #84 - 33",
+                      },
+                      "city": {"label": "Ciudad", "hint": "Ej. Cali"},
+                      "zip": {"label": "Código postal", "hint": "Ej. 760001"},
+                      "phone": {
+                        "label": "Teléfono",
+                        "hint": "+57 314 723 1734",
+                      },
+                    },
+                    "shippingMethods": [
+                      {"label": "Estándar", "subtitle": "3-5 días hábiles"},
+                      {"label": "Exprés", "subtitle": "1-2 días hábiles"},
+                      {
+                        "label": "Internacional",
+                        "subtitle": "5-10 días hábiles",
+                      },
+                    ],
+                    "submitLabel": "Guardar dirección",
                   },
-                  accentColor: DSColorsFoundations.brandPrimary,
+                  onSubmit: (data) {
+                    print("Datos del formulario: $data");
+                  },
                 ),
               ],
             ),
@@ -263,6 +298,88 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
                     setState(() {});
                   },
                 ),
+
+                DSSepareted(5),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              children: [
+                Text('DSAuthForm', style: DSTypography.displayLargeBold),
+                DSSepareted(5),
+                DSAuthForm(
+                  config: {
+                    "title": "Bienvenido de nuevo",
+                    "subtitle": "Ingresa tus credenciales",
+                    "emailLabel": "Correo",
+                    "emailHint": "usuario@correo.com",
+                    "passwordLabel": "Clave",
+                    "passwordHint": "Tu contraseña segura",
+                    "forgotPasswordText": "Recuperar acceso",
+                    "buttonLabel": "Iniciar sesión",
+                    "minPasswordLength": 8,
+                    "emailRequired": "El correo no puede estar vacío",
+                    "emailInvalid": "Formato de correo incorrecto",
+                    "passwordRequired": "Debes ingresar tu contraseña",
+                    "passwordTooShort": "La contraseña es demasiado corta",
+                  },
+                  onSubmit: (email, password) {
+                    log("Email: $email / Password: $password");
+                  },
+                  onForgotPassword: () {
+                    log("Olvidó contraseña");
+                  },
+                ),
+
+                DSSepareted(5),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              children: [
+                Text('otro', style: DSTypography.displayLargeBold),
+                DSSepareted(5),
+                DSRegisterUserForm(
+                  config: {
+                    "title": "Crea tu cuenta",
+                    "subtitle": "Regístrate para continuar",
+                    "nameLabel": "Nombre y apellido",
+                    "nameHint": "Ejemplo: Jhony Rentería",
+                    "emailLabel": "Correo",
+                    "emailHint": "usuario@correo.com",
+                    "passwordLabel": "Contraseña",
+                    "passwordHint": "Mínimo 8 caracteres",
+                    "confirmPasswordLabel": "Repetir contraseña",
+                    "confirmPasswordHint": "Confirma tu contraseña",
+                    "buttonLabel": "Registrarme ahora",
+                    "minPasswordLength": 8,
+                    "nameRequired": "El nombre es obligatorio",
+                    "emailRequired": "El correo es obligatorio",
+                    "emailInvalid": "Formato de correo inválido",
+                    "passwordRequired": "La contraseña es obligatoria",
+                    "passwordTooShort": "Debe tener al menos 8 caracteres",
+                    "confirmPasswordRequired": "Confirma la contraseña",
+                    "passwordsNotMatch": "Las contraseñas no coinciden",
+                  },
+                  onSubmit: (data) {
+                    log("Usuario: ${data['name']}, Email: ${data['email']}");
+                  },
+                ),
+
+                DSSepareted(5),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              children: [
+                Text('otro', style: DSTypography.displayLargeBold),
+                DSSepareted(5),
 
                 DSSepareted(5),
               ],

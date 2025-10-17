@@ -4,29 +4,47 @@ import 'package:pragma_design_system/src/components/molecules/molecules.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
 import 'package:pragma_design_system/src/utils/enums.dart';
 
-/// Organismo: Formulario de dirección de envío.
+///Organismo: Formulario de dirección de envío configurable mediante [config].
 ///
-/// Usa átomos del sistema:
-/// - DSInputField para campos de texto
-/// - DSButton para acción principal
-/// - DSChip opcional para selección de métodos de envío
+/// Este widget permite definir etiquetas, placeholders, validaciones,
+/// métodos de envío y colores personalizados directamente desde un `Map`.
 ///
-/// Permite validaciones, estilos personalizados y modo oscuro adaptativo.
+/// Ejemplo:
+/// ```dart
+/// DSShippingForm(
+///   config: {
+///     "title": "Dirección de envío",
+///     "fields": {
+///       "name": {"label": "Nombre completo", "hint": "Ej. Juan Pérez", "required": true},
+///       "address": {"label": "Dirección", "hint": "Ej. Calle 56 #84 - 33"},
+///       "city": {"label": "Ciudad", "hint": "Ej. Cali"},
+///       "zip": {"label": "Código postal", "hint": "Ej. 760001"},
+///       "phone": {"label": "Teléfono", "hint": "+57 314 723 1734"},
+///     },
+///     "shippingMethods": [
+///       {"label": "Estándar", "subtitle": "3-5 días hábiles"},
+///       {"label": "Exprés", "subtitle": "1-2 días hábiles"},
+///     ],
+///     "submitLabel": "Guardar dirección",
+///   },
+///   onSubmit: (data) => print(data),
+/// )
+/// ```
 class DSShippingForm extends StatefulWidget {
+  final Map<String, dynamic> config;
   final void Function(Map<String, String> formData)? onSubmit;
   final Color? backgroundColor;
   final Color? textColor;
   final Color? accentColor;
-  final String? submitLabel;
   final bool compact;
 
   const DSShippingForm({
     super.key,
+    required this.config,
     this.onSubmit,
     this.backgroundColor,
     this.textColor,
     this.accentColor,
-    this.submitLabel,
     this.compact = false,
   });
 
@@ -36,59 +54,70 @@ class DSShippingForm extends StatefulWidget {
 
 class _DSShippingFormState extends State<DSShippingForm> {
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-  final _addressController = TextEditingController();
-  final _cityController = TextEditingController();
-  final _zipController = TextEditingController();
-  final _phoneController = TextEditingController();
-  String isSelectShipping = '';
-
+  final _controllers = <String, TextEditingController>{};
   String? _selectedShippingMethod;
+  String isSelectShipping = '';
+  int selectShippingIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    final fields = widget.config["fields"] ?? {};
+    for (var key in fields.keys) {
+      _controllers[key] = TextEditingController();
+    }
+  }
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _addressController.dispose();
-    _cityController.dispose();
-    _zipController.dispose();
-    _phoneController.dispose();
+    for (var c in _controllers.values) {
+      c.dispose();
+    }
     super.dispose();
   }
 
   void _handleSubmit() {
     if (_formKey.currentState?.validate() ?? false) {
-      widget.onSubmit?.call({
-        "name": _nameController.text.trim(),
-        "address": _addressController.text.trim(),
-        "city": _cityController.text.trim(),
-        "zip": _zipController.text.trim(),
-        "phone": _phoneController.text.trim(),
+      final formData = {
+        for (var e in _controllers.entries) e.key: e.value.text.trim(),
         "shippingMethod": _selectedShippingMethod ?? "",
-      });
+      };
+      widget.onSubmit?.call(formData);
     }
   }
+
+  String _getFieldLabel(String key) =>
+      widget.config["fields"]?[key]?["label"] ?? key;
+
+  String _getFieldHint(String key) =>
+      widget.config["fields"]?[key]?["hint"] ?? "";
+
+  bool _isFieldRequired(String key) =>
+      widget.config["fields"]?[key]?["required"] ?? true;
+
+  String _getText(String key, [String fallback = ""]) =>
+      widget.config[key]?.toString() ?? fallback;
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-
     final bg =
         widget.backgroundColor ??
         (isDark
             ? DSColorsFoundations.surfaceDark
             : DSColorsFoundations.surfaceLight);
-
     final text =
         widget.textColor ??
         (isDark
             ? DSColorsFoundations.textPrimaryDark
             : DSColorsFoundations.textPrimary);
-
     final accent =
         widget.accentColor ??
         (isDark
             ? DSColorsFoundations.brandPrimaryDark
             : DSColorsFoundations.brandPrimary);
+
+    final shippingMethods = (widget.config["shippingMethods"] ?? []) as List;
 
     return Container(
       padding: EdgeInsets.all(
@@ -106,92 +135,65 @@ class _DSShippingFormState extends State<DSShippingForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Dirección de envío",
-              style: DSTypographyFoundations.displayMedium.copyWith(
-                color: text,
-                fontWeight: FontWeight.bold,
+            if (_getText("title").isNotEmpty)
+              Text(
+                _getText("title"),
+                style: DSTypographyFoundations.displayMedium.copyWith(
+                  color: text,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
             const SizedBox(height: 16),
 
-            DSInputField(
-              label: "Nombre completo",
-              hintText: "Ej. Juan Pérez",
-              controller: _nameController,
-              validator: (v) =>
-                  v == null || v.isEmpty ? "Campo obligatorio" : null,
-            ),
-            const SizedBox(height: 12),
-
-            DSInputField(
-              label: "Dirección",
-              hintText: "Ej. Calle 56 #84 - 33",
-              controller: _addressController,
-              validator: (v) =>
-                  v == null || v.isEmpty ? "Campo obligatorio" : null,
-            ),
-            const SizedBox(height: 12),
-
-            Row(
-              children: [
-                Expanded(
-                  child: DSInputField(
-                    label: "Ciudad",
-                    hintText: "Ej. Cali",
-                    controller: _cityController,
-                    validator: (v) =>
-                        v == null || v.isEmpty ? "Campo obligatorio" : null,
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: DSInputField(
-                    label: "Código postal",
-                    hintText: "Ej. 760001",
-                    controller: _zipController,
-                    keyboardType: TextInputType.number,
-                    validator: (v) =>
-                        v == null || v.isEmpty ? "Campo obligatorio" : null,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-
-            DSInputField(
-              label: "Teléfono",
-              hintText: "+57 314 723 1734",
-              controller: _phoneController,
-              keyboardType: TextInputType.phone,
-              validator: (v) =>
-                  v == null || v.isEmpty ? "Campo obligatorio" : null,
-            ),
-            const SizedBox(height: 16),
-
-            Text(
-              "Método de envío",
-              style: DSTypographyFoundations.labelMedium.copyWith(
-                color: text,
-                fontWeight: FontWeight.w600,
+            ///Se construye de forma dinamica el contenido del form, por eso es plano
+            for (var key in _controllers.keys) ...[
+              DSInputField(
+                label: _getFieldLabel(key),
+                hintText: _getFieldHint(key),
+                controller: _controllers[key],
+                validator: (v) {
+                  if (_isFieldRequired(key) &&
+                      (v == null || v.trim().isEmpty)) {
+                    return "Campo obligatorio";
+                  }
+                  return null;
+                },
               ),
-            ),
-            const SizedBox(height: 8),
+              const SizedBox(height: 12),
+            ],
 
-            Wrap(
-              spacing: DSSizesFoundations.separatorSmall,
-              children: [
-                _buildShippingOption("Estándar", "3-5 días hábiles", accent, 0),
-                _buildShippingOption("Exprés", "1-2 días hábiles", accent, 1),
-              ],
-            ),
+            if (shippingMethods.isNotEmpty) ...[
+              const SizedBox(height: 8),
+              Text(
+                _getText("shippingTitle", "Método de envío"),
+                style: DSTypographyFoundations.labelMedium.copyWith(
+                  color: text,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Wrap(
+                spacing: DSSizesFoundations.separatorSmall,
+                children: [
+                  for (var method in shippingMethods)
+                    _buildShippingOption(
+                      method["label"] ?? "Opción",
+                      method["subtitle"] ?? "",
+                      accent,
+                      selectShippingIndex,
+                    ),
+                ],
+              ),
+            ],
 
             const SizedBox(height: 24),
             DSButton(
-              label: widget.submitLabel ?? "Guardar dirección",
+              label: _getText("submitLabel", "Guardar dirección"),
               onPressed: _handleSubmit,
               backgroundColor: accent,
-              textColor: DSColorsFoundations.textOnPrimary,
+              textColor: isDark
+                  ? DSColorsFoundations.textOnPrimaryDark
+                  : DSColorsFoundations.textOnPrimary,
               variant: DSButtonVariant.primary,
             ),
           ],
@@ -212,6 +214,7 @@ class _DSShippingFormState extends State<DSShippingForm> {
       isSelected = true;
       _selectedShippingMethod = title;
     }
+    selectShippingIndex++;
     return GestureDetector(
       onTap: () {
         isSelectShipping = '0';

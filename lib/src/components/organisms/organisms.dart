@@ -1,8 +1,10 @@
 export 'ds_app_bar.dart';
+export 'ds_auth_form.dart';
 export 'ds_bottom_nav.dart';
 export 'ds_cart_preview.dart';
 export 'ds_payment_methods.dart';
 export 'ds_product_list.dart';
+export 'ds_register_user_form.dart';
 export 'ds_shipping_form.dart';
 export 'navbar.dart';
 export 'product_grid.dart';
