@@ -223,3 +223,32 @@ class ProductItem {
     this.badgeTextColor,
   });
 }
+
+class ProductItemMapper {
+  List<ProductItem> fromMap(List<Map<String, dynamic>> json) {
+    return json
+        .map(
+          (item) => ProductItem(
+            imageUrl: item['imageUrl'] ?? '',
+            title: item['title'] ?? '',
+            price: item['price']?.toString() ?? '0',
+            badgeText: item['badgeText'],
+            rating: (item['rating'] ?? 0.0).toDouble(),
+            bgColor: item['bgColor'] != null ? Color(item['bgColor']) : null,
+            textColor: item['textColor'] != null
+                ? Color(item['textColor'])
+                : null,
+            priceColor: item['priceColor'] != null
+                ? Color(item['priceColor'])
+                : null,
+            badgeBackgroundColor: item['badgeBackgroundColor'] != null
+                ? Color(item['badgeBackgroundColor'])
+                : null,
+            badgeTextColor: item['badgeTextColor'] != null
+                ? Color(item['badgeTextColor'])
+                : null,
+          ),
+        )
+        .toList();
+  }
+}

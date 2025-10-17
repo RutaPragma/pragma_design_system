@@ -127,6 +127,15 @@ class DSOrderSummary extends StatelessWidget {
                       ),
                       child: Image.network(
                         p['imageUrl'],
+                        loadingBuilder:
+                            (
+                              BuildContext context,
+                              Widget child,
+                              ImageChunkEvent? loadingProgress,
+                            ) {
+                              if (loadingProgress == null) return child;
+                              return DSLoader();
+                            },
                         width: 50,
                         height: 50,
                         fit: BoxFit.cover,

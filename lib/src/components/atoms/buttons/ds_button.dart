@@ -29,6 +29,7 @@ class DSButton extends StatelessWidget {
   final DSButtonIconDirection iconDirection;
   final DSSpacin elevation;
   final double? customHeigth;
+  final double? customWidth;
 
   /// Personalización de colores
   final Color? backgroundColor;
@@ -48,6 +49,7 @@ class DSButton extends StatelessWidget {
     this.backgroundColor,
     this.textColor,
     this.customHeigth,
+    this.customWidth,
   });
 
   // ===== Tamaño estándar del botón =====
@@ -143,7 +145,7 @@ class DSButton extends StatelessWidget {
     final Color effectiveTextColor = _getTextColor(isDark);
 
     return SizedBox(
-      width: isFullWidth ? double.infinity : null,
+      width: customWidth ?? (isFullWidth ? double.infinity : null),
       height: customHeigth ?? _getHeight(),
       child: ElevatedButton(
         onPressed: isDisabled ? null : onPressed,
@@ -163,9 +165,7 @@ class DSButton extends StatelessWidget {
             ),
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
+        child: Wrap(
           children: [
             if (iconDirection == DSButtonIconDirection.left &&
                 icon != null) ...[

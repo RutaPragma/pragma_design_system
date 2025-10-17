@@ -1,137 +1,137 @@
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/src/components/atoms/atoms.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
-import 'package:pragma_design_system/src/utils/utils.dart';
+import 'package:pragma_design_system/src/utils/enums.dart' show DSSize;
 
-/// Muestra un banner promocional con imagen, texto, y botón de acción.
-///
-/// Soporta colores personalizados, disposición adaptable, y puede incluir un badge destacado.
 class DSPromoBanner extends StatelessWidget {
   final String title;
-  final String subtitle;
+  final String? subtitle;
   final String? imageUrl;
   final String? badgeText;
   final String? buttonLabel;
   final VoidCallback? onPressed;
+  final bool isReversed;
+  final double size;
   final Color? backgroundColor;
   final Color? textColor;
-  final bool showShadow;
-  final bool isReversed;
-  final double borderRadius;
-  final double size;
 
   const DSPromoBanner({
     super.key,
     required this.title,
-    required this.subtitle,
+    this.subtitle,
     this.imageUrl,
     this.badgeText,
     this.buttonLabel,
     this.onPressed,
+    this.isReversed = false,
+    this.size = 140,
     this.backgroundColor,
     this.textColor,
-    this.showShadow = true,
-    this.isReversed = false,
-    this.borderRadius = DSRadiusFoundations.radiusMD,
-    this.size = 100,
   });
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final bgColor =
+    final bg =
         backgroundColor ??
         (isDark
             ? DSColorsFoundations.surfaceDark
             : DSColorsFoundations.surfaceLight);
-
     final txtColor =
         textColor ??
         (isDark
             ? DSColorsFoundations.textPrimaryDark
             : DSColorsFoundations.textPrimary);
 
-    final children = [
-      // Texto y botón
-      Expanded(
-        flex: 2,
-        child: Padding(
-          padding: EdgeInsets.all(DSSizesFoundations.separatorMedium),
-          child: Wrap(
-            children: [
-              if (badgeText != null)
-                DSBadge(
+    final content = Expanded(
+      flex: 2,
+      child: Padding(
+        padding: EdgeInsets.all(DSSizesFoundations.separatorMedium),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (badgeText != null)
+              Padding(
+                padding: EdgeInsets.only(
+                  bottom: DSSizesFoundations.separatorSmall,
+                ),
+                child: DSBadge(
                   label: badgeText!,
                   isMedal: true,
-                  backgroundColor: isDark
-                      ? DSColorsFoundations.brandPrimaryDark
-                      : DSColorsFoundations.brandPrimary,
+                  backgroundColor: DSColorsFoundations.brandPrimary,
                   textColor: DSColorsFoundations.textOnPrimary,
                 ),
-              SizedBox(height: 1),
-              Text(
-                title,
-                style: DSTypographyFoundations.displaySmall.copyWith(
-                  color: txtColor,
-                  fontWeight: FontWeight.bold,
-                ),
               ),
-              const SizedBox(height: 2),
+            Text(
+              title,
+              style: DSTypographyFoundations.displaySmall.copyWith(
+                color: txtColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            if (subtitle != null) ...[
+              const SizedBox(height: 6),
               Text(
-                subtitle,
-                style: DSTypographyFoundations.displaySmall.copyWith(
+                subtitle!,
+                style: DSTypographyFoundations.bodyMedium.copyWith(
                   color: txtColor.withValues(alpha: 0.8),
                 ),
               ),
-              if (buttonLabel != null && onPressed != null)
-                Padding(
-                  padding: EdgeInsets.only(
-                    top: DSSizesFoundations.separatorSmall,
-                  ),
-                  child: DSButton(
-                    label: buttonLabel!,
-                    onPressed: onPressed,
-                    size: DSSize.xs,
-                  ),
-                ),
             ],
-          ),
+            if (buttonLabel != null && onPressed != null) ...[
+              const SizedBox(height: 12),
+              DSButton(
+                label: buttonLabel!,
+                onPressed: onPressed,
+                size: DSSize.small,
+                isFullWidth: false,
+                backgroundColor: DSColorsFoundations.brandPrimary,
+                textColor: DSColorsFoundations.textOnPrimary,
+                customHeigth: 40,
+                customWidth: 98,
+              ),
+            ],
+          ],
         ),
       ),
+    );
 
-      // Imagen (con altura fija)
-      if (imageUrl != null)
-        Expanded(
-          flex: 1,
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(borderRadius),
-              bottomRight: Radius.circular(borderRadius),
-            ),
-            child: Image.network(
-              imageUrl!,
-              fit: BoxFit.fill,
-              height: double.infinity,
-            ),
-          ),
+    final image = Expanded(
+      flex: 3,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(DSRadiusFoundations.radiusMD),
+        child: Image.network(
+          imageUrl ?? "",
+          fit: BoxFit.cover,
+          loadingBuilder:
+              (
+                BuildContext context,
+                Widget child,
+                ImageChunkEvent? loadingProgress,
+              ) {
+                if (loadingProgress == null) return child;
+                return DSLoader();
+              },
+
+          height: size,
+          errorBuilder: (_, __, ___) => Container(color: Colors.grey.shade200),
         ),
-    ];
+      ),
+    );
 
     return Container(
       height: size,
       decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(borderRadius),
-        boxShadow: showShadow ? DSShadowsFoundations.shadowMedium : [],
+        color: bg,
+        borderRadius: BorderRadius.circular(DSRadiusFoundations.radiusXL),
+        boxShadow: DSShadowsFoundations.shadowMedium,
       ),
-      constraints: BoxConstraints(minHeight: 10, maxHeight: 160),
       clipBehavior: Clip.antiAlias,
-      child: SizedBox.expand(
-        child: Row(
-          children: isReversed ? children.reversed.toList() : children,
-        ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: isReversed ? [image, content] : [content, image],
       ),
     );
   }

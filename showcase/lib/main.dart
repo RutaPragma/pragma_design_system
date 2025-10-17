@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
         title: 'Templates',
         icon: Icons.temple_hindu_sharp,
         route: MaterialPageRoute(
-          builder: (context) => this,
+          builder: (context) => TemplatesShowcaseMenu(),
           fullscreenDialog: false,
         ),
       ),

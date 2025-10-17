@@ -121,7 +121,19 @@ class DSProductCard extends StatelessWidget {
               left: 0,
               right: 0,
               bottom: 100,
-              child: Image.network(imageUrl, fit: boxFitImage),
+              child: Image.network(
+                imageUrl,
+                fit: boxFitImage,
+                loadingBuilder:
+                    (
+                      BuildContext context,
+                      Widget child,
+                      ImageChunkEvent? loadingProgress,
+                    ) {
+                      if (loadingProgress == null) return child;
+                      return DSLoader();
+                    },
+              ),
             ),
             Positioned(
               bottom: 60,
@@ -154,7 +166,7 @@ class DSProductCard extends StatelessWidget {
                 textColor: btnTextColor,
                 size: DSSize.xs,
                 radius: DSSizeRadius.large,
-                customHeigth: 25,
+                customHeigth: 26,
               ),
             ),
             if (badgeText != null)

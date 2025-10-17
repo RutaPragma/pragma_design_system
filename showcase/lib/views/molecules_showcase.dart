@@ -12,8 +12,6 @@ class MoleculesShowcase extends StatefulWidget {
 }
 
 class _MoleculesShowcaseState extends State<MoleculesShowcase> {
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -240,7 +238,7 @@ class _MoleculesShowcaseState extends State<MoleculesShowcase> {
                       "https://nikeco.vtexassets.com/arquivos/ids/809858-1200-auto?v=638807698968530000&width=1200&height=auto&aspect=true",
                   badgeText: "Nuevo",
                   buttonLabel: "Comprar ahora",
-                  size: 160,
+                  size: 270,
                   onPressed: () {},
                 ),
                 DSSepareted(5),
