@@ -12,6 +12,7 @@ class OrganismsShowcase extends StatefulWidget {
 }
 
 class _OrganismsShowcaseState extends State<OrganismsShowcase> {
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +25,64 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
         shrinkWrap: true,
         children: [
           Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              children: [
+                Text('DSAppBar', style: DSTypography.displayLargeBold),
+                DSSepareted(5),
+                DSAppBar(
+                  title: "Tienda Tarragona",
+                  subtitle: "Ofertas exclusivas",
+                  showBackButton: true,
+                  onBack: () => Navigator.pop(context),
+                  actions: [
+                    DSIcon(icon: Icons.favorite_border),
+                    const SizedBox(width: 8),
+                    DSIcon(icon: Icons.shopping_cart_outlined),
+                  ],
+                ),
+                DSSepareted(5),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              children: [
+                Text('DSBottomNav', style: DSTypography.displayLargeBold),
+                DSSepareted(5),
+                DSBottomNav(
+                  currentIndex: currentIndex,
+                  onItemSelected: (i) {
+                    currentIndex = i;
+                    setState(() {});
+                  },
+                  items: const [
+                    DSBottomNavItem(icon: Icons.home_rounded, label: "Inicio"),
+                    DSBottomNavItem(
+                      icon: Icons.search_rounded,
+                      label: "Buscar",
+                    ),
+                    DSBottomNavItem(
+                      icon: Icons.shopping_cart_rounded,
+                      label: "Carrito",
+                      badgeCount: 3,
+                    ),
+                    DSBottomNavItem(
+                      icon: Icons.person_rounded,
+                      label: "Perfil",
+                    ),
+                  ],
+                  // backgroundColor: DSColorsFoundations.surfaceLight,
+                  // activeColor: DSColorsFoundations.brandPrimary,
+                  // inactiveColor: DSColorsFoundations.textHint,
+                ),
+                DSSepareted(5),
+              ],
+            ),
+          ),
+
+          Padding(
             padding: const EdgeInsets.all(2),
             child: Column(
               children: [
@@ -35,7 +94,7 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
                   showAddButton: true,
                   showMenuChange: true,
                   spacing: DSSizesFoundations.separatorMedium,
-                  onProductTap: (product) => print(product.title),
+                  onProductTap: (product) => log(product.title),
                   products: [
                     ProductItem(
                       imageUrl:
