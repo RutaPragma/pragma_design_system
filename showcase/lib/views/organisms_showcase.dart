@@ -133,6 +133,24 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
               ],
             ),
           ),
+
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              children: [
+                Text('DSProductList', style: DSTypography.displayLargeBold),
+                DSSepareted(5),
+                DSCartPreview(
+                  itemCount: 3,
+                  subtotal: 245000,
+                  shipping: 12000,
+                  total: 257000,
+                  onCheckout: () => print("Ir a checkout"),
+                  onViewCart: () => print("Ver carrito"),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

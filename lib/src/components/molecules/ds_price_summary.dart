@@ -18,6 +18,7 @@ class DSPriceSummary extends StatelessWidget {
   final String totalLabel;
   final String buttonLabel;
   final VoidCallback? onButtonPressed;
+  final bool showBtnNest;
 
   // Personalización de colores
   final Color? backgroundColor;
@@ -41,6 +42,7 @@ class DSPriceSummary extends StatelessWidget {
     this.textColor,
     this.totalColor,
     this.dividerColor,
+    this.showBtnNest = true,
   });
 
   @override
@@ -97,12 +99,13 @@ class DSPriceSummary extends StatelessWidget {
             fontSize: DSSizesFoundations.textSizeLarge,
           ),
           SizedBox(height: DSSpacingFoundations.medium),
-          DSButton(
-            label: buttonLabel,
-            onPressed: onButtonPressed,
-            variant: DSButtonVariant.primary,
-            size: DSSize.medium,
-          ),
+          if (showBtnNest)
+            DSButton(
+              label: buttonLabel,
+              onPressed: onButtonPressed,
+              variant: DSButtonVariant.primary,
+              size: DSSize.medium,
+            ),
         ],
       ),
     );
