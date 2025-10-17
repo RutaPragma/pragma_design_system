@@ -133,12 +133,11 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
               ],
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.all(12),
             child: Column(
               children: [
-                Text('DSProductList', style: DSTypography.displayLargeBold),
+                Text('DSCartPreview', style: DSTypography.displayLargeBold),
                 DSSepareted(5),
                 DSCartPreview(
                   itemCount: 3,
@@ -147,6 +146,21 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
                   total: 257000,
                   onCheckout: () => print("Ir a checkout"),
                   onViewCart: () => print("Ver carrito"),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              children: [
+                Text('DSShippingForm', style: DSTypography.displayLargeBold),
+                DSSepareted(5),
+                DSShippingForm(
+                  onSubmit: (data) {
+                    print("Dirección guardada: $data");
+                  },
+                  accentColor: DSColorsFoundations.brandPrimary,
                 ),
               ],
             ),
