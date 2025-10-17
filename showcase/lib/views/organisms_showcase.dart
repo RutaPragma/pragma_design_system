@@ -144,8 +144,8 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
                   subtotal: 245000,
                   shipping: 12000,
                   total: 257000,
-                  onCheckout: () => print("Ir a checkout"),
-                  onViewCart: () => print("Ver carrito"),
+                  onCheckout: () => log("Ir a checkout"),
+                  onViewCart: () => log("Ver carrito"),
                 ),
               ],
             ),
@@ -158,7 +158,7 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
                 DSSepareted(5),
                 DSShippingForm(
                   onSubmit: (data) {
-                    print("Dirección guardada: $data");
+                    log("Dirección guardada: $data");
                   },
                   accentColor: DSColorsFoundations.brandPrimary,
                 ),
@@ -228,6 +228,43 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
                     );
                   },
                 ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              children: [
+                Text('DSOrderSummary', style: DSTypography.displayLargeBold),
+                DSSepareted(5),
+
+                DSPaymentMethods(
+                  title: "Métodos de pago",
+                  methods: [
+                    PaymentMethodModel(
+                      label: "Tarjeta de crédito",
+                      iconPath: "assets/icons/png/visa.png",
+                      description: "Visa, MasterCard, Amex",
+                    ),
+                    PaymentMethodModel(
+                      label: "Efectivo",
+                      iconPath: "assets/icons/png/money.png",
+                    ),
+                    PaymentMethodModel(
+                      label: "Pago contra entrega",
+                      iconPath: "assets/icons/png/money2.png",
+                      description: "Efectivo o datafono",
+                      badge: "Recomendado",
+                    ),
+                  ],
+                  selectedIndex: currentIndex,
+                  onSelected: (i) {
+                    currentIndex = i;
+                    setState(() {});
+                  },
+                ),
+
+                DSSepareted(5),
               ],
             ),
           ),

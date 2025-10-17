@@ -131,7 +131,7 @@ class _MoleculesShowcaseState extends State<MoleculesShowcase> {
                       icon: Icons.shopping_cart_outlined,
                       count: 3,
                       badgeTextSize: 10,
-                      onTap: () => print("Ir al carrito"),
+                      onTap: () => log("Ir al carrito"),
                     ),
 
                     DSIconCounter(
@@ -271,7 +271,7 @@ class _MoleculesShowcaseState extends State<MoleculesShowcase> {
                   total: 108000,
                   buttonLabel: "Finalizar compra",
                   onButtonPressed: () {
-                    print("Compra confirmada");
+                    log("Compra confirmada");
                   },
                 ),
                 DSSepareted(2),
