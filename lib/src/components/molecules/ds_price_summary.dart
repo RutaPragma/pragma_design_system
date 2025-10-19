@@ -73,40 +73,43 @@ class DSPriceSummary extends StatelessWidget {
             ? DSColorsFoundations.textHintDark.withValues(alpha: 0.2)
             : DSColorsFoundations.textHint.withValues(alpha: 0.2));
 
-    return Container(
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(DSRadiusFoundations.radiusMD),
-        boxShadow: DSShadowsFoundations.shadowSmall,
-      ),
-      padding: EdgeInsets.all(DSSpacingFoundations.medium),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildRow(subtotalLabel, subtotal, baseTextColor),
-          SizedBox(height: DSSpacingFoundations.xs),
-          _buildRow(shippingLabel, shipping, baseTextColor),
-          if (discount > 0) ...[
+    return Card(
+      elevation: 4,
+      child: Container(
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(DSRadiusFoundations.radiusMD),
+          boxShadow: DSShadowsFoundations.shadowSmall,
+        ),
+        padding: EdgeInsets.all(DSSpacingFoundations.medium),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildRow(subtotalLabel, subtotal, baseTextColor),
             SizedBox(height: DSSpacingFoundations.xs),
-            _buildRow(discountLabel, -discount, baseTextColor),
-          ],
-          Divider(color: dividerCol, height: DSSpacingFoundations.medium),
-          _buildRow(
-            totalLabel,
-            total,
-            totalTextColor,
-            isBold: true,
-            fontSize: DSSizesFoundations.textSizeLarge,
-          ),
-          SizedBox(height: DSSpacingFoundations.medium),
-          if (showBtnNest)
-            DSButton(
-              label: buttonLabel,
-              onPressed: onButtonPressed,
-              variant: DSButtonVariant.primary,
-              size: DSSize.medium,
+            _buildRow(shippingLabel, shipping, baseTextColor),
+            if (discount > 0) ...[
+              SizedBox(height: DSSpacingFoundations.xs),
+              _buildRow(discountLabel, -discount, baseTextColor),
+            ],
+            Divider(color: dividerCol, height: DSSpacingFoundations.medium),
+            _buildRow(
+              totalLabel,
+              total,
+              totalTextColor,
+              isBold: true,
+              fontSize: DSSizesFoundations.textSizeLarge,
             ),
-        ],
+            SizedBox(height: DSSpacingFoundations.medium),
+            if (showBtnNest)
+              DSButton(
+                label: buttonLabel,
+                onPressed: onButtonPressed,
+                variant: DSButtonVariant.primary,
+                size: DSSize.medium,
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -144,5 +147,84 @@ class DSPriceSummary extends StatelessWidget {
     return (value < 0
         ? '- \$${formatted.replaceFirst('-', '')}'
         : '\$$formatted');
+  }
+}
+
+class PriceSummary {
+  final double subtotal;
+  final double shipping;
+  final double discount;
+  final double total;
+  final String subtotalLabel;
+  final String shippingLabel;
+  final String discountLabel;
+  final String totalLabel;
+  final String buttonLabel;
+  final VoidCallback? onButtonPressed;
+  final bool showBtnNest;
+
+  // Personalización de colores
+  final Color? backgroundColor;
+  final Color? textColor;
+  final Color? totalColor;
+  final Color? dividerColor;
+
+  const PriceSummary({
+    required this.subtotal,
+    required this.shipping,
+    required this.discount,
+    required this.total,
+    this.subtotalLabel = "Subtotal",
+    this.shippingLabel = "Envío",
+    this.discountLabel = "Descuento",
+    this.totalLabel = "Total",
+    this.buttonLabel = "Continuar",
+    this.onButtonPressed,
+    this.backgroundColor,
+    this.textColor,
+    this.totalColor,
+    this.dividerColor,
+    this.showBtnNest = true,
+  });
+}
+
+class PriceSummaryMapper {
+  static List<PriceSummary> fromMapList(List<Map<String, dynamic>> data) {
+    return data.map((map) => fromMap(map)).toList();
+  }
+
+  static PriceSummary fromMap(Map<String, dynamic> map) {
+    return PriceSummary(
+      subtotal: (map['subtotal'] ?? 0).toDouble(),
+      shipping: (map['shipping'] ?? 0).toDouble(),
+      discount: (map['discount'] ?? 0).toDouble(),
+      total: (map['total'] ?? 0).toDouble(),
+      subtotalLabel: map['subtotalLabel'] ?? "Subtotal",
+      shippingLabel: map['shippingLabel'] ?? "Envío",
+      discountLabel: map['discountLabel'] ?? "Descuento",
+      totalLabel: map['totalLabel'] ?? "Total",
+      buttonLabel: map['buttonLabel'] ?? "Continuar",
+      onButtonPressed: null, // No se puede serializar una función
+      backgroundColor: _parseColor(map['backgroundColor']),
+      textColor: _parseColor(map['textColor']),
+      totalColor: _parseColor(map['totalColor']),
+      dividerColor: _parseColor(map['dividerColor']),
+      showBtnNest: map['showBtnNest'] ?? true,
+    );
+  }
+
+  /// Helper privado para convertir colores en formato #RRGGBB o #AARRGGBB
+  static Color? _parseColor(dynamic colorValue) {
+    if (colorValue == null) return null;
+    if (colorValue is Color) return colorValue;
+    if (colorValue is String) {
+      final hex = colorValue.replaceAll('#', '');
+      if (hex.length == 6) {
+        return Color(int.parse('FF$hex', radix: 16));
+      } else if (hex.length == 8) {
+        return Color(int.parse(hex, radix: 16));
+      }
+    }
+    return null;
   }
 }

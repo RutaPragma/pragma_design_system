@@ -47,8 +47,8 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
     final bg =
         backgroundColor ??
         (isDark
-            ? DSColorsFoundations.surfaceDark
-            : DSColorsFoundations.surfaceLight);
+            ? DSColorsFoundations.textOnPrimaryDark
+            : DSColorsFoundations.textOnPrimary);
     final colorText =
         textColor ??
         (isDark

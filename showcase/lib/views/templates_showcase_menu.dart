@@ -226,6 +226,46 @@ class TemplatesShowcaseMenu extends StatelessWidget {
         "onRegister": (data) => print("Registro -> $data"),
       },
     },
+    {
+      "title": "DSCartTemplate",
+      "config": {
+        "title": "Carrito de Compras",
+
+        // Productos
+        "products": [
+          {
+            "imageUrl":
+                "https://nikeco.vtexassets.com/arquivos/ids/734189-1200-auto?v=638708427069200000&width=1200&height=auto&aspect=true",
+            "title": "Zapatillas deportivas Air X",
+            "price": "\$240.000",
+            "badgeText": "Nuevo",
+            "onView": () => print("Ver detalle del producto 1"),
+          },
+          {
+            "imageUrl":
+                "https://nikeco.vtexassets.com/arquivos/ids/734189-1200-auto?v=638708427069200000&width=1200&height=auto&aspect=true",
+            "title": "Chaqueta impermeable ProStorm",
+            "price": "\$380.000",
+            "onView": () => print("Ver detalle del producto 2"),
+          },
+        ],
+
+        // Resumen
+        "summary": {
+          "subtotal": 620000,
+          "shipping": 15000,
+          "taxes": 0,
+          "total": 635000,
+        },
+
+        // Acciones
+        "onCheckout": () => print("Ir al pago"),
+        "onContinueShopping": () => print("Seguir comprando"),
+        "onRemove": (p) => print("Eliminar producto: ${p["title"]}"),
+        "checkoutLabel": "Pagar ahora",
+        "continueLabel": "Seguir explorando",
+      },
+    },
     {"title": "", "config": {}},
   ];
 
@@ -242,6 +282,8 @@ class TemplatesShowcaseMenu extends StatelessWidget {
           appBar: DSAppBar(backgroundColor: Colors.transparent, actions: []),
           body: DSAuthTemplate(config: config),
         );
+      case 'DSCartTemplate':
+        return DSCartTemplate(config: config);
       default:
         return DSProductDetailPage(config: config);
     }
