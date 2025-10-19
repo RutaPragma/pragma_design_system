@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/pragma_design_system.dart';
 import 'package:showcase/views/theme_button.dart';
@@ -259,14 +261,57 @@ class TemplatesShowcaseMenu extends StatelessWidget {
         },
 
         // Acciones
-        "onCheckout": () => print("Ir al pago"),
-        "onContinueShopping": () => print("Seguir comprando"),
-        "onRemove": (p) => print("Eliminar producto: ${p["title"]}"),
+        "onCheckout": () => log("Ir al pago"),
+        "onContinueShopping": () => log("Seguir comprando"),
+        "onRemove": (p) => log("Eliminar producto: ${p["title"]}"),
         "checkoutLabel": "Pagar ahora",
         "continueLabel": "Seguir explorando",
       },
     },
-    {"title": "", "config": {}},
+    {
+      "title": "DSProfileTemplate",
+      "config": {
+        "user": {
+          "name": "Jhony Rentería",
+          "email": "jhony@correo.com",
+          "avatarUrl":
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmsZOshpHHXGSv16ekVAjfw_VfBn0eJrMazg&s",
+          "onEdit": () => log("Editar perfil"),
+        },
+        "orders": [
+          {
+            "id": "10023",
+            "date": "12 Oct 2025",
+            "status": "Entregado",
+            "onView": () => log("Ver pedido 10023"),
+          },
+          {
+            "id": "10024",
+            "date": "13 Oct 2025",
+            "status": "En tránsito",
+            "onView": () => log("Ver pedido 10024"),
+          },
+        ],
+        "settings": [
+          {
+            "icon": Icons.lock_outline,
+            "title": "Cambiar contraseña",
+            "onTap": () => log("Cambiar contraseña"),
+          },
+          {
+            "icon": Icons.notifications_outlined,
+            "title": "Notificaciones",
+            "onTap": () => log("Configurar notificaciones"),
+          },
+          {
+            "icon": Icons.help_outline,
+            "title": "Ayuda y soporte",
+            "onTap": () => log("Abrir ayuda"),
+          },
+        ],
+        "onLogout": () => log("Cerrar sesión"),
+      },
+    },
   ];
 
   Widget getWidget(String widget, dynamic config) {
@@ -284,6 +329,8 @@ class TemplatesShowcaseMenu extends StatelessWidget {
         );
       case 'DSCartTemplate':
         return DSCartTemplate(config: config);
+      case 'DSProfileTemplate':
+        return DSProfileTemplate(config: config);
       default:
         return DSProductDetailPage(config: config);
     }

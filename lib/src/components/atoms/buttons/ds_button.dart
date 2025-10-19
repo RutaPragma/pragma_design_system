@@ -144,44 +144,58 @@ class DSButton extends StatelessWidget {
     final Color effectiveBackground = _getBackgroundColor(isDark);
     final Color effectiveTextColor = _getTextColor(isDark);
 
-    return SizedBox(
-      width: customWidth ?? (isFullWidth ? double.infinity : null),
-      height: customHeigth ?? _getHeight(),
-      child: ElevatedButton(
-        onPressed: isDisabled ? null : onPressed,
-        style: ButtonStyle(
-          backgroundColor: WidgetStatePropertyAll(effectiveBackground),
-          foregroundColor: WidgetStatePropertyAll(effectiveTextColor),
-          shape: WidgetStatePropertyAll(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(getDSRadius(radius)),
-              side: _getBorder(isDark) ?? BorderSide.none,
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minWidth: 0,
+        maxWidth:
+            customWidth ?? (isFullWidth ? double.infinity : double.maxFinite),
+      ),
+      child: SizedBox(
+        height: customHeigth ?? _getHeight(),
+        child: ElevatedButton(
+          onPressed: isDisabled ? null : onPressed,
+          style: ButtonStyle(
+            backgroundColor: WidgetStatePropertyAll(effectiveBackground),
+            foregroundColor: WidgetStatePropertyAll(effectiveTextColor),
+            shape: WidgetStatePropertyAll(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(getDSRadius(radius)),
+                side: _getBorder(isDark) ?? BorderSide.none,
+              ),
+            ),
+            elevation: WidgetStatePropertyAll(getDSElevation(elevation)),
+            padding: WidgetStatePropertyAll(
+              EdgeInsets.symmetric(
+                horizontal: DSSizesFoundations.separatorMedium,
+              ),
             ),
           ),
-          elevation: WidgetStatePropertyAll(getDSElevation(elevation)),
-          padding: WidgetStatePropertyAll(
-            EdgeInsets.symmetric(
-              horizontal: DSSizesFoundations.separatorMedium,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (iconDirection == DSButtonIconDirection.left &&
+                    icon != null) ...[
+                  icon!,
+                  SizedBox(width: DSSizesFoundations.separatorSmall),
+                ],
+                Flexible(
+                  child: Text(
+                    label,
+                    overflow: TextOverflow.ellipsis,
+                    style: _getTextStyle().copyWith(color: effectiveTextColor),
+                  ),
+                ),
+                if (iconDirection == DSButtonIconDirection.rigth &&
+                    icon != null) ...[
+                  SizedBox(width: DSSizesFoundations.separatorSmall),
+                  icon!,
+                ],
+              ],
             ),
           ),
-        ),
-        child: Wrap(
-          children: [
-            if (iconDirection == DSButtonIconDirection.left &&
-                icon != null) ...[
-              icon!,
-              SizedBox(width: DSSizesFoundations.separatorSmall),
-            ],
-            Text(
-              label,
-              style: _getTextStyle().copyWith(color: effectiveTextColor),
-            ),
-            if (iconDirection == DSButtonIconDirection.rigth &&
-                icon != null) ...[
-              SizedBox(width: DSSizesFoundations.separatorSmall),
-              icon!,
-            ],
-          ],
         ),
       ),
     );

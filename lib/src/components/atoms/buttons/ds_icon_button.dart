@@ -77,6 +77,7 @@ class DSIconButton extends StatelessWidget {
       child: Container(
         height: customSize ?? dimension,
         width: customSize ?? dimension,
+        alignment: Alignment.center,
         decoration: BoxDecoration(
           color: disabled
               ? DSColorsFoundations.buttonDisabled
