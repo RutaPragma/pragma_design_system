@@ -96,6 +96,86 @@ class TemplatesShowcaseMenu extends StatelessWidget {
         ],
       },
     },
+    {
+      "title": "DSCheckoutTemplate",
+      "config": {
+        "title": "Confirmar compra",
+        "accentColor": DSColorsFoundations.brandPrimary,
+        "buttonLabel": "Finalizar pedido",
+        "onCheckoutComplete": (data) {
+          print("Checkout completado:");
+          print(data);
+        },
+        "orderSummary": {
+          "orderId": "ALDF782302570",
+          "orderDate": "15 Octubre 2025",
+          "orderStatus": "Confirmacion",
+          "products": [
+            {
+              "imageUrl":
+                  "https://nikeco.vtexassets.com/arquivos/ids/734189-1200-auto?v=638708427069200000&width=1200&height=auto&aspect=true",
+              "title": "Air Zoom Pegasus 41",
+              "price": "\$120.000",
+              "quantity": 1,
+            },
+            {
+              "imageUrl":
+                  "https://nikeco.vtexassets.com/arquivos/ids/806707-1200-auto?v=638836101621400000&width=1200&height=auto&aspect=true",
+              "title": "Nike Vomero 18",
+              "price": "\$80.000",
+              "quantity": 1,
+            },
+          ],
+
+          "subtotal": "\$250.000",
+          "shipping": "\$10.000",
+          "discount": "-\$20.000",
+          "total": "\$240.000",
+        },
+        "shippingConfig": {
+          "title": "Dirección de envío",
+          "fields": {
+            "name": {
+              "label": "Nombre completo",
+              "hint": "Ej. Juan Pérez",
+              "required": true,
+            },
+            "address": {"label": "Dirección", "hint": "Ej. Calle 56 #84 - 33"},
+            "city": {"label": "Ciudad", "hint": "Ej. Cali"},
+            "zip": {"label": "Código postal", "hint": "Ej. 760001"},
+            "phone": {"label": "Teléfono", "hint": "+57 314 723 1734"},
+          },
+          "shippingMethods": [
+            {"label": "Estándar", "subtitle": "3-5 días hábiles"},
+            {"label": "Exprés", "subtitle": "1-2 días hábiles"},
+            {"label": "Internacional", "subtitle": "5-10 días hábiles"},
+          ],
+          "submitLabel": "Confirmar direccion",
+        },
+        "paymentConfig": {
+          "title": "Métodos de pago",
+          "methods": [
+            {
+              "label": "Tarjeta de crédito",
+              "iconPath": "assets/icons/png/visa.png",
+              "onSelect": () => print("Tarjeta seleccionada"),
+            },
+            {
+              "label": "Nequi / Daviplata",
+              "iconPath": "assets/icons/png/visa.png",
+            },
+            {
+              "label": "Pago contra entrega",
+              "iconPath": "assets/icons/png/visa.png",
+            },
+          ],
+        },
+        "alertMessage": {
+          "confirmError": "Por favor confirma tu dirección de envío...",
+          "selectPayment": "Selecciona un método de pago...",
+        },
+      },
+    },
     {"title": "", "config": {}},
   ];
 
@@ -105,6 +185,8 @@ class TemplatesShowcaseMenu extends StatelessWidget {
         return DSHomeTemplate(config: config);
       case 'DSProductDetailPage':
         return DSProductDetailPage(config: config);
+      case 'DSCheckoutTemplate':
+        return DSCheckoutTemplate(config: config);
       default:
         return DSProductDetailPage(config: config);
     }

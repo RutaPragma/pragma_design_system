@@ -134,11 +134,28 @@ class PaymentMethodModel {
   final String iconPath;
   final String? description;
   final String? badge;
+  final ValueChanged<int>? onSelected;
 
   PaymentMethodModel({
     required this.label,
     required this.iconPath,
     this.description,
     this.badge,
+    this.onSelected,
   });
+}
+
+class PaymentMethodMapper {
+  /// Convierte una lista de Map en una lista de modelos
+  static List<PaymentMethodModel> fromMapList(List<Map<String, dynamic>> data) {
+    return data.map((map) {
+      return PaymentMethodModel(
+        label: map['label'] ?? '',
+        iconPath: map['iconPath'] ?? '',
+        description: map['description'],
+        badge: map['badge'],
+        onSelected: null, // No se puede deserializar desde un Map
+      );
+    }).toList();
+  }
 }

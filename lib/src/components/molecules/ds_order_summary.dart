@@ -212,3 +212,66 @@ class DSOrderSummary extends StatelessWidget {
     );
   }
 }
+
+class OrderSummaryModel {
+  final String orderId;
+  final String orderDate;
+  final String orderStatus;
+  final List<Map<String, dynamic>>
+  products; // {imageUrl, title, price, quantity}
+  final String subtotal;
+  final String shipping;
+  final String total;
+  final String actionLabel;
+  final Color? bgColor;
+  final Color? textColor;
+  final bool showShadow;
+
+  const OrderSummaryModel({
+    required this.orderId,
+    required this.orderDate,
+    required this.orderStatus,
+    required this.products,
+    required this.subtotal,
+    required this.shipping,
+    required this.total,
+    required this.actionLabel,
+    this.bgColor,
+    this.textColor,
+    this.showShadow = true,
+  });
+}
+
+class DSOrderSummaryMapper {
+  /// Convierte un solo Map en un modelo DSOrderSummary
+  static OrderSummaryModel fromMap(Map<String, dynamic> map) {
+    return OrderSummaryModel(
+      orderId: map['orderId'] ?? '',
+      orderDate: map['orderDate'] ?? '',
+      orderStatus: map['orderStatus'] ?? '',
+      products: List<Map<String, dynamic>>.from(map['products'] ?? []),
+      subtotal: map['subtotal'] ?? '',
+      shipping: map['shipping'] ?? '',
+      total: map['total'] ?? '',
+      actionLabel: map['actionLabel'] ?? '',
+      bgColor: _parseColor(map['bgColor']),
+      textColor: _parseColor(map['textColor']),
+      showShadow: map['showShadow'] ?? true,
+    );
+  }
+
+  /// Helper privado para convertir un color en formato hexadecimal (#RRGGBB o #AARRGGBB)
+  static Color? _parseColor(dynamic colorValue) {
+    if (colorValue == null) return null;
+    if (colorValue is Color) return colorValue;
+    if (colorValue is String) {
+      final hex = colorValue.replaceAll('#', '');
+      if (hex.length == 6) {
+        return Color(int.parse('FF$hex', radix: 16));
+      } else if (hex.length == 8) {
+        return Color(int.parse(hex, radix: 16));
+      }
+    }
+    return null;
+  }
+}
