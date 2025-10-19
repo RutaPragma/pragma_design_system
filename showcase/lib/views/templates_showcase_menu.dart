@@ -176,6 +176,56 @@ class TemplatesShowcaseMenu extends StatelessWidget {
         },
       },
     },
+    {
+      "title": "DSAuthTemplate",
+      "config": {
+        // "backgroundColor": DSColorsFoundations.surfaceLight,
+        // "accentColor": DSColorsFoundations.brandPrimary,
+        // "textColor": DSColorsFoundations.textPrimary,
+        "logoPath": "assets/icons/png/logo.png",
+        "loginTitle": "Bienvenido de nuevo 👋",
+        "registerTitle": "Únete a nuestra comunidad ✨",
+
+        // Login Config
+        "loginConfig": {
+          "texts": {
+            "emailLabel": "Correo electrónico",
+            "passwordLabel": "Contraseña",
+            "buttonLabel": "Iniciar sesión",
+          },
+        },
+
+        // Register Config
+        "registerConfig": {
+          "texts": {
+            "nameLabel": "Nombre completo",
+            "emailLabel": "Correo",
+            "passwordLabel": "Crea una contraseña",
+            "buttonLabel": "Crear cuenta",
+          },
+          "validations": {"minPasswordLength": 6, "maxPasswordLength": 20},
+        },
+
+        // Botones sociales
+        "socialButtons": [
+          {
+            "label": "Continuar con Google",
+            "icon": Icon(Icons.g_mobiledata_rounded, size: 22),
+            "onPressed": () {
+              print("Login con Google");
+            },
+          },
+          {
+            "label": "Continuar con Apple",
+            "icon": Icon(Icons.apple, size: 22),
+            "onPressed": () => print("Login con Apple"),
+          },
+        ],
+
+        "onLogin": (data) => print("Login -> $data"),
+        "onRegister": (data) => print("Registro -> $data"),
+      },
+    },
     {"title": "", "config": {}},
   ];
 
@@ -187,6 +237,11 @@ class TemplatesShowcaseMenu extends StatelessWidget {
         return DSProductDetailPage(config: config);
       case 'DSCheckoutTemplate':
         return DSCheckoutTemplate(config: config);
+      case 'DSAuthTemplate':
+        return Scaffold(
+          appBar: DSAppBar(backgroundColor: Colors.transparent, actions: []),
+          body: DSAuthTemplate(config: config),
+        );
       default:
         return DSProductDetailPage(config: config);
     }
