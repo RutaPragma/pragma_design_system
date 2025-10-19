@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/src/components/atoms/atoms.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
+import 'package:pragma_design_system/src/utils/enums.dart';
 
 /// Organismo: AppBar adaptable y moderno.
 ///
@@ -12,9 +13,12 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool centerTitle;
   final bool showBackButton;
   final VoidCallback? onBack;
+  final VoidCallback? onActionIconPress;
   final List<Widget>? actions;
   final Color? backgroundColor;
   final Color? textColor;
+  final Color? iconColor;
+  final Color? iconActionColor;
   final double elevation;
 
   const DSAppBar({
@@ -22,11 +26,14 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.title,
     this.subtitle,
     this.centerTitle = false,
-    this.showBackButton = false,
+    this.showBackButton = true,
     this.onBack,
+    this.onActionIconPress,
     this.actions,
     this.backgroundColor,
     this.textColor,
+    this.iconColor,
+    this.iconActionColor,
     this.elevation = 1.5,
   });
 
@@ -40,9 +47,9 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
     final bg =
         backgroundColor ??
         (isDark
-            ? DSColorsFoundations.backgroundDark
-            : DSColorsFoundations.backgroundPrimary);
-    final text =
+            ? DSColorsFoundations.surfaceDark
+            : DSColorsFoundations.surfaceLight);
+    final colorText =
         textColor ??
         (isDark
             ? DSColorsFoundations.textPrimaryDark
@@ -51,11 +58,16 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       elevation: elevation,
       backgroundColor: bg,
+
       centerTitle: centerTitle,
+      animateColor: true,
       leading: showBackButton
           ? IconButton(
-              icon: const Icon(Icons.arrow_back_ios_new_rounded),
-              color: text,
+              icon: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: iconColor ?? colorText,
+              ),
+              color: iconColor ?? colorText,
               onPressed: onBack ?? () => Navigator.of(context).maybePop(),
             )
           : null,
@@ -69,14 +81,14 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
             Text(
               title!,
               style: DSTypographyFoundations.displayMedium.copyWith(
-                color: text,
+                color: colorText,
               ),
             ),
           if (subtitle != null)
             Text(
               subtitle!,
               style: DSTypographyFoundations.labelMedium.copyWith(
-                color: text.withValues(alpha: 0.7),
+                color: colorText.withValues(alpha: 0.7),
               ),
             ),
         ],
@@ -88,7 +100,13 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
               padding: EdgeInsets.only(
                 right: DSSizesFoundations.separatorMedium,
               ),
-              child: DSIcon(icon: Icons.shopping_cart_outlined),
+              child: DSIcon(
+                size: DSSize.medium,
+                icon: Icons.shopping_cart_outlined,
+                color: DSIconColor.primary,
+                customColor: iconActionColor ?? colorText,
+                onPressed: onActionIconPress,
+              ),
             ),
           ],
     );

@@ -34,11 +34,20 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
                   title: "Tienda Tarragona",
                   subtitle: "Ofertas exclusivas",
                   showBackButton: true,
+                  backgroundColor: DSColorsFoundations.brandSecondary,
+                  onActionIconPress: () => log('AppBar ActionButton click'),
+                  // textColor: Colors.blue,
                   onBack: () => Navigator.pop(context),
                   actions: [
-                    DSIcon(icon: Icons.favorite_border),
+                    DSIcon(
+                      icon: Icons.favorite_border,
+                      onPressed: () => log('AppBar ActionButton favorite'),
+                    ),
                     const SizedBox(width: 8),
-                    DSIcon(icon: Icons.shopping_cart_outlined),
+                    DSIcon(
+                      icon: Icons.shopping_cart_outlined,
+                      customColor: DSColorsFoundations.buttonDisabled,
+                    ),
                   ],
                 ),
                 DSSepareted(5),

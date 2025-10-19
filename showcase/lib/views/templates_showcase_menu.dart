@@ -50,33 +50,48 @@ class TemplatesShowcaseMenu extends StatelessWidget {
       "config": {
         "appBarTitle": "Detalle del producto",
         "accentColor": DSColorsFoundations.brandPrimary,
+        "grid": true,
         "product": {
           "imageUrl":
               "https://nikeco.vtexassets.com/arquivos/ids/806707-1200-auto?v=638836101621400000&width=1200&height=auto&aspect=true",
-          "title": "Nike Vomero 18",
-          "price": "\$799.650",
+          "title": "Zapatillas Urban X",
+          "price": "\$250.000",
           "description":
-              "Las Nike Vomero 18 combinan estilo moderno con comodidad total. Ideales para uso diario.",
+              "Comodidad y estilo con las Zapatillas Urban X, perfectas para tu día a día.",
           "rating": 4.5,
           "badgeText": "Top Ventas",
         },
+
+        /// * ver banner
+        /*"promoBanner": {
+          "title": "Ofertas exclusivas 🔥",
+          "subtitle": "Aprovecha hasta 40% de descuento solo por hoy",
+          "imageUrl":
+              "https://nikeco.vtexassets.com/arquivos/ids/809858-1200-auto?v=638807698968530000",
+          "badgeText": "Nuevo",
+          // "buttonLabel": "Ver ofertas",
+          "backgroundColor": DSColorsFoundations.brandSecondary,
+          "textColor": Colors.black,
+          "isReversed": true,
+          "size": 200.0,
+          "onPressed": () => print("Ver ofertas"),
+        },*/
         "onAddToCart": () => print("Agregado al carrito"),
         "onBuyNow": () => print("Comprar ahora"),
-        "relatedTitle": "Te puede interesar",
-        "grid": true,
+        "relatedTitle": "También te puede gustar",
         "relatedProducts": [
           {
             "imageUrl":
                 "https://nikeco.vtexassets.com/arquivos/ids/893589-1200-auto?v=638896609278930000&width=1200&height=auto&aspect=true",
-            "title": "Nike Alphafly 3",
-            "price": "\$1.569.950",
+            "title": "Zapatillas Sport Runner",
+            "price": "\$200.000",
             "badgeText": "Nuevo",
           },
           {
             "imageUrl":
                 "https://nikeco.vtexassets.com/arquivos/ids/884347-1200-auto?v=638883567117600000&width=1200&height=auto&aspect=true",
-            "title": "Nike Structure 26",
-            "price": "\$794.950",
+            "title": "Zapatillas Urban Classic",
+            "price": "\$230.000",
           },
         ],
       },

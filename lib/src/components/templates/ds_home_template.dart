@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pragma_design_system/src/components/atoms/atoms.dart';
 import 'package:pragma_design_system/src/components/molecules/molecules.dart';
 import 'package:pragma_design_system/src/components/organisms/organisms.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
@@ -45,9 +44,7 @@ class DSHomeTemplate extends StatelessWidget {
     final textColor = isDark
         ? DSColorsFoundations.textPrimaryDark
         : DSColorsFoundations.textPrimary;
-    final accent = isDark
-        ? DSColorsFoundations.brandPrimaryDark
-        : DSColorsFoundations.brandPrimary;
+
 
     final sections = (config["sections"] ?? []) as List<Map<String, dynamic>>;
     final banner = config["banner"];
@@ -55,15 +52,7 @@ class DSHomeTemplate extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: bg,
-      appBar: DSAppBar(
-        title: title,
-        backgroundColor: accent,
-        textColor: DSColorsFoundations.textOnPrimary,
-        showBackButton: false,
-        actions: [
-          DSIconButton(icon: Icons.shopping_cart_outlined, onPressed: () {}),
-        ],
-      ),
+      appBar: DSAppBar(title: title),
       bottomNavigationBar: DSBottomNav(
         currentIndex: 0,
         items: const [

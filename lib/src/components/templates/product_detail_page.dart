@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/pragma_design_system.dart';
 
-/// Template: Página de Detalle de Producto
+///Template: Página de Detalle de Producto
 ///
-/// Combina múltiples organismos y moléculas para mostrar:
-/// - Imagen principal del producto
-/// - Información detallada (nombre, precio, descripción)
-/// - Calificación (DSRatingStars)
-/// - Botón de acción (Agregar al carrito / Comprar)
-/// - Lista de productos relacionados opcional
+/// Muestra información detallada de un producto:
+/// - Imagen principal
+/// - Información del producto
+/// - Calificación, descripción y botones de acción
+/// - Promoción destacada (DSPromoBanner)
+/// - Productos relacionados (DSProductList)
 ///
-
+/// Todo se configura desde el map [config].
 class DSProductDetailPage extends StatelessWidget {
   final Map<String, dynamic> config;
 
@@ -20,13 +20,17 @@ class DSProductDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final Color bgColor = isDark
-        ? const Color.fromARGB(255, 37, 51, 255)
-        : DSColorsFoundations.surfaceLight;
+    final Color bgColor =
+        config["backgroundColor"] ??
+        (isDark
+            ? DSColorsFoundations.surfaceDark
+            : DSColorsFoundations.surfaceLight);
 
-    final Color textColor = isDark
-        ? DSColorsFoundations.textPrimaryDark
-        : DSColorsFoundations.textPrimary;
+    final Color textColor =
+        config["textColor"] ??
+        (isDark
+            ? DSColorsFoundations.textPrimaryDark
+            : DSColorsFoundations.textPrimary);
 
     final Color accentColor =
         config["accentColor"] ??
@@ -44,12 +48,12 @@ class DSProductDetailPage extends StatelessWidget {
     final relatedProducts =
         config["relatedProducts"] as List<Map<String, dynamic>>?;
 
+    final promoConfig = config["promoBanner"];
+
     return Scaffold(
       backgroundColor: bgColor,
       appBar: DSAppBar(
         title: config["appBarTitle"] ?? "Detalle del Producto",
-        backgroundColor: bgColor,
-        textColor: textColor,
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -57,6 +61,24 @@ class DSProductDetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            /// Banner promocional opcional
+            if (promoConfig != null) ...[
+              DSPromoBanner(
+                title: promoConfig["title"] ?? "",
+                subtitle: promoConfig["subtitle"] ?? "",
+                imageUrl: promoConfig["imageUrl"] ?? "",
+                badgeText: promoConfig["badgeText"],
+                buttonLabel: promoConfig["buttonLabel"],
+                backgroundColor: promoConfig["backgroundColor"],
+                textColor: promoConfig["textColor"],
+                isReversed: promoConfig["isReversed"] ?? false,
+                size: promoConfig["size"] ?? 180.0,
+                onPressed: promoConfig["onPressed"],
+              ),
+              const SizedBox(height: 24),
+            ],
+
+            /// Imagen + badge
             Stack(
               children: [
                 ClipRRect(
@@ -144,7 +166,6 @@ class DSProductDetailPage extends StatelessWidget {
                     variant: DSButtonVariant.secondary,
                     backgroundColor: bgColor,
                     textColor: textColor,
-                    // borderColor: accentColor,
                   ),
                 ),
               ],
@@ -162,7 +183,6 @@ class DSProductDetailPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               DSProductList(
-                // products: {"layout": "grid", "products": relatedProducts},
                 products: ProductItemMapper().fromMap(relatedProducts),
                 isGrid: config["grid"] ?? false,
               ),

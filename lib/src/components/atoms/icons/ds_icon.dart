@@ -26,6 +26,7 @@ class DSIcon extends StatelessWidget {
     this.color = DSIconColor.primary,
     this.customSize,
     this.customColor,
+    this.onPressed,
   });
 
   final IconData icon;
@@ -34,6 +35,7 @@ class DSIcon extends StatelessWidget {
   final double? customSize;
   final Color? customColor;
   final bool disabled = false;
+  final VoidCallback? onPressed;
 
   double _getSize() {
     switch (size) {
@@ -80,12 +82,15 @@ class DSIcon extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    return Icon(
-      icon,
-      size: customSize ?? _getSize(),
-      color: disabled
-          ? DSColorsFoundations.textHint
-          : customColor ?? _getColor(isDark),
+    return GestureDetector(
+      onTap: () => onPressed?.call(),
+      child: Icon(
+        icon,
+        size: customSize ?? _getSize(),
+        color: disabled
+            ? DSColorsFoundations.textHint
+            : customColor ?? _getColor(isDark),
+      ),
     );
   }
 }
