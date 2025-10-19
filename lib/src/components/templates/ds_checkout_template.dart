@@ -89,7 +89,7 @@ class _DSCheckoutTemplateState extends State<DSCheckoutTemplate> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (orderSummary != null) ...[
+            if (orderSummary.isEmpty) ...[
               DSOrderSummary(
                 orderId: orderSummaryModel.orderId,
                 orderDate: orderSummaryModel.orderDate,

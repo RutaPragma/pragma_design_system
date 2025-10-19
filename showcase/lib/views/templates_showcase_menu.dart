@@ -12,11 +12,6 @@ class TemplatesShowcaseMenu extends StatelessWidget {
       "title": "DSHomeTemplate",
       "config": {
         "title": "Inicio",
-        "banner": {
-          "imageUrl": "https://picsum.photos/800/300",
-          "title": "Ofertas de la Semana",
-          "subtitle": "Hasta 50% de descuento en electrónicos",
-        },
         "sections": [
           {
             "title": "Recomendados para ti",
@@ -63,23 +58,8 @@ class TemplatesShowcaseMenu extends StatelessWidget {
           "rating": 4.5,
           "badgeText": "Top Ventas",
         },
-
-        /// * ver banner
-        /*"promoBanner": {
-          "title": "Ofertas exclusivas 🔥",
-          "subtitle": "Aprovecha hasta 40% de descuento solo por hoy",
-          "imageUrl":
-              "https://nikeco.vtexassets.com/arquivos/ids/809858-1200-auto?v=638807698968530000",
-          "badgeText": "Nuevo",
-          // "buttonLabel": "Ver ofertas",
-          "backgroundColor": DSColorsFoundations.brandSecondary,
-          "textColor": Colors.black,
-          "isReversed": true,
-          "size": 200.0,
-          "onPressed": () => print("Ver ofertas"),
-        },*/
-        "onAddToCart": () => print("Agregado al carrito"),
-        "onBuyNow": () => print("Comprar ahora"),
+        "onAddToCart": () => log("Agregado al carrito"),
+        "onBuyNow": () => log("Comprar ahora"),
         "relatedTitle": "También te puede gustar",
         "relatedProducts": [
           {
@@ -105,8 +85,8 @@ class TemplatesShowcaseMenu extends StatelessWidget {
         "accentColor": DSColorsFoundations.brandPrimary,
         "buttonLabel": "Finalizar pedido",
         "onCheckoutComplete": (data) {
-          print("Checkout completado:");
-          print(data);
+          log("Checkout completado:");
+          log(data);
         },
         "orderSummary": {
           "orderId": "ALDF782302570",
@@ -160,7 +140,7 @@ class TemplatesShowcaseMenu extends StatelessWidget {
             {
               "label": "Tarjeta de crédito",
               "iconPath": "assets/icons/png/visa.png",
-              "onSelect": () => print("Tarjeta seleccionada"),
+              "onSelect": () => log("Tarjeta seleccionada"),
             },
             {
               "label": "Nequi / Daviplata",
@@ -181,14 +161,10 @@ class TemplatesShowcaseMenu extends StatelessWidget {
     {
       "title": "DSAuthTemplate",
       "config": {
-        // "backgroundColor": DSColorsFoundations.surfaceLight,
-        // "accentColor": DSColorsFoundations.brandPrimary,
-        // "textColor": DSColorsFoundations.textPrimary,
         "logoPath": "assets/icons/png/logo.png",
         "loginTitle": "Bienvenido de nuevo 👋",
         "registerTitle": "Únete a nuestra comunidad ✨",
 
-        // Login Config
         "loginConfig": {
           "texts": {
             "emailLabel": "Correo electrónico",
@@ -196,8 +172,6 @@ class TemplatesShowcaseMenu extends StatelessWidget {
             "buttonLabel": "Iniciar sesión",
           },
         },
-
-        // Register Config
         "registerConfig": {
           "texts": {
             "nameLabel": "Nombre completo",
@@ -208,24 +182,23 @@ class TemplatesShowcaseMenu extends StatelessWidget {
           "validations": {"minPasswordLength": 6, "maxPasswordLength": 20},
         },
 
-        // Botones sociales
         "socialButtons": [
           {
             "label": "Continuar con Google",
             "icon": Icon(Icons.g_mobiledata_rounded, size: 22),
             "onPressed": () {
-              print("Login con Google");
+              log("Login con Google");
             },
           },
           {
             "label": "Continuar con Apple",
             "icon": Icon(Icons.apple, size: 22),
-            "onPressed": () => print("Login con Apple"),
+            "onPressed": () => log("Login con Apple"),
           },
         ],
 
-        "onLogin": (data) => print("Login -> $data"),
-        "onRegister": (data) => print("Registro -> $data"),
+        "onLogin": (data) => log("Login -> $data"),
+        "onRegister": (data) => log("Registro -> $data"),
       },
     },
     {
@@ -233,7 +206,6 @@ class TemplatesShowcaseMenu extends StatelessWidget {
       "config": {
         "title": "Carrito de Compras",
 
-        // Productos
         "products": [
           {
             "imageUrl":
@@ -241,14 +213,14 @@ class TemplatesShowcaseMenu extends StatelessWidget {
             "title": "Zapatillas deportivas Air X",
             "price": "\$240.000",
             "badgeText": "Nuevo",
-            "onView": () => print("Ver detalle del producto 1"),
+            "onView": () => log("Ver detalle del producto 1"),
           },
           {
             "imageUrl":
                 "https://nikeco.vtexassets.com/arquivos/ids/734189-1200-auto?v=638708427069200000&width=1200&height=auto&aspect=true",
             "title": "Chaqueta impermeable ProStorm",
             "price": "\$380.000",
-            "onView": () => print("Ver detalle del producto 2"),
+            "onView": () => log("Ver detalle del producto 2"),
           },
         ],
 

@@ -45,8 +45,7 @@ class DSHomeTemplate extends StatelessWidget {
         ? DSColorsFoundations.textPrimaryDark
         : DSColorsFoundations.textPrimary;
 
-
-    final sections = (config["sections"] ?? []) as List<Map<String, dynamic>>;
+    final List<dynamic> sections = config["sections"];
     final banner = config["banner"];
     final title = config["title"] ?? "Inicio";
 

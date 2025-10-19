@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pragma_design_system/pragma_design_system.dart';
 import 'package:showcase/appState/theme_bloc.dart';
 import 'package:showcase/appState/theme_state.dart';
-import 'package:showcase/views/theme_button.dart';
 import 'package:showcase/views/views.dart';
 
 void main() {
@@ -76,7 +75,7 @@ class MyApp extends StatelessWidget {
         title: 'Páginas',
         icon: Icons.pages,
         route: MaterialPageRoute(
-          builder: (context) => this,
+          builder: (context) => HomePage(),
           fullscreenDialog: false,
         ),
       ),

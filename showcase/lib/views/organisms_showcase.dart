@@ -203,7 +203,7 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
                     "submitLabel": "Guardar dirección",
                   },
                   onSubmit: (data) {
-                    print("Datos del formulario: $data");
+                    log("Datos del formulario: $data");
                   },
                 ),
               ],
