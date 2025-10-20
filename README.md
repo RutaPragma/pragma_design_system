@@ -27,7 +27,9 @@ Este proyecto provee un sistema de diseño reutilizable, escalable y fácil de i
     ```yaml
     dependencies:
       pragma_design_system:
-         path: ../pragma_design_system
+         git:
+          url: https://github.com/RutaPragma/pragma_design_system.git
+          ref: main
     ```
 
 5. **Importa y usa los componentes:**
