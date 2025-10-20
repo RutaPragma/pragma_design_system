@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/pragma_design_system.dart';
 
-/// Organismo: lista o grilla de productos.
+/// Organismo: DSProductList
 ///
-/// Utiliza [DSProductCard] como elemento base.
+/// Lista o grilla de productos usando DSProductCard como base.
+/// Admite múltiples configuraciones para adaptar el layout al contexto visual (home, catálogo, recomendaciones, etc.)
 ///
-/// Admite múltiples configuraciones para adaptar el layout al contexto visual
-/// (home, catálogo, recomendaciones, etc.)
+/// Ejemplo de uso:
+/// ```dart
+/// DSProductList(
+///   products: [
+///     ProductItem(title: 'Camiseta', price: '29.900', imageUrl: '...'),
+///     ProductItem(title: 'Gorra', price: '15.000', imageUrl: '...'),
+///   ],
+///   isGrid: true,
+///   crossAxisCount: 2,
+///   onProductTap: (item) => print(item.title),
+/// )
+/// ```
 class DSProductList extends StatefulWidget {
   final List<ProductItem> products;
 

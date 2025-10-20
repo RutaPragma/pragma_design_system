@@ -3,10 +3,26 @@ import 'package:pragma_design_system/src/components/atoms/atoms.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
 import 'package:pragma_design_system/src/utils/enums.dart';
 
-/// Organismo: AppBar adaptable y moderno.
+/// Organismo: DSAppBar
 ///
-/// Puede mostrar un título, subtítulo, íconos de acción, botón de regreso
-/// y color de fondo personalizado.
+/// AppBar adaptable y moderno.
+/// Puede mostrar un título, subtítulo, íconos de acción, botón de regreso y color de fondo personalizado.
+///
+/// Ejemplo de uso:
+/// ```dart
+/// DSAppBar(
+///   title: 'Productos',
+///   subtitle: 'Ofertas de hoy',
+///   centerTitle: true,
+///   showBackButton: true,
+///   actions: [
+///     IconButton(
+///       icon: Icon(Icons.search),
+///       onPressed: () {},
+///     ),
+///   ],
+/// )
+/// ```
 class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final String? subtitle;

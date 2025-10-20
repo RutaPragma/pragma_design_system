@@ -5,14 +5,27 @@ import 'package:pragma_design_system/src/components/molecules/ds_icon_counter.da
 import 'package:pragma_design_system/src/components/molecules/ds_price_summary.dart';
 import 'package:pragma_design_system/src/utils/enums.dart';
 
-/// Organismo: Vista previa del carrito de compras.
+/// Organismo: DSCartPreview
 ///
+/// Vista previa del carrito de compras.
 /// Combina varios átomos y moléculas:
 /// - DSIconCounter (cantidad de productos)
 /// - DSPriceSummary (subtotal, envío, total)
 /// - DSButton (acción principal)
 ///
 /// Ideal para mostrarse en pantallas de checkout o popups flotantes.
+///
+/// Ejemplo de uso:
+/// ```dart
+/// DSCartPreview(
+///   itemCount: 3,
+///   subtotal: 29900,
+///   shipping: 5000,
+///   total: 34900,
+///   onCheckout: () => print('Finalizar compra'),
+///   onViewCart: () => print('Ver carrito'),
+/// )
+/// ```
 class DSCartPreview extends StatelessWidget {
   final int itemCount;
   final double subtotal;

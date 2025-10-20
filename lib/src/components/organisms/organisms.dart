@@ -6,6 +6,3 @@ export 'ds_payment_methods.dart';
 export 'ds_product_list.dart';
 export 'ds_register_user_form.dart';
 export 'ds_shipping_form.dart';
-export 'navbar.dart';
-export 'product_grid.dart';
-export 'shopping_cart_summary.dart';

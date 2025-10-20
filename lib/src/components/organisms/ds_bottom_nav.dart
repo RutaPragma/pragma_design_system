@@ -3,10 +3,23 @@ import 'package:pragma_design_system/src/components/atoms/atoms.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
 import 'package:pragma_design_system/src/utils/enums.dart';
 
-/// Organismo: Barra de navegación inferior moderna con soporte para animaciones,
-/// badges personalizados (usando DSBadge), y colores adaptativos.
+/// Organismo: DSBottomNav
 ///
+/// Barra de navegación inferior moderna con soporte para animaciones, badges personalizados (usando DSBadge), y colores adaptativos.
 /// Altamente parametrizable y diseñada para integrarse con el sistema de diseño.
+///
+/// Ejemplo de uso:
+/// ```dart
+/// DSBottomNav(
+///   items: [
+///     DSBottomNavItem(icon: Icons.home, label: 'Inicio'),
+///     DSBottomNavItem(icon: Icons.shopping_cart, label: 'Carrito', badgeCount: 2),
+///     DSBottomNavItem(icon: Icons.person, label: 'Perfil'),
+///   ],
+///   currentIndex: 0,
+///   onItemSelected: (index) => print('Seleccionado: $index'),
+/// )
+/// ```
 class DSBottomNav extends StatefulWidget {
   final List<DSBottomNavItem> items;
   final int currentIndex;
