@@ -7,15 +7,23 @@ import 'package:pragma_design_system/src/components/organisms/organisms.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
 import 'package:pragma_design_system/src/utils/enums.dart';
 
-///Template: Checkout / Proceso de compra
+/// Template: DSCheckoutTemplate
 ///
-/// Combina:
-/// - DSOrderSummary
-/// - DSShippingForm
-/// - DSPaymentMethods
-/// - DSButton para confirmar compra
-///
+/// Proceso de compra que combina DSOrderSummary, DSShippingForm, DSPaymentMethods y DSButton para confirmar compra.
 /// Toda la configuración se recibe desde un [config] Map.
+///
+/// Ejemplo de uso:
+/// ```dart
+/// DSCheckoutTemplate(
+///   config: {
+///     "title": "Finalizar compra",
+///     "orderSummary": { ... },
+///     "shippingConfig": { ... },
+///     "paymentConfig": { ... },
+///     "buttonLabel": "Confirmar pedido",
+///   },
+/// )
+/// ```
 class DSCheckoutTemplate extends StatefulWidget {
   final Map<String, dynamic> config;
 

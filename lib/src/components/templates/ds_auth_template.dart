@@ -12,6 +12,56 @@ import 'package:pragma_design_system/src/utils/enums.dart';
 ///
 /// Se puede configurar completamente desde un Map.
 /// También soporta imagen ilustrativa, logo y textos personalizados.
+///
+/// Ejemplo de uso:
+/// ```dart
+/// DSAuthTemplate(
+///   config: {
+///     "loginConfig": {
+///       "title": "Bienvenido de nuevo",
+///       "subtitle": "Ingresa tus credenciales",
+///       "emailLabel": "Correo",
+///       "emailHint": "usuario@correo.com",
+///       "passwordLabel": "Clave",
+///       "passwordHint": "Tu contraseña segura",
+///       "forgotPasswordText": "Recuperar acceso",
+///       "buttonLabel": "Iniciar sesión",
+///       "minPasswordLength": 8,
+///       "emailRequired": "El correo no puede estar vacío",
+///       "emailInvalid": "Formato de correo incorrecto",
+///       "passwordRequired": "Debes ingresar tu contraseña",
+///       "passwordTooShort": "La contraseña es demasiado corta",
+///     },
+///     "registerConfig": {
+///       "title": "Crea tu cuenta",
+///       "subtitle": "Regístrate para continuar",
+///       "nameLabel": "Nombre y apellido",
+///       "nameHint": "Ejemplo: Jhony Rentería",
+///       "emailLabel": "Correo",
+///       "emailHint": "usuario@correo.com",
+///       "passwordLabel": "Contraseña",
+///       "passwordHint": "Mínimo 8 caracteres",
+///       "confirmPasswordLabel": "Repetir contraseña",
+///       "confirmPasswordHint": "Confirma tu contraseña",
+///       "buttonLabel": "Registrarme ahora",
+///       "minPasswordLength": 8,
+///       "nameRequired": "El nombre es obligatorio",
+///       "emailRequired": "El correo es obligatorio",
+///       "emailInvalid": "Formato de correo inválido",
+///       "passwordRequired": "La contraseña es obligatoria",
+///       "passwordTooShort": "Debe tener al menos 8 caracteres",
+///       "confirmPasswordRequired": "Confirma la contraseña",
+///       "passwordsNotMatch": "Las contraseñas no coinciden",
+///     },
+///     "onLogin": (email, password) {
+///       log("Email: $email / Password: $password");
+///     },
+///     "onRegister": (data) {
+///       log("Usuario: "+data['name']+", Email: "+data['email']);
+///     },
+///   },
+/// )
+/// ```
 class DSAuthTemplate extends StatefulWidget {
   final Map<String, dynamic> config;
 

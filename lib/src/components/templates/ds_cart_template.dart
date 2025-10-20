@@ -1,10 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/pragma_design_system.dart';
 
-///Template: Carrito de Compras
+/// Template: DSCartTemplate
 ///
 /// Muestra una lista de productos en el carrito con opciones de eliminar o ver detalle.
 /// Incluye resumen de precios y botones de acción.
+///
+/// Ejemplo de uso:
+/// ```dart
+/// DSCartTemplate(
+///   config: {
+///     "products": [
+///       {"title": "Camiseta", "price": "29.900", "imageUrl": "..."},
+///     ],
+///     "summary": {
+///       "subtotal": 29900,
+///       "shipping": 5000,
+///       "total": 34900,
+///     },
+///     "onCheckout": () => print('Finalizar compra'),
+///   },
+/// )
+/// ```
 class DSCartTemplate extends StatelessWidget {
   final Map<String, dynamic> config;
 

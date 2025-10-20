@@ -9,6 +9,40 @@ import 'package:pragma_design_system/src/utils/enums.dart';
 /// y opciones de configuración de cuenta.
 ///
 /// Todo el contenido se configura desde [config].
+///
+/// Ejemplo de uso:
+/// ```dart
+/// DSProfileTemplate(
+///   config: {
+///     "user": {
+///       "name": "Jhony Rentería",
+///       "email": "jhony@correo.com",
+///       "avatarUrl": "https://miapp.com/avatar.png",
+///       "onEdit": () {
+///       },
+///     },
+///     "orders": [
+///       {
+///         "id": "A12345",
+///         "date": "15 Octubre 2025",
+///         "status": "Completado",
+///         "onView": () {
+///         },
+///       },
+///     ],
+///     "settings": [
+///       {
+///         "icon": Icons.settings,
+///         "title": "Notificaciones",
+///         "onTap": () {
+///         },
+///       },
+///     ],
+///     "onLogout": () {
+///     },
+///   },
+/// )
+/// ```
 class DSProfileTemplate extends StatelessWidget {
   final Map<String, dynamic> config;
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/pragma_design_system.dart';
 
-///Template: Página de Detalle de Producto
+/// Template: DSProductDetailPage
 ///
 /// Muestra información detallada de un producto:
 /// - Imagen principal
@@ -11,6 +11,23 @@ import 'package:pragma_design_system/pragma_design_system.dart';
 /// - Productos relacionados (DSProductList)
 ///
 /// Todo se configura desde el map [config].
+///
+/// Ejemplo de uso:
+/// ```dart
+/// DSProductDetailPage(
+///   config: {
+///     "product": {
+///       "title": "Camiseta Flutter",
+///       "price": "29.900",
+///       "imageUrl": "...",
+///       "description": "Camiseta oficial Flutter",
+///       "rating": 4.5,
+///     },
+///     "relatedProducts": [ ... ],
+///     "promoBanner": { ... },
+///   },
+/// )
+/// ```
 class DSProductDetailPage extends StatelessWidget {
   final Map<String, dynamic> config;
 

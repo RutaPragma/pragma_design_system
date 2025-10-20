@@ -82,15 +82,12 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
                       label: "Perfil",
                     ),
                   ],
-                  // backgroundColor: DSColorsFoundations.surfaceLight,
-                  // activeColor: DSColorsFoundations.brandPrimary,
-                  // inactiveColor: DSColorsFoundations.textHint,
+ 
                 ),
                 DSSepareted(5),
               ],
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.all(2),
             child: Column(
@@ -166,12 +163,6 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
                 Text('DSShippingForm', style: DSTypography.displayLargeBold),
                 DSSepareted(5),
 
-                // DSShippingForm(
-                //   onSubmit: (data) {
-                //     log("Dirección guardada: $data");
-                //   },
-                //   accentColor: DSColorsFoundations.brandPrimary,
-                // ),
                 DSShippingForm(
                   config: {
                     "title": "Dirección de envío",
@@ -264,8 +255,6 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
                   shipping: "\$0",
                   total: "\$350.000",
                   actionLabel: "Rastrear pedido",
-                  // bgColor: DSColorsFoundations.buttonDisabledDark,
-                  // textColor: DSColorsFoundations.textPrimary,
                   onAction: () {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("Rastrear pedido")),
@@ -350,7 +339,7 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
             padding: const EdgeInsets.all(12),
             child: Column(
               children: [
-                Text('otro', style: DSTypography.displayLargeBold),
+                Text('DSRegisterUserForm', style: DSTypography.displayLargeBold),
                 DSSepareted(5),
                 DSRegisterUserForm(
                   config: {
