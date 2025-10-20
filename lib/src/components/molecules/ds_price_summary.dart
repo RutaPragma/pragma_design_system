@@ -3,10 +3,22 @@ import 'package:pragma_design_system/src/components/atoms/atoms.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
 import 'package:pragma_design_system/src/utils/enums.dart';
 
-/// Molécula: resumen de precios para carrito o checkout.
+/// Molécula: DSPriceSummary
 ///
+/// Resumen de precios para carrito o checkout.
 /// Muestra subtotal, envío, descuento y total, con un botón de acción.
 /// Puede ser completamente parametrizable en colores y textos.
+///
+/// Ejemplo de uso:
+/// ```dart
+/// DSPriceSummary(
+///   subtotal: 29900,
+///   shipping: 5000,
+///   discount: 2000,
+///   total: 32900,
+///   onButtonPressed: () => print('Continuar'),
+/// )
+/// ```
 class DSPriceSummary extends StatelessWidget {
   final double subtotal;
   final double shipping;

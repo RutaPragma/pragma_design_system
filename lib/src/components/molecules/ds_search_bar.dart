@@ -1,6 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
 
+/// Molécula: DSSearchBar
+///
+/// Barra de búsqueda con input y botón de limpiar.
+/// Permite personalizar el hint, controlar el texto y manejar eventos.
+///
+/// Ejemplo de uso:
+/// ```dart
+/// DSSearchBar(
+///   hintText: 'Buscar productos',
+///   onChanged: (value) => print('Buscando: $value'),
+///   onClear: () => print('Limpiar búsqueda'),
+/// )
+/// ```
 class DSSearchBar extends StatefulWidget {
   final String hintText;
   final TextEditingController? controller;

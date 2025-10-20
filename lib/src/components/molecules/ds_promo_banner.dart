@@ -3,6 +3,22 @@ import 'package:pragma_design_system/src/components/atoms/atoms.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
 import 'package:pragma_design_system/src/utils/enums.dart' show DSSize;
 
+/// Molécula: DSPromoBanner
+///
+/// Banner promocional para mostrar ofertas, novedades o mensajes destacados.
+/// Permite personalizar imagen, badge, botón y colores.
+///
+/// Ejemplo de uso:
+/// ```dart
+/// DSPromoBanner(
+///   title: '¡Oferta especial!',
+///   subtitle: 'Solo por hoy',
+///   imageUrl: 'https://miapp.com/img/oferta.png',
+///   badgeText: 'Nuevo',
+///   buttonLabel: 'Ver más',
+///   onPressed: () => print('Ver oferta'),
+/// )
+/// ```
 class DSPromoBanner extends StatelessWidget {
   final String title;
   final String? subtitle;

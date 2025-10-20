@@ -3,6 +3,21 @@ import 'package:pragma_design_system/src/components/atoms/atoms.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
 import 'package:pragma_design_system/src/utils/enums.dart';
 
+/// Molécula: DSProductCard
+///
+/// Tarjeta de producto para e-commerce, muestra imagen, título, precio, badge y botón de acción.
+/// Altamente personalizable en colores, tamaños y contenido.
+///
+/// Ejemplo de uso:
+/// ```dart
+/// DSProductCard(
+///   imageUrl: 'https://miapp.com/img/producto.png',
+///   title: 'Camiseta Flutter',
+///   price: '29.900',
+///   badgeText: 'Nuevo',
+///   onPressed: () => print('Agregar al carrito'),
+/// )
+/// ```
 class DSProductCard extends StatelessWidget {
   final String imageUrl;
   final String title;

@@ -3,13 +3,31 @@ import 'package:pragma_design_system/src/components/atoms/atoms.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
 import 'package:pragma_design_system/src/utils/enums.dart';
 
-/// Organismo: DSOrderSummary
+/// Molécula: DSOrderSummary
 ///
 /// Muestra un resumen completo de una orden del e-commerce.
 /// - Lista de productos resumidos
 /// - Subtotal, envío y total
 /// - Estado de la orden con DSBadge
 /// - Botón de acción (por ejemplo, "Ver detalles" o "Rastrear pedido")
+///
+/// Ejemplo de uso:
+/// ```dart
+/// DSOrderSummary(
+///   orderId: '12345',
+///   orderDate: '2025-10-19',
+///   orderStatus: 'Entregado',
+///   products: [
+///     {'imageUrl': '...', 'title': 'Producto 1', 'price': '29.900', 'quantity': 2},
+///     {'imageUrl': '...', 'title': 'Producto 2', 'price': '15.000', 'quantity': 1},
+///   ],
+///   subtotal: '44.900',
+///   shipping: '5.000',
+///   total: '49.900',
+///   actionLabel: 'Ver detalles',
+///   onAction: () => print('Ver detalles'),
+/// )
+/// ```
 class DSOrderSummary extends StatelessWidget {
   final String orderId;
   final String orderDate;
