@@ -6,6 +6,16 @@ import 'package:pragma_design_system/src/foundations/foundations.dart';
 /// Totalmente parametrizable, permite definir colores personalizados,
 /// tamaños, etiquetas y comportamiento.
 /// Usa por defecto la lógica de colores según el modo oscuro o claro.
+///
+/// Ejemplo de uso:
+/// ```dart
+/// DSToggle(
+///   value: true,
+///   onChanged: (val) => print('Nuevo valor: $val'),
+///   label: 'Activo',
+///   showLabel: true,
+/// )
+/// ```
 class DSToggle extends StatefulWidget {
   final bool value;
   final ValueChanged<bool> onChanged;

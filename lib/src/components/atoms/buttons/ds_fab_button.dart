@@ -5,6 +5,17 @@ import 'package:pragma_design_system/pragma_design_system.dart';
 ///
 /// Floating Action Button del sistema de diseño.
 /// Ideal para acciones principales (por ejemplo: agregar al carrito, iniciar chat, etc.)
+///
+/// Ejemplo de uso:
+/// ```dart
+/// DSFabButton(
+///   icon: Icons.add_shopping_cart,
+///   onPressed: () => print('Agregar al carrito'),
+///   label: 'Agregar',
+///   extended: true,
+///   variant: DSFabVariant.primary,
+/// )
+/// ```
 class DSFabButton extends StatelessWidget {
   final IconData icon;
   final String? label;

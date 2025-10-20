@@ -3,10 +3,21 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
 
-/// DSBadge con soporte para forma clásica o de estrella.
+/// Átomo: DSBadge
 ///
+/// Componente visual para mostrar insignias, etiquetas o medallas.
+/// Soporta dos variantes:
 /// - Si [isMedal] es `false`: muestra un badge clásico circular/rectangular.
 /// - Si [isMedal] es `true`: dibuja una estrella decorativa con el texto centrado.
+///
+/// Ejemplo de uso:
+/// ```dart
+/// // Badge clásico
+/// DSBadge(label: 'Nuevo')
+///
+/// // Badge tipo medalla/estrella
+/// DSBadge(label: 'TOP', isMedal: true)
+/// ```
 class DSBadge extends StatelessWidget {
   final String label;
   final Color? backgroundColor;

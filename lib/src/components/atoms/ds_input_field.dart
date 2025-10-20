@@ -5,6 +5,17 @@ import 'package:pragma_design_system/src/foundations/foundations.dart';
 ///
 /// Este átomo estandariza el aspecto de los inputs en toda la aplicación.
 /// Puede ser utilizado para campos de texto, búsqueda, correo, contraseña, etc.
+///
+/// Ejemplo de uso:
+/// ```dart
+/// DSInputField(
+///   label: 'Correo electrónico',
+///   hintText: 'Ingresa tu correo',
+///   controller: TextEditingController(),
+///   keyboardType: TextInputType.emailAddress,
+///   onChanged: (value) => print(value),
+/// )
+/// ```
 class DSInputField extends StatelessWidget {
   final String? label;
   final String? hintText;

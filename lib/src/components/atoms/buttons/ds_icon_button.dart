@@ -5,6 +5,16 @@ import 'package:pragma_design_system/pragma_design_system.dart';
 ///
 /// Botón de ícono adaptable a variantes (primary, secondary, disabled).
 /// Ideal para acciones rápidas: "favorito", "buscar", "editar", etc.
+///
+/// Ejemplo de uso:
+/// ```dart
+/// DSIconButton(
+///   icon: Icons.favorite,
+///   onPressed: () => print('Favorito'),
+///   variant: DSIconButtonVariant.primary,
+///   size: DSSize.medium,
+/// )
+/// ```
 class DSIconButton extends StatelessWidget {
   final IconData icon;
   final VoidCallback? onPressed;
