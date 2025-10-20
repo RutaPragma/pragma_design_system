@@ -1,3 +1,5 @@
+/// Token de radios para bordes en el sistema de diseño.
+/// Define los valores estándar de radio para esquinas redondeadas.
 class DSRadius {
   DSRadius._();
 

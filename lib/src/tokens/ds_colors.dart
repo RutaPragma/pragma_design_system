@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// Token de colores para el sistema de diseño.
+/// Incluye colores de marca, fondos, superficies, textos, estados, botones, inputs y divisores.
 class DSColors {
   DSColors._();
 

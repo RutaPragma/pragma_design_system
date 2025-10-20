@@ -1,6 +1,8 @@
 // lib/src/tokens/ds_shadows.dart
 import 'package:flutter/material.dart';
 
+/// Token de sombras para el sistema de diseño.
+/// Proporciona listas de sombras reutilizables para distintos estados y profundidades.
 class DSShadows {
   DSShadows._();
 

@@ -1,3 +1,5 @@
+/// Token de espaciado para márgenes y paddings.
+/// Define los valores estándar de espacio entre elementos.
 class DSSpacing {
   DSSpacing._();
 

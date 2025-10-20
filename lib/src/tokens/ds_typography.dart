@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/src/tokens/tokens.dart';
 
+/// Token de tipografía para el sistema de diseño.
+/// Define estilos de texto reutilizables y familias de fuentes.
 class DSTypography {
   DSTypography._();
 

@@ -1,3 +1,5 @@
+/// Token de tamaños para componentes y elementos UI.
+/// Incluye alturas, anchos y tamaños para botones, inputs, tarjetas, íconos, AppBar, imágenes y texto.
 class DSSizes {
   DSSizes._();
 
