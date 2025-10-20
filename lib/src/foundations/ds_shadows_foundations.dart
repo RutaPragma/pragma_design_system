@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/src/tokens/ds_shadows.dart';
 
+/// Fundaciones de sombras para el sistema de diseño.
+/// Organiza las sombras base por propósito y contexto de uso.
 class DSShadowsFoundations {
   DSShadowsFoundations._();
 

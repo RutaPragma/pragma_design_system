@@ -1,4 +1,3 @@
-// lib/src/foundations/ds_theme_foundations.dart
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
 
@@ -97,7 +96,6 @@ final ThemeData darkTheme = ThemeData(
   // Fondo principal de las pantallas
   scaffoldBackgroundColor: DSColorsFoundations.backgroundPrimaryDark,
 
-  // === CORREGIDO: ColorScheme con surfaceTint y ajustes de superficies ===
   colorScheme: ColorScheme(
     brightness: Brightness.dark,
     primary: DSColorsFoundations.brandPrimaryDark,
@@ -110,13 +108,11 @@ final ThemeData darkTheme = ThemeData(
     onError: DSColorsFoundations.textPrimary,
     surfaceContainerHighest:
         DSColorsFoundations.surfaceDark, // Evita overlays oscuros
-    surfaceTint: Colors.red, // 👈 clave: elimina el tinte oscuro de elevación
+    surfaceTint: Colors.red,
   ),
 
-  // 👇 Añade esta línea al ThemeData base para desactivar el tinte en general
+  //Añade esta línea al ThemeData base para desactivar el tinte en general
   // surfaceTintColor: Colors.transparent,
-
-  // === Elevated buttons ===
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: DSColorsFoundations.brandPrimaryDark,
@@ -130,8 +126,7 @@ final ThemeData darkTheme = ThemeData(
       ),
       textStyle: DSTypographyFoundations.buttonPrimary,
       elevation: 2,
-      shadowColor: DSColorsFoundations
-          .backgroundOnPrimaryDark, // 👈 opcional: elimina sombra oscura
+      shadowColor: DSColorsFoundations.backgroundOnPrimaryDark,
     ),
   ),
 
@@ -142,7 +137,6 @@ final ThemeData darkTheme = ThemeData(
     ),
   ),
 
-  // === Text field / inputs ===
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: DSColorsFoundations.inputFillDark,
@@ -167,13 +161,11 @@ final ThemeData darkTheme = ThemeData(
     ),
   ),
 
-  // === Icon theme ===
   iconTheme: IconThemeData(
     color: DSColorsFoundations.textPrimaryDark,
     size: DSSizesFoundations.iconSizeMedium,
   ),
 
-  // === AppBar theme ===
   appBarTheme: AppBarTheme(
     backgroundColor: Colors.white,
     foregroundColor: Colors.black,

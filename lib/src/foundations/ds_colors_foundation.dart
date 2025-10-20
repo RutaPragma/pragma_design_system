@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/src/tokens/ds_colors.dart';
 
-///
-/// Capa fundacional de colores del sistema de diseño.
-/// Esta clase **no define nuevos valores hexadecimales**, sino que toma los
-/// colores base de [DSColors] y los organiza por propósito semántico.
-///
-/// Esto permite que los componentes utilicen nombres funcionales y que el tema
-/// pueda cambiar sin alterar los tokens base.
-///
+/// Fundaciones de colores para el sistema de diseño.
+/// No define nuevos valores hexadecimales, sino que organiza los colores base de DSColors por propósito semántico.
+/// Permite que los componentes usen nombres funcionales y que el tema cambie sin alterar los tokens base.
 class DSColorsFoundations {
   DSColorsFoundations._();
 

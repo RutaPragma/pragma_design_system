@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pragma_design_system/src/tokens/ds_typography.dart';
 import 'package:pragma_design_system/src/tokens/ds_colors.dart';
 
-///
-/// Fundaciones de tipografía del sistema de diseño.
-/// Esta capa conecta los estilos de [DSTypography] con
-/// los propósitos semánticos
-/// 
-/// Cada estilo está pensado para su uso contextual:
-/// títulos, precios, etiquetas, estados o descripciones.
+/// Fundaciones de tipografía para el sistema de diseño.
+/// Conecta los estilos base de DSTypography con propósitos semánticos y contextuales.
+/// Cada estilo está pensado para títulos, precios, etiquetas, estados o descripciones.
 class DSTypographyFoundations {
   DSTypographyFoundations._();
 
@@ -77,9 +73,8 @@ class DSTypographyFoundations {
   // Textos específicos de e-commerce
   static final TextStyle productTitle = DSTypography.displayMediumBold;
   static final TextStyle productDescription = DSTypography.displaySmallNormal;
-  static final TextStyle productCategory = DSTypography.displayXSNormal.copyWith(
-    color: DSColors.textSecondary,
-  );
+  static final TextStyle productCategory = DSTypography.displayXSNormal
+      .copyWith(color: DSColors.textSecondary);
 
   // Navegación
   static const TextStyle navItem = DSTypography.displaySmallW600;

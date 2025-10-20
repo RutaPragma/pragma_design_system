@@ -1,5 +1,7 @@
 import 'package:pragma_design_system/src/tokens/ds_spacing.dart';
 
+/// Fundaciones de espaciado para el sistema de diseño.
+/// Expone los valores de espacio base para márgenes y paddings semánticos.
 class DSSpacingFoundations {
   DSSpacingFoundations._();
 

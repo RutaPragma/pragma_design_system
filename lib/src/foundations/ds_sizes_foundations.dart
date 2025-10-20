@@ -1,5 +1,7 @@
 import 'package:pragma_design_system/src/tokens/ds_sizes.dart';
 
+/// Fundaciones de tamaños para el sistema de diseño.
+/// Expone los tamaños base de los tokens para su uso semántico en componentes.
 class DSSizesFoundations {
   DSSizesFoundations._();
 

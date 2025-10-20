@@ -1,5 +1,7 @@
 import 'package:pragma_design_system/src/tokens/ds_radius.dart';
 
+/// Fundaciones de radios para el sistema de diseño.
+/// Expone los valores de radio base para esquinas redondeadas semánticas.
 class DSRadiusFoundations {
   DSRadiusFoundations._();
 
