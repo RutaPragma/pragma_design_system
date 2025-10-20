@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pragma_design_system/pragma_design_system.dart';
 import 'package:showcase/appState/theme_bloc.dart';
 import 'package:showcase/appState/theme_state.dart';
+import 'package:showcase/views/ds_foundations_showcase.dart';
 import 'package:showcase/views/views.dart';
 
 void main() {
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         title: 'Tokens',
         icon: Icons.token_rounded,
         route: MaterialPageRoute(
-          builder: (context) => this,
+          builder: (context) => DSTokensShowcase(),
           fullscreenDialog: false,
         ),
       ),
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         title: 'Foundation',
         icon: Icons.foundation_rounded,
         route: MaterialPageRoute(
-          builder: (context) => this,
+          builder: (context) => DSFoundationsShowcase(),
           fullscreenDialog: false,
         ),
       ),
