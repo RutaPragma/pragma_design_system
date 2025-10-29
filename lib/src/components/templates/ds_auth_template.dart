@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pragma_design_system/src/components/atoms/atoms.dart';
 import 'package:pragma_design_system/src/components/organisms/organisms.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
-import 'package:pragma_design_system/src/utils/enums.dart';
 
 /// Template de Autenticación (Login / Registro)
 ///
@@ -63,9 +62,17 @@ import 'package:pragma_design_system/src/utils/enums.dart';
 /// )
 /// ```
 class DSAuthTemplate extends StatefulWidget {
+  const DSAuthTemplate({
+    super.key,
+    required this.config,
+    required this.onLogin,
+    required this.onRegister,
+    this.socialButtons,
+  });
   final Map<String, dynamic> config;
-
-  const DSAuthTemplate({super.key, required this.config});
+  final void Function(String, String) onLogin;
+  final void Function(Object) onRegister;
+  final List<DSButton>? socialButtons;
 
   @override
   State<DSAuthTemplate> createState() => _DSAuthTemplateState();
@@ -73,12 +80,19 @@ class DSAuthTemplate extends StatefulWidget {
 
 class _DSAuthTemplateState extends State<DSAuthTemplate> {
   bool _isLogin = true;
+  bool isDark = false;
+  late List<DSButton> listSocialButtons;
+
+  @override
+  void initState() {
+    listSocialButtons = widget.socialButtons ?? [];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
+    isDark = theme.brightness == Brightness.dark;
     final bgColor =
         widget.config["backgroundColor"] ??
         (isDark
@@ -101,8 +115,6 @@ class _DSAuthTemplateState extends State<DSAuthTemplate> {
 
     final loginConfig = widget.config["loginConfig"] ?? {};
     final registerConfig = widget.config["registerConfig"] ?? {};
-    final onLogin = widget.config["onLogin"];
-    final onRegister = widget.config["onRegister"];
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -154,13 +166,14 @@ class _DSAuthTemplateState extends State<DSAuthTemplate> {
                                 ? DSAuthForm(
                                     key: const ValueKey("login"),
                                     config: loginConfig,
-                                    onSubmit: (login, password) =>
-                                        onLogin?.call(login, password),
+                                    onSubmit: (email, password) =>
+                                        widget.onLogin.call(email, password),
                                   )
                                 : DSRegisterUserForm(
                                     key: const ValueKey("register"),
                                     config: registerConfig,
-                                    onSubmit: (data) => onRegister?.call(data),
+                                    onSubmit: (data) =>
+                                        widget.onRegister.call(data),
                                   ),
                           ),
                           const SizedBox(height: 24),
@@ -195,58 +208,43 @@ class _DSAuthTemplateState extends State<DSAuthTemplate> {
                           const SizedBox(height: 16),
 
                           // Divider decorativo
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Divider(
-                                  color: textColor.withValues(alpha: 0.3),
-                                  thickness: 0.8,
+                          if (listSocialButtons.isNotEmpty)
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Divider(
+                                    color: textColor.withValues(alpha: 0.3),
+                                    thickness: 0.8,
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                  ),
+                                  child: Text(
+                                    "o",
+                                    style: DSTypographyFoundations.bodySmall
+                                        .copyWith(color: textColor),
+                                  ),
                                 ),
-                                child: Text(
-                                  "o",
-                                  style: DSTypographyFoundations.bodySmall
-                                      .copyWith(color: textColor),
+                                Expanded(
+                                  child: Divider(
+                                    color: textColor.withValues(alpha: 0.3),
+                                    thickness: 0.8,
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Divider(
-                                  color: textColor.withValues(alpha: 0.3),
-                                  thickness: 0.8,
-                                ),
-                              ),
-                            ],
-                          ),
-
-                          const SizedBox(height: 16),
-
+                              ],
+                            ),
+                          // Esopaciado
+                          if (listSocialButtons.isNotEmpty)
+                            const SizedBox(height: 16),
                           // Botones sociales
-                          if (widget.config["socialButtons"] != null)
+                          if (listSocialButtons.isNotEmpty)
                             Wrap(
                               spacing: 12,
                               runSpacing: 8,
                               alignment: WrapAlignment.center,
-                              children:
-                                  (widget.config["socialButtons"]
-                                          as List<Map<String, dynamic>>)
-                                      .map(
-                                        (btn) => DSButton(
-                                          label: btn["label"],
-                                          onPressed: btn["onPressed"],
-                                          variant: DSButtonVariant.secondary,
-                                          backgroundColor:
-                                              btn["backgroundColor"] ?? bgColor,
-                                          textColor:
-                                              btn["textColor"] ?? textColor,
-                                          icon: btn["icon"],
-                                          isFullWidth: false,
-                                        ),
-                                      )
-                                      .toList(),
+                              children: listSocialButtons,
                             ),
                         ],
                       ),
