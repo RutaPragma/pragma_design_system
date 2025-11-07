@@ -127,7 +127,7 @@ class DSProductDetailPage extends StatelessWidget {
                   ),
                   child: Image.network(
                     imageUrl,
-                    fit: BoxFit.cover,
+                    fit: imageBoxFit,
                     width: double.infinity,
                     height: 280,
                   ),
