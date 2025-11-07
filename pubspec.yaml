@@ -30,6 +30,7 @@ flutter:
   assets:
     - assets/icons/png/
     - assets/icons/svg/
+    - assets/images/illustraction/
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/to/asset-from-package

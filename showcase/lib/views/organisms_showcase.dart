@@ -82,7 +82,6 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
                       label: "Perfil",
                     ),
                   ],
- 
                 ),
                 DSSepareted(5),
               ],
@@ -100,9 +99,10 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
                   showAddButton: true,
                   showMenuChange: true,
                   spacing: DSSizesFoundations.separatorMedium,
-                  onProductTap: (product) => log(product.title),
+                  onAddPressed: (product) => log(product.title),
                   products: [
                     ProductItem(
+                      id: 1,
                       imageUrl:
                           "https://nikeco.vtexassets.com/arquivos/ids/808959-500-500?v=638807696434500000",
                       title: "Zapatos Nike Air",
@@ -111,6 +111,7 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
                       badgeText: "Nuevo",
                     ),
                     ProductItem(
+                      id: 2,
                       imageUrl:
                           "https://nikeco.vtexassets.com/arquivos/ids/607564-500-500?v=638549212427500000",
                       title: "Camisa Polo",
@@ -119,6 +120,7 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
                       // badgeText: "Oferta",
                     ),
                     ProductItem(
+                      id: 3,
                       imageUrl:
                           "https://nikeco.vtexassets.com/arquivos/ids/846904-500-500?v=638815508479530000",
                       title: "Camisa Polo",
@@ -127,6 +129,7 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
                       // badgeText: "Oferta",
                     ),
                     ProductItem(
+                      id: 4,
                       imageUrl:
                           "https://nikeco.vtexassets.com/arquivos/ids/734189-500-500?v=638708427069200000",
                       title: "Air Zoom Pegasus 41",
@@ -213,23 +216,25 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
                   orderStatus: "Completado",
                   products: [
                     {
+                      "id": 1,
                       "imageUrl":
                           "https://nikeco.vtexassets.com/arquivos/ids/734189-1200-auto?v=638708427069200000&width=1200&height=auto&aspect=true",
                       "title": "Air Zoom Pegasus 41",
-                      "price": "\$120.000",
+                      "price": "120.000",
                       "quantity": 1,
                     },
                     {
+                      "id": 1,
                       "imageUrl":
                           "https://nikeco.vtexassets.com/arquivos/ids/806707-1200-auto?v=638836101621400000&width=1200&height=auto&aspect=true",
                       "title": "Nike Vomero 18",
-                      "price": "\$80.000",
+                      "price": "80.000",
                       "quantity": 1,
                     },
                   ],
-                  subtotal: "\$200.000",
-                  shipping: "\$10.000",
-                  total: "\$210.000",
+                  subtotal: "200.000",
+                  shipping: "10.000",
+                  total: "210.000",
                   actionLabel: "Ver detalles",
                   onAction: () {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -244,16 +249,17 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
                   orderStatus: "Pendiente",
                   products: [
                     {
+                      "id": 1,
                       "imageUrl":
                           "https://nikeco.vtexassets.com/arquivos/ids/677932/FD6034_001_A_PREM.jpg?v=638623623839300000",
                       "title": "Smartwatch Deportivo",
-                      "price": "\$350.000",
+                      "price": "350.000",
                       "quantity": 1,
                     },
                   ],
-                  subtotal: "\$350.000",
-                  shipping: "\$0",
-                  total: "\$350.000",
+                  subtotal: "350.000",
+                  shipping: "0",
+                  total: "350.000",
                   actionLabel: "Rastrear pedido",
                   onAction: () {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -339,7 +345,10 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
             padding: const EdgeInsets.all(12),
             child: Column(
               children: [
-                Text('DSRegisterUserForm', style: DSTypography.displayLargeBold),
+                Text(
+                  'DSRegisterUserForm',
+                  style: DSTypography.displayLargeBold,
+                ),
                 DSSepareted(5),
                 DSRegisterUserForm(
                   config: {
@@ -367,17 +376,6 @@ class _OrganismsShowcaseState extends State<OrganismsShowcase> {
                     log("Usuario: ${data['name']}, Email: ${data['email']}");
                   },
                 ),
-
-                DSSepareted(5),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              children: [
-                Text('otro', style: DSTypography.displayLargeBold),
-                DSSepareted(5),
 
                 DSSepareted(5),
               ],

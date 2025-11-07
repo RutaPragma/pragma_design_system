@@ -62,7 +62,7 @@ class _MoleculesShowcaseState extends State<MoleculesShowcase> {
                       buttonLabel: 'Comprar',
                       btnBackgroundColor: Colors.black,
                       btnTextColor: Colors.greenAccent,
-                      onPressed: () => log('Producto agregado'),
+                      onAddPressed: () => log('Producto agregado'),
                       cardSize: 60,
                     ),
                     DSSepareted(5),
@@ -73,7 +73,7 @@ class _MoleculesShowcaseState extends State<MoleculesShowcase> {
                       price: "\$120.000",
                       badgeText: "New",
                       isMedal: false,
-                      onPressed: () {
+                      onAddPressed: () {
                         log("Producto agregado al carrito");
                       },
                       cardSize: 80,
@@ -87,7 +87,7 @@ class _MoleculesShowcaseState extends State<MoleculesShowcase> {
                   title: "Zapatillas deportivas Nike Air",
                   price: "\$120.000",
                   badgeText: "New",
-                  onPressed: () {
+                  onAddPressed: () {
                     log("Producto agregado al carrito");
                   },
                   cardSize: 120,
@@ -109,7 +109,7 @@ class _MoleculesShowcaseState extends State<MoleculesShowcase> {
                   buttonLabel: 'Comprar',
                   btnBackgroundColor: Colors.black,
                   btnTextColor: Colors.greenAccent,
-                  onPressed: () => log('Producto agregado'),
+                  onAddPressed: () => log('Producto agregado'),
                   cardSize: 180,
                 ),
               ],
@@ -133,6 +133,7 @@ class _MoleculesShowcaseState extends State<MoleculesShowcase> {
                     ),
 
                     DSIconCounter(
+                      onTap: () => log("Ir a alertas"),
                       icon: Icons.notifications_none_rounded,
                       count: 12,
                       badgeBackgroundColor: Colors.redAccent,
@@ -141,6 +142,7 @@ class _MoleculesShowcaseState extends State<MoleculesShowcase> {
                       iconColor: Colors.black,
                     ),
                     DSIconCounter(
+                      onTap: () {},
                       icon: Icons.notifications_none_rounded,
                       count: 100,
                       badgeBackgroundColor: DSColorsFoundations.brandSecondary,
@@ -152,6 +154,7 @@ class _MoleculesShowcaseState extends State<MoleculesShowcase> {
                     ),
 
                     DSIconCounter(
+                      onTap: () {},
                       icon: Icons.favorite_border_rounded,
                       showBadge: false,
                     ),

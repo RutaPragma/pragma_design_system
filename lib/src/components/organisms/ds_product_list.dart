@@ -15,7 +15,7 @@ import 'package:pragma_design_system/pragma_design_system.dart';
 ///   ],
 ///   isGrid: true,
 ///   crossAxisCount: 2,
-///   onProductTap: (item) => print(item.title),
+///   onAddPressed: (item) => print(item.title),
 /// )
 /// ```
 class DSProductList extends StatefulWidget {
@@ -36,8 +36,11 @@ class DSProductList extends StatefulWidget {
   /// Si se desea aplicar padding interior al contenedor
   final EdgeInsetsGeometry? padding;
 
-  /// Acción al presionar un producto
-  final void Function(ProductItem)? onProductTap;
+  /// Acción al presionar boton agregar producto
+  final void Function(ProductItem)? onAddPressed;
+
+  /// Acción al presionar card producto
+  final void Function(ProductItem)? onTapPressed;
 
   /// Define si se muestra el botón de acción dentro de cada card
   final bool showAddButton;
@@ -51,6 +54,10 @@ class DSProductList extends StatefulWidget {
   /// Hace visible o no el icono de tipo de menu
   final bool showMenuChange;
 
+  final BoxFit boxFitImage;
+  final String emptyImagePath;
+  final bool showImageTopSpacing;
+
   const DSProductList({
     super.key,
     required this.products,
@@ -59,11 +66,15 @@ class DSProductList extends StatefulWidget {
     this.spacing = DSSizesFoundations.separatorMedium,
     this.aspectRatio = 0.75,
     this.padding,
-    this.onProductTap,
+    this.onAddPressed,
+    this.onTapPressed,
     this.showAddButton = true,
     this.actionLabel = "Agregar",
     this.isMedal = false,
     this.showMenuChange = true,
+    this.boxFitImage = BoxFit.fill,
+    this.emptyImagePath = 'assets/images/illustraction/empty.png',
+    this.showImageTopSpacing = false,
   });
 
   @override
@@ -80,17 +91,14 @@ class _DSProductListState extends State<DSProductList> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    // final isDark = Theme.of(context).brightness == Brightness.dark;
 
     if (widget.products.isEmpty) {
       return Center(
-        child: Text(
-          'No hay productos disponibles',
-          style: DSTypographyFoundations.bodyMedium.copyWith(
-            color: isDark
-                ? DSColorsFoundations.textSecondaryDark
-                : DSColorsFoundations.textSecondary,
-          ),
+        child: Image.asset(
+          widget.emptyImagePath,
+          height: DSSizes.imageSizeXL,
+          width: DSSizes.imageSizeXL,
         ),
       );
     }
@@ -129,15 +137,16 @@ class _DSProductListState extends State<DSProductList> {
                   itemBuilder: (context, index) {
                     final product = widget.products[index];
                     return GestureDetector(
-                      onTap: () => widget.onProductTap?.call(product),
+                      onTap: () => widget.onTapPressed?.call(product),
                       child: DSProductCard(
+                        showImageTopSpacing: widget.showImageTopSpacing,
                         imageUrl: product.imageUrl,
                         title: product.title,
                         price: product.price,
                         badgeText: product.badgeText,
                         isMedal: widget.isMedal,
                         cardSize: 60,
-                        boxFitImage: BoxFit.cover,
+                        boxFitImage: widget.boxFitImage,
                         footer: widget.showAddButton
                             ? null
                             : Row(
@@ -149,8 +158,8 @@ class _DSProductListState extends State<DSProductList> {
                                   ),
                                 ],
                               ),
-                        onPressed: widget.showAddButton
-                            ? () => widget.onProductTap?.call(product)
+                        onAddPressed: widget.showAddButton
+                            ? () => widget.onAddPressed?.call(product)
                             : null,
                         // labelButton: actionLabel,
                         priceColor: product.priceColor,
@@ -171,22 +180,23 @@ class _DSProductListState extends State<DSProductList> {
                   itemBuilder: (context, index) {
                     final product = widget.products[index];
                     return GestureDetector(
-                      onTap: () => widget.onProductTap?.call(product),
+                      onTap: () => widget.onAddPressed?.call(product),
                       child: DSProductCard(
                         imageUrl: product.imageUrl,
                         title: product.title,
                         price: product.price,
                         badgeText: product.badgeText,
                         isMedal: widget.isMedal,
-                        boxFitImage: BoxFit.cover,
+                        boxFitImage: widget.boxFitImage,
+                        showImageTopSpacing: widget.showImageTopSpacing,
                         footer: widget.showAddButton
                             ? null
                             : DSRatingStars(
                                 rating: product.rating,
                                 size: DSSizesFoundations.iconSizeSmall,
                               ),
-                        onPressed: widget.showAddButton
-                            ? () => widget.onProductTap?.call(product)
+                        onAddPressed: widget.showAddButton
+                            ? () => widget.onAddPressed?.call(product)
                             : null,
                         cardSize: 100,
                         priceColor: product.priceColor,
@@ -209,30 +219,77 @@ class _DSProductListState extends State<DSProductList> {
 /// Se mantiene simple para que sea fácilmente integrable con
 /// APIs o modelos de dominio del proyecto.
 class ProductItem {
-  final String imageUrl;
-  final String title;
-  final String price;
-  final String? badgeText;
-  final double rating;
-
-  final Color? bgColor;
-  final Color? textColor;
-  final Color? priceColor;
-  final Color? badgeBackgroundColor;
-  final Color? badgeTextColor;
-
   const ProductItem({
+    required this.id,
     required this.imageUrl,
     required this.title,
     required this.price,
     this.badgeText,
     this.rating = 0.0,
+    this.amount = 1,
     this.bgColor,
     this.textColor,
     this.priceColor,
     this.badgeBackgroundColor,
     this.badgeTextColor,
   });
+  final int id;
+  final String imageUrl;
+  final String title;
+  final String price;
+  final String? badgeText;
+  final double rating;
+  final int amount;
+  final Color? bgColor;
+  final Color? textColor;
+  final Color? priceColor;
+  final Color? badgeBackgroundColor;
+  final Color? badgeTextColor;
+
+  @override
+  String toString() {
+    return 'Id: $id,';
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ProductItem &&
+          runtimeType == other.runtimeType &&
+          id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
+
+  ProductItem copyWith({
+    int? id,
+    String? imageUrl,
+    String? title,
+    String? price,
+    String? badgeText,
+    double? rating,
+    int? amount,
+    Color? bgColor,
+    Color? textColor,
+    Color? priceColor,
+    Color? badgeBackgroundColor,
+    Color? badgeTextColor,
+  }) {
+    return ProductItem(
+      id: id ?? this.id,
+      imageUrl: imageUrl ?? this.imageUrl,
+      title: title ?? this.title,
+      price: price ?? this.price,
+      badgeText: badgeText ?? this.badgeText,
+      rating: rating ?? this.rating,
+      amount: amount ?? this.amount,
+      bgColor: bgColor ?? this.bgColor,
+      textColor: textColor ?? this.textColor,
+      priceColor: priceColor ?? this.priceColor,
+      badgeBackgroundColor: badgeBackgroundColor ?? this.badgeBackgroundColor,
+      badgeTextColor: badgeTextColor ?? this.badgeTextColor,
+    );
+  }
 }
 
 class ProductItemMapper {
@@ -240,6 +297,8 @@ class ProductItemMapper {
     return json
         .map(
           (item) => ProductItem(
+            id: item['id'] ?? 0,
+            amount: item['amount'] ?? 1,
             imageUrl: item['imageUrl'] ?? '',
             title: item['title'] ?? '',
             price: item['price']?.toString() ?? '0',
@@ -252,12 +311,8 @@ class ProductItemMapper {
             priceColor: item['priceColor'] != null
                 ? Color(item['priceColor'])
                 : null,
-            badgeBackgroundColor: item['badgeBackgroundColor'] != null
-                ? Color(item['badgeBackgroundColor'])
-                : null,
-            badgeTextColor: item['badgeTextColor'] != null
-                ? Color(item['badgeTextColor'])
-                : null,
+            badgeBackgroundColor: item['badgeBackgroundColor'],
+            badgeTextColor: item['badgeTextColor'],
           ),
         )
         .toList();

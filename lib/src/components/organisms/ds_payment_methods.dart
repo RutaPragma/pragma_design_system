@@ -146,15 +146,14 @@ class PaymentMethodModel {
 }
 
 class PaymentMethodMapper {
-  /// Convierte una lista de Map en una lista de modelos
-  static List<PaymentMethodModel> fromMapList(List<Map<String, dynamic>> data) {
+  static List<PaymentMethodModel> fromMapList(List<dynamic> data) {
     return data.map((map) {
       return PaymentMethodModel(
         label: map['label'] ?? '',
         iconPath: map['iconPath'] ?? '',
         description: map['description'],
         badge: map['badge'],
-        onSelected: null, // No se puede deserializar desde un Map
+        onSelected: null,
       );
     }).toList();
   }

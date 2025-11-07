@@ -25,7 +25,7 @@ import 'package:pragma_design_system/src/foundations/foundations.dart';
 class DSIconCounter extends StatelessWidget {
   final IconData icon;
   final int count;
-  final VoidCallback? onTap;
+  final VoidCallback onTap;
 
   /// Colores personalizables
   final Color? iconColor;
@@ -42,8 +42,8 @@ class DSIconCounter extends StatelessWidget {
   const DSIconCounter({
     super.key,
     required this.icon,
+    required this.onTap,
     this.count = 0,
-    this.onTap,
     this.iconColor,
     this.badgeBackgroundColor,
     this.badgeTextColor,
@@ -77,8 +77,7 @@ class DSIconCounter extends StatelessWidget {
             ? DSColorsFoundations.textOnPrimaryDark
             : DSColorsFoundations.textOnPrimary);
 
-    return GestureDetector(
-      onTap: onTap,
+    return InkWell(
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -87,6 +86,7 @@ class DSIconCounter extends StatelessWidget {
             icon: icon,
             customColor: effectiveIconColor,
             customSize: iconSize ?? DSSizesFoundations.iconSizeLarge,
+            onPressed: () => onTap.call(),
           ),
 
           // Badge contador
@@ -101,10 +101,12 @@ class DSIconCounter extends StatelessWidget {
                 backgroundColor: effectiveBadgeBg,
                 textColor: effectiveBadgeText,
                 isMedal: isMedal,
+                onTap: () => onTap.call(),
               ),
             ),
         ],
       ),
+      onTap: () => onTap.call(),
     );
   }
 }

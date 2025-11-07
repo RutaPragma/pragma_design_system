@@ -29,10 +29,40 @@ import 'package:pragma_design_system/src/foundations/foundations.dart';
 ///   ]
 /// }
 /// ```
-class DSHomeTemplate extends StatelessWidget {
+class DSHomeTemplate extends StatefulWidget {
+  const DSHomeTemplate({
+    super.key,
+    required this.config,
+    required this.selectIndex,
+    required this.onNavItemSelect,
+    required this.onSearch,
+    required this.onAddPressed,
+    required this.onTapPressed,
+    this.boxFitImage = BoxFit.fill,
+    this.showImageTopSpacing = false,
+    this.badgeCount = 0,
+  });
   final Map<String, dynamic> config;
+  final void Function(int) onNavItemSelect;
+  final void Function(String) onSearch;
+  final void Function(ProductItem) onAddPressed;
+  final void Function(ProductItem) onTapPressed;
+  final int selectIndex;
+  final BoxFit boxFitImage;
+  final bool showImageTopSpacing;
+  final int badgeCount;
 
-  const DSHomeTemplate({super.key, required this.config});
+  @override
+  State<DSHomeTemplate> createState() => _DSHomeTemplateState();
+}
+
+class _DSHomeTemplateState extends State<DSHomeTemplate> {
+  late int navIndex;
+  @override
+  void initState() {
+    navIndex = widget.selectIndex;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,22 +75,48 @@ class DSHomeTemplate extends StatelessWidget {
         ? DSColorsFoundations.textPrimaryDark
         : DSColorsFoundations.textPrimary;
 
-    final List<dynamic> sections = config["sections"];
-    final banner = config["banner"];
-    final title = config["title"] ?? "Inicio";
+    final List<dynamic> sections = widget.config["sections"];
+    final banner = widget.config["banner"];
+    final emptyImagePath = widget.config["emptyImagePath"];
 
+    return home(bg, isDark, banner, textColor, sections, emptyImagePath);
+  }
+
+  Scaffold home(
+    Color bg,
+    bool isDark,
+    Map<String, dynamic>? banner,
+    Color textColor,
+    List<dynamic> sections,
+    String emptyImagePath,
+  ) {
     return Scaffold(
       backgroundColor: bg,
-      appBar: DSAppBar(title: title),
-      bottomNavigationBar: DSBottomNav(
-        currentIndex: 0,
-        items: const [
-          DSBottomNavItem(icon: Icons.home_rounded, label: 'Inicio'),
-          DSBottomNavItem(icon: Icons.favorite_rounded, label: 'Favoritos'),
-          DSBottomNavItem(icon: Icons.person_rounded, label: 'Perfil'),
-        ],
-        onItemSelected: (int value) {},
+      appBar: AppBar(
+        
+        bottomOpacity: 0,
+        elevation: 0,
+        centerTitle: true,
+        backgroundColor: isDark
+            ? DSColorsFoundations.backgroundPrimaryDark
+            : DSColorsFoundations.backgroundPrimary,
+        title: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: DSSizesFoundations.separatorSmall,
+          ),
+
+          child: DSSearchBar(
+            hintText: "Buscar productos...",
+            onChanged: (v) {
+              widget.onSearch(v);
+            },
+            onClear: () {
+              widget.onSearch('');
+            },
+          ),
+        ),
       ),
+
       body: SingleChildScrollView(
         padding: EdgeInsets.all(DSSizesFoundations.separatorMedium),
         child: Column(
@@ -83,18 +139,6 @@ class DSHomeTemplate extends StatelessWidget {
                 ),
               ),
 
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: DSSizesFoundations.separatorSmall,
-                vertical: DSSizesFoundations.separatorMedium,
-              ),
-              child: DSSearchBar(
-                hintText: "Buscar productos...",
-                onChanged: (v) {},
-                onClear: () {},
-              ),
-            ),
-
             for (final section in sections) ...[
               Padding(
                 padding: EdgeInsets.only(
@@ -110,8 +154,13 @@ class DSHomeTemplate extends StatelessWidget {
                 ),
               ),
               DSProductList(
+                onAddPressed: (productItem) => widget.onAddPressed(productItem),
+                onTapPressed: (productItem) => widget.onTapPressed(productItem),
+                boxFitImage: widget.boxFitImage,
                 products: ProductItemMapper().fromMap(section["products"]),
                 isGrid: section["grid"] ?? false,
+                emptyImagePath: emptyImagePath,
+                showImageTopSpacing: widget.showImageTopSpacing,
               ),
             ],
 

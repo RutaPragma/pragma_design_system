@@ -15,7 +15,7 @@ import 'package:pragma_design_system/src/utils/enums.dart';
 ///   title: 'Camiseta Flutter',
 ///   price: '29.900',
 ///   badgeText: 'Nuevo',
-///   onPressed: () => print('Agregar al carrito'),
+///   onAddPressed: () => print('Agregar al carrito'),
 /// )
 /// ```
 class DSProductCard extends StatelessWidget {
@@ -23,9 +23,11 @@ class DSProductCard extends StatelessWidget {
   final String title;
   final String price;
   final String? badgeText;
-  final VoidCallback? onPressed;
+  final VoidCallback? onAddPressed;
+  final VoidCallback? onTapPressed;
   final double borderRadius;
   final bool showShadow;
+  final bool showImageTopSpacing;
   final Widget? footer;
 
   final String buttonLabel;
@@ -52,7 +54,8 @@ class DSProductCard extends StatelessWidget {
     required this.title,
     required this.price,
     this.badgeText,
-    this.onPressed,
+    this.onAddPressed,
+    this.onTapPressed,
     this.borderRadius = DSRadiusFoundations.radiusMD,
     this.showShadow = true,
     this.footer,
@@ -69,6 +72,7 @@ class DSProductCard extends StatelessWidget {
     this.btnTextColor,
     this.cardSize = 100,
     this.boxFitImage = BoxFit.fill,
+    this.showImageTopSpacing = false,
   });
 
   @override
@@ -116,7 +120,7 @@ class DSProductCard extends StatelessWidget {
     final width = cardSize * 1.8;
     final heigth = cardSize * 3;
     return Card(
-      elevation: 4,
+      elevation: 2,
       child: Container(
         width: width,
         height: heigth,
@@ -126,77 +130,80 @@ class DSProductCard extends StatelessWidget {
           boxShadow: showShadow ? DSShadowsFoundations.shadowMedium : const [],
         ),
         clipBehavior: Clip.antiAlias,
-        child: SizedBox(
-          height: double.infinity,
-          width: double.infinity,
-          child: Stack(
-            children: [
-              Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 100,
-                child: Image.network(
-                  imageUrl,
-                  fit: boxFitImage,
-                  loadingBuilder:
-                      (
-                        BuildContext context,
-                        Widget child,
-                        ImageChunkEvent? loadingProgress,
-                      ) {
-                        if (loadingProgress == null) return child;
-                        return DSLoader();
-                      },
-                ),
-              ),
-              Positioned(
-                bottom: 60,
-                left: 10,
-                right: 10,
-                child: Text(
-                  title,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: DSTypographyFoundations.bodyMedium.copyWith(
-                    color: effectiveTextColor,
-                  ),
-                ),
-              ),
-
-              Positioned(
-                bottom: 40,
-                left: 10,
-                child: Text(price, style: effectivePriceTextStyle),
-              ),
-
-              Positioned(
-                bottom: 10,
-                left: 10,
-                right: 10,
-                child: DSButton(
-                  label: buttonLabel,
-                  onPressed: onPressed,
-                  backgroundColor: btnBackgroundColor,
-                  textColor: btnTextColor,
-                  size: DSSize.xs,
-                  radius: DSSizeRadius.large,
-                  customHeigth: 26,
-                ),
-              ),
-              if (badgeText != null)
+        child: GestureDetector(
+          onTap: onTapPressed,
+          child: SizedBox(
+            height: double.infinity,
+            width: double.infinity,
+            child: Stack(
+              children: [
                 Positioned(
-                  top: 5,
-                  left: 5,
-                  child: DSBadge(
-                    label: badgeText!,
-                    backgroundColor: effectiveBadgeBg,
-                    textColor: effectiveBadgeText,
-                    isMedal: isMedal ?? true,
-                    size: badgeSize,
+                  top: showImageTopSpacing ? 10 : 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 100,
+                  child: Image.network(
+                    imageUrl,
+                    fit: boxFitImage,
+                    loadingBuilder:
+                        (
+                          BuildContext context,
+                          Widget child,
+                          ImageChunkEvent? loadingProgress,
+                        ) {
+                          if (loadingProgress == null) return child;
+                          return DSLoader();
+                        },
                   ),
                 ),
-            ],
+                Positioned(
+                  bottom: 60,
+                  left: 10,
+                  right: 10,
+                  child: Text(
+                    title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: DSTypographyFoundations.bodyMedium.copyWith(
+                      color: effectiveTextColor,
+                    ),
+                  ),
+                ),
+          
+                Positioned(
+                  bottom: 40,
+                  left: 10,
+                  child: Text(price, style: effectivePriceTextStyle),
+                ),
+          
+                Positioned(
+                  bottom: 10,
+                  left: 10,
+                  right: 10,
+                  child: DSButton(
+                    label: buttonLabel,
+                    onPressed: onAddPressed,
+                    backgroundColor: btnBackgroundColor,
+                    textColor: btnTextColor,
+                    size: DSSize.xs,
+                    radius: DSSizeRadius.large,
+                    customHeigth: 26,
+                  ),
+                ),
+                if (badgeText != null)
+                  Positioned(
+                    top: 5,
+                    left: 5,
+                    child: DSBadge(
+                      label: badgeText!,
+                      backgroundColor: effectiveBadgeBg,
+                      textColor: effectiveBadgeText,
+                      isMedal: isMedal ?? true,
+                      size: badgeSize,
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
       ),

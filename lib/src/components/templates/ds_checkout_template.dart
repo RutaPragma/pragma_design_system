@@ -37,6 +37,7 @@ class _DSCheckoutTemplateState extends State<DSCheckoutTemplate> {
   Map<String, String> _shippingData = {};
   String? _selectedPaymentMethod;
   int currentIndex = 0;
+  int itemsCar = 0;
 
   String checkoutTitle = '';
   String buttonLabel = '';
@@ -56,7 +57,10 @@ class _DSCheckoutTemplateState extends State<DSCheckoutTemplate> {
     shippingConfig = widget.config["shippingConfig"];
     paymentConfig = widget.config["paymentConfig"];
     alertMessage = widget.config["alertMessage"];
-    paymentList = PaymentMethodMapper.fromMapList(paymentConfig["methods"]);
+    itemsCar = int.parse((widget.config['itemsCar'].toString()));
+    paymentList = PaymentMethodMapper.fromMapList(
+      paymentConfig["methods"] ?? [],
+    );
     _selectedPaymentMethod = paymentList.elementAt(currentIndex).toString();
     orderSummaryModel = DSOrderSummaryMapper.fromMap(orderSummary);
     super.initState();
@@ -91,13 +95,23 @@ class _DSCheckoutTemplateState extends State<DSCheckoutTemplate> {
         centerTitle: true,
         backgroundColor: bgColor,
         textColor: textColor,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: DSIconCounter(
+              onTap: () {},
+              icon: Icons.shopping_cart_outlined,
+              count: itemsCar,
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(DSSizesFoundations.separatorLarge),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (orderSummary.isEmpty) ...[
+            if (orderSummary.isNotEmpty) ...[
               DSOrderSummary(
                 orderId: orderSummaryModel.orderId,
                 orderDate: orderSummaryModel.orderDate,
@@ -123,6 +137,7 @@ class _DSCheckoutTemplateState extends State<DSCheckoutTemplate> {
               onSubmit: (data) => setState(() {
                 log(data.toString());
                 _shippingData = data;
+                widget.config["onAddressComplete"]?.call(data);
               }),
               backgroundColor: shippingConfig["backgroundColor"],
               accentColor: shippingConfig["accentColor"],

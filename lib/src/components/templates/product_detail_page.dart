@@ -15,64 +15,87 @@ import 'package:pragma_design_system/pragma_design_system.dart';
 /// Ejemplo de uso:
 /// ```dart
 /// DSProductDetailPage(
-///   config: {
-///     "product": {
-///       "title": "Camiseta Flutter",
-///       "price": "29.900",
-///       "imageUrl": "...",
-///       "description": "Camiseta oficial Flutter",
-///       "rating": 4.5,
+///   config:
+/// {
+///     'product': {
+///       'title': 'Camiseta Flutter',
+///       'price': '29.900',
+///       'imageUrl': '...',
+///       'description': 'Camiseta oficial Flutter',
+///       'rating': 4.5,
 ///     },
-///     "relatedProducts": [ ... ],
-///     "promoBanner": { ... },
+///     'relatedProducts': [ ... ],
+///     'promoBanner': { ... },
 ///   },
 /// )
 /// ```
 class DSProductDetailPage extends StatelessWidget {
-  final Map<String, dynamic> config;
+  const DSProductDetailPage({
+    super.key,
+    required this.config,
+    required this.onBuyNow,
+    required this.onAddToCart,
+    this.imageBoxFit = BoxFit.cover,
+  });
 
-  const DSProductDetailPage({super.key, required this.config});
+  final Map<String, dynamic> config;
+  final VoidCallback onBuyNow;
+  final VoidCallback onAddToCart;
+  final BoxFit imageBoxFit;
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     final Color bgColor =
-        config["backgroundColor"] ??
+        config['backgroundColor'] ??
         (isDark
             ? DSColorsFoundations.surfaceDark
             : DSColorsFoundations.surfaceLight);
 
     final Color textColor =
-        config["textColor"] ??
+        config['textColor'] ??
         (isDark
             ? DSColorsFoundations.textPrimaryDark
             : DSColorsFoundations.textPrimary);
 
     final Color accentColor =
-        config["accentColor"] ??
+        config['accentColor'] ??
         (isDark
             ? DSColorsFoundations.brandPrimaryDark
             : DSColorsFoundations.brandPrimary);
 
-    final product = config["product"] ?? {};
-    final imageUrl = product["imageUrl"] ?? "";
-    final title = product["title"] ?? "Producto sin nombre";
-    final price = product["price"] ?? "";
-    final description = product["description"] ?? "Sin descripción disponible.";
-    final rating = (product["rating"] ?? 0).toDouble();
-    final badgeText = product["badgeText"];
+    final product = config['product'] ?? {};
+    final imageUrl = product['imageUrl'] ?? '';
+    final title = product['title'] ?? 'Producto sin nombre';
+    final price = product['price'] ?? '';
+    final description = product['description'] ?? 'Sin descripción disponible.';
+    final rating = (product['rating'] ?? 0).toDouble();
+    final badgeText = product['badgeText'];
     final relatedProducts =
-        config["relatedProducts"] as List<Map<String, dynamic>>?;
+        config['relatedProducts'] as List<Map<String, dynamic>>?;
 
-    final promoConfig = config["promoBanner"];
+    final promoConfig = config['promoBanner'];
+    final itemsCar = int.parse(config['itemsCar'].toString());
 
     return Scaffold(
       backgroundColor: bgColor,
       appBar: DSAppBar(
-        title: config["appBarTitle"] ?? "Detalle del Producto",
+        title: config['appBarTitle'] ?? 'Detalle del Producto',
         centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: DSIconCounter(
+              onTap: () {},
+              icon: Icons.shopping_cart_outlined,
+              // iconSize: 20,
+              count: itemsCar,
+            ),
+          ),
+        ],
       ),
+
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(DSSizesFoundations.separatorLarge),
         child: Column(
@@ -81,16 +104,16 @@ class DSProductDetailPage extends StatelessWidget {
             /// Banner promocional opcional
             if (promoConfig != null) ...[
               DSPromoBanner(
-                title: promoConfig["title"] ?? "",
-                subtitle: promoConfig["subtitle"] ?? "",
-                imageUrl: promoConfig["imageUrl"] ?? "",
-                badgeText: promoConfig["badgeText"],
-                buttonLabel: promoConfig["buttonLabel"],
-                backgroundColor: promoConfig["backgroundColor"],
-                textColor: promoConfig["textColor"],
-                isReversed: promoConfig["isReversed"] ?? false,
-                size: promoConfig["size"] ?? 180.0,
-                onPressed: promoConfig["onPressed"],
+                title: promoConfig['title'] ?? '',
+                subtitle: promoConfig['subtitle'] ?? '',
+                imageUrl: promoConfig['imageUrl'] ?? '',
+                badgeText: promoConfig['badgeText'],
+                buttonLabel: promoConfig['buttonLabel'],
+                backgroundColor: promoConfig['backgroundColor'],
+                textColor: promoConfig['textColor'],
+                isReversed: promoConfig['isReversed'] ?? false,
+                size: promoConfig['size'] ?? 180.0,
+                onPressed: promoConfig['onPressed'],
               ),
               const SizedBox(height: 24),
             ],
@@ -149,7 +172,7 @@ class DSProductDetailPage extends StatelessWidget {
             const SizedBox(height: 16),
 
             Text(
-              config["descriptionTitle"] ?? "Descripción",
+              config['descriptionTitle'] ?? 'Descripción',
               style: DSTypographyFoundations.labelLarge.copyWith(
                 color: textColor.withValues(alpha: 0.8),
                 fontWeight: FontWeight.w600,
@@ -169,8 +192,8 @@ class DSProductDetailPage extends StatelessWidget {
               children: [
                 Expanded(
                   child: DSButton(
-                    label: config["addToCartLabel"] ?? "Agregar al carrito",
-                    onPressed: config["onAddToCart"],
+                    label: config['addToCartLabel'] ?? 'Agregar al carrito',
+                    onPressed: () => onAddToCart.call(),
                     backgroundColor: accentColor,
                     textColor: DSColorsFoundations.textOnPrimary,
                   ),
@@ -178,8 +201,8 @@ class DSProductDetailPage extends StatelessWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: DSButton(
-                    label: config["buyNowLabel"] ?? "Comprar ahora",
-                    onPressed: config["onBuyNow"],
+                    label: config['buyNowLabel'] ?? 'Comprar ahora',
+                    onPressed: () => onBuyNow.call(),
                     variant: DSButtonVariant.secondary,
                     backgroundColor: bgColor,
                     textColor: textColor,
@@ -192,7 +215,7 @@ class DSProductDetailPage extends StatelessWidget {
 
             if (relatedProducts != null && relatedProducts.isNotEmpty) ...[
               Text(
-                config["relatedTitle"] ?? "Productos relacionados",
+                config['relatedTitle'] ?? 'Productos relacionados',
                 style: DSTypographyFoundations.labelLarge.copyWith(
                   color: textColor,
                   fontWeight: FontWeight.bold,
@@ -201,7 +224,9 @@ class DSProductDetailPage extends StatelessWidget {
               const SizedBox(height: 16),
               DSProductList(
                 products: ProductItemMapper().fromMap(relatedProducts),
-                isGrid: config["grid"] ?? false,
+                isGrid: config['grid'] ?? true,
+                showImageTopSpacing: true,
+                boxFitImage: imageBoxFit,
               ),
             ],
           ],

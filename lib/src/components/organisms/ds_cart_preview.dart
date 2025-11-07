@@ -117,6 +117,7 @@ class DSCartPreview extends StatelessWidget {
                 ],
               ),
               DSIconCounter(
+                onTap: () {},
                 icon: Icons.shopping_bag_rounded,
                 iconColor: isDark
                     ? DSColorsFoundations.textSecondaryDark

@@ -71,7 +71,7 @@ class DSAuthTemplate extends StatefulWidget {
   });
   final Map<String, dynamic> config;
   final void Function(String, String) onLogin;
-  final void Function(Object) onRegister;
+  final void Function(Map<String, dynamic>) onRegister;
   final List<DSButton>? socialButtons;
 
   @override

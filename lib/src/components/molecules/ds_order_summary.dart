@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:pragma_design_system/src/components/atoms/atoms.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
 import 'package:pragma_design_system/src/utils/enums.dart';
@@ -156,7 +157,7 @@ class DSOrderSummary extends StatelessWidget {
                             },
                         width: 50,
                         height: 50,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.scaleDown,
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -210,7 +211,7 @@ class DSOrderSummary extends StatelessWidget {
     bool isBold = false,
   }) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 2),
+      padding: EdgeInsets.symmetric(vertical: 2), 
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -219,7 +220,7 @@ class DSOrderSummary extends StatelessWidget {
             style: DSTypographyFoundations.bodyMedium.copyWith(color: color),
           ),
           Text(
-            value,
+            '\$${NumberFormat("#,##0.00", "en_US").format(double.parse(value))}',
             style: DSTypographyFoundations.bodyMedium.copyWith(
               color: color,
               fontWeight: isBold ? FontWeight.bold : FontWeight.normal,

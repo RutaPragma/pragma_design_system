@@ -54,6 +54,12 @@ class _HomePageState extends State<HomePage> {
 
     return SafeArea(
       child: DSHomeTemplate(
+        selectIndex: 0,
+        onNavItemSelect: (_) {},
+        onAddPressed: (_) {},
+        onTapPressed: (_) {},
+        onSearch: (_) {},
+
         config: {
           "title": "Inicio",
           "banner": {
@@ -61,6 +67,7 @@ class _HomePageState extends State<HomePage> {
             "title": "Ofertas de la Semana",
             "subtitle": "Hasta 50% de descuento en electrónicos",
           },
+          "emptyImagePath": "assets/images/illustraction/empty.png",
           "sections": [
             {
               "title": "Recomendados para ti",

@@ -10,32 +10,36 @@ class TemplatesShowcaseMenu extends StatelessWidget {
   final List<Map<String, dynamic>> items = [
     {
       "title": "DSHomeTemplate",
+
       "config": {
         "title": "Inicio",
+        'emptyImagePath': 'assets/images/illustraction/empty.png',
         "sections": [
           {
             "title": "Recomendados para ti",
+            'emptyImagePath': 'assets/images/illustraction/empty.png',
             "grid": true,
             "products": [
               {
                 "imageUrl": "https://picsum.photos/200",
                 "title": "Audífonos Bluetooth",
-                "price": "\$120.000",
+                "price": "120.000",
               },
               {
                 "imageUrl": "https://picsum.photos/201",
                 "title": "Smartwatch Deportivo",
-                "price": "\$250.000",
+                "price": "250.000",
               },
             ],
           },
           {
             "title": "Ofertas relámpago",
+            'emptyImagePath': 'assets/images/illustraction/empty.png',
             "products": [
               {
                 "imageUrl": "https://picsum.photos/202",
                 "title": "Cámara 4K",
-                "price": "\$899.000",
+                "price": "899.000",
               },
             ],
           },
@@ -52,7 +56,7 @@ class TemplatesShowcaseMenu extends StatelessWidget {
           "imageUrl":
               "https://nikeco.vtexassets.com/arquivos/ids/806707-1200-auto?v=638836101621400000&width=1200&height=auto&aspect=true",
           "title": "Zapatillas Urban X",
-          "price": "\$250.000",
+          "price": "250.000",
           "description":
               "Comodidad y estilo con las Zapatillas Urban X, perfectas para tu día a día.",
           "rating": 4.5,
@@ -66,16 +70,17 @@ class TemplatesShowcaseMenu extends StatelessWidget {
             "imageUrl":
                 "https://nikeco.vtexassets.com/arquivos/ids/893589-1200-auto?v=638896609278930000&width=1200&height=auto&aspect=true",
             "title": "Zapatillas Sport Runner",
-            "price": "\$200.000",
+            "price": "200.000",
             "badgeText": "Nuevo",
           },
           {
             "imageUrl":
                 "https://nikeco.vtexassets.com/arquivos/ids/884347-1200-auto?v=638883567117600000&width=1200&height=auto&aspect=true",
             "title": "Zapatillas Urban Classic",
-            "price": "\$230.000",
+            "price": "230.000",
           },
         ],
+        "itemsCar": '1',
       },
     },
     {
@@ -97,22 +102,22 @@ class TemplatesShowcaseMenu extends StatelessWidget {
               "imageUrl":
                   "https://nikeco.vtexassets.com/arquivos/ids/734189-1200-auto?v=638708427069200000&width=1200&height=auto&aspect=true",
               "title": "Air Zoom Pegasus 41",
-              "price": "\$120.000",
+              "price": "120.000",
               "quantity": 1,
             },
             {
               "imageUrl":
                   "https://nikeco.vtexassets.com/arquivos/ids/806707-1200-auto?v=638836101621400000&width=1200&height=auto&aspect=true",
               "title": "Nike Vomero 18",
-              "price": "\$80.000",
+              "price": "80.000",
               "quantity": 1,
             },
           ],
 
-          "subtotal": "\$250.000",
-          "shipping": "\$10.000",
-          "discount": "-\$20.000",
-          "total": "\$240.000",
+          "subtotal": "250.000",
+          "shipping": "10.000",
+          "discount": "-20.000",
+          "total": "240.000",
         },
         "shippingConfig": {
           "title": "Dirección de envío",
@@ -156,6 +161,7 @@ class TemplatesShowcaseMenu extends StatelessWidget {
           "confirmError": "Por favor confirma tu dirección de envío...",
           "selectPayment": "Selecciona un método de pago...",
         },
+        "itemsCar": '1',
       },
     },
     {
@@ -211,15 +217,16 @@ class TemplatesShowcaseMenu extends StatelessWidget {
             "imageUrl":
                 "https://nikeco.vtexassets.com/arquivos/ids/734189-1200-auto?v=638708427069200000&width=1200&height=auto&aspect=true",
             "title": "Zapatillas deportivas Air X",
-            "price": "\$240.000",
+            "price": "\$ 240.000",
             "badgeText": "Nuevo",
             "onView": () => log("Ver detalle del producto 1"),
           },
           {
             "imageUrl":
-                "https://nikeco.vtexassets.com/arquivos/ids/734189-1200-auto?v=638708427069200000&width=1200&height=auto&aspect=true",
-            "title": "Chaqueta impermeable ProStorm",
-            "price": "\$380.000",
+                "https://fakestoreapi.com/img/71kWymZ+c+L._AC_SX679_t.png",
+            "title":
+                "Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5",
+            "price": "\$ 109.9",
             "onView": () => log("Ver detalle del producto 2"),
           },
         ],
@@ -289,22 +296,53 @@ class TemplatesShowcaseMenu extends StatelessWidget {
   Widget getWidget(String widget, dynamic config) {
     switch (widget) {
       case 'DSHomeTemplate':
-        return DSHomeTemplate(config: config);
+        return DSHomeTemplate(
+          onNavItemSelect: (_) {},
+          onAddPressed: (productItem) {
+            log(productItem.title, name: "ADD");
+          },
+          onTapPressed: (productItem) {
+            log(productItem.title, name: "DETAIL");
+          },
+          config: config,
+          selectIndex: 0,
+          onSearch: (String p1) {},
+        );
       case 'DSProductDetailPage':
-        return DSProductDetailPage(config: config);
+        return DSProductDetailPage(
+          config: config,
+          onBuyNow: () {},
+          onAddToCart: () {},
+        );
       case 'DSCheckoutTemplate':
         return DSCheckoutTemplate(config: config);
       case 'DSAuthTemplate':
         return Scaffold(
           appBar: DSAppBar(backgroundColor: Colors.transparent, actions: []),
-          body: DSAuthTemplate(config: config),
+          body: DSAuthTemplate(
+            config: config,
+            onLogin: (_, __) {},
+            onRegister: (_) {},
+          ),
         );
       case 'DSCartTemplate':
-        return DSCartTemplate(config: config);
+        return Scaffold(
+          appBar: DSAppBar(backgroundColor: Colors.transparent, actions: []),
+          body: DSCartTemplate(
+            config: config,
+            onRemove: (_) {},
+            onAdd: (_) {},
+            onDelete: (id) {},
+          ),
+        );
       case 'DSProfileTemplate':
         return DSProfileTemplate(config: config);
       default:
-        return DSProductDetailPage(config: config);
+        return DSProductDetailPage(
+          config: config,
+          onBuyNow: () {},
+          onAddToCart: () {},
+        );
     }
   }
 

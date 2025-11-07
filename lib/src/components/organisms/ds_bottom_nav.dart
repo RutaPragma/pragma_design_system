@@ -124,6 +124,7 @@ class _DSBottomNavState extends State<DSBottomNav> {
                           icon: item.icon,
                           customColor: selected ? active : inactive,
                           size: DSSize.medium,
+                          onPressed: () => widget.onItemSelected(index),
                         ),
                         if (item.badgeCount != null && item.badgeCount! > 0)
                           Positioned(

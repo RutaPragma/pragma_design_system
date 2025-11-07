@@ -23,9 +23,18 @@ import 'package:pragma_design_system/pragma_design_system.dart';
 /// )
 /// ```
 class DSCartTemplate extends StatelessWidget {
-  final Map<String, dynamic> config;
+  const DSCartTemplate({
+    super.key,
+    required this.config,
+    required this.onRemove,
+    required this.onAdd,
+    required this.onDelete,
+  });
 
-  const DSCartTemplate({super.key, required this.config});
+  final Map<String, dynamic> config;
+  final void Function(int id) onDelete;
+  final void Function(int id) onAdd;
+  final void Function(int id) onRemove;
 
   @override
   Widget build(BuildContext context) {
@@ -48,23 +57,15 @@ class DSCartTemplate extends StatelessWidget {
             ? DSColorsFoundations.textPrimaryDark
             : DSColorsFoundations.textPrimary);
 
-    final products = List<Map<String, dynamic>>.from(config["products"] ?? []);
+    final products = config["products"] ?? [];
     final summary = PriceSummaryMapper.fromMap(config["summary"] ?? {});
 
     final onCheckout = config["onCheckout"];
-    final onRemove = config["onRemove"];
+
     final onContinueShopping = config["onContinueShopping"];
 
     return Scaffold(
       backgroundColor: bgColor,
-
-      appBar: DSAppBar(
-        title: config["title"] ?? "Carrito de Compras",
-        centerTitle: true,
-        textColor: textColor,
-        actions: [],
-        backgroundColor: Colors.transparent,
-      ),
 
       body: SafeArea(
         child: products.isEmpty
@@ -85,8 +86,10 @@ class DSCartTemplate extends StatelessWidget {
                             product: product,
                             textColor: textColor,
                             accentColor: accentColor,
-                            onRemove: onRemove,
                             isDark: isDark,
+                            onRemove: onRemove,
+                            onAdd: onAdd,
+                            ondelete: onDelete,
                           );
                         },
                       ),
@@ -143,8 +146,10 @@ class DSCartTemplate extends StatelessWidget {
     required Map<String, dynamic> product,
     required Color textColor,
     required Color accentColor,
-    required Function? onRemove,
     required bool isDark,
+    required void Function(int id) onRemove,
+    required void Function(int id) onAdd,
+    required void Function(int id) ondelete,
   }) {
     return Card(
       color: isDark
@@ -152,70 +157,90 @@ class DSCartTemplate extends StatelessWidget {
           : DSColorsFoundations.surfaceLight,
       elevation: 4,
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: DSSizesFoundations.separatorMedium,
-          vertical: DSSizesFoundations.separatorSmall,
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        padding: const EdgeInsets.all(8.0),
+        child: Stack(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(DSRadiusFoundations.radiusSM),
-              child: Image.network(
-                product["imageUrl"],
-                width: 70,
-                height: 70,
-                fit: BoxFit.cover,
+            Positioned(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(
+                  DSRadiusFoundations.radiusSM,
+                ),
+                child: Image.network(
+                  product["imageUrl"],
+                  width: 70,
+                  height: 70,
+                  fit: BoxFit.scaleDown,
+                ),
               ),
             ),
-            const SizedBox(width: 16),
 
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            Positioned(
+              left: 80,
+              right: 0,
+              child: Text(
+                product["title"] ?? "",
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: DSTypographyFoundations.bodyMedium.copyWith(
+                  color: textColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            Positioned(
+              left: 80,
+              top: 35,
+              child: Text(
+                product["price"] ?? "",
+                style: DSTypographyFoundations.bodyMedium.copyWith(
+                  color: accentColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: DSSizesFoundations.textSizeMedium,
+                ),
+              ),
+            ),
+
+            Positioned(
+              bottom: 0,
+              left: 150,
+              right: 100,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    product["title"] ?? "",
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: DSTypographyFoundations.bodyMedium.copyWith(
-                      color: textColor,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  DSIconButton(
+                    icon: Icons.remove,
+                    onPressed: () => onRemove.call(product["id"]),
+                    size: DSSize.xs,
                   ),
-                  const SizedBox(height: 4),
                   Text(
-                    product["price"] ?? "",
+                    '${product["amount"]}',
                     style: DSTypographyFoundations.bodyMedium.copyWith(
                       color: accentColor,
                       fontWeight: FontWeight.bold,
+                      fontSize: DSSizesFoundations.textSizeMedium,
+                    ),
+                  ),
+                  DSIconButton(
+                    icon: Icons.add,
+                    onPressed: () => onAdd.call(product["id"]),
+                    size: DSSize.xs,
+                    customColor: DSColorsFoundations.success.withValues(
+                      alpha: 0.8,
                     ),
                   ),
                 ],
               ),
             ),
 
-            const SizedBox(width: 12),
-
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                DSIconButton(
-                  icon: Icons.edit,
-                  onPressed: product["onView"],
-                  size: DSSize.small,
-                  customColor: DSColorsFoundations.buttonSecondary.withValues(
-                    alpha: 0.8,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                DSIconButton(
-                  icon: Icons.delete_outline,
-                  customColor: DSColorsFoundations.error.withValues(alpha: 0.8),
-                  onPressed: () => onRemove?.call(product),
-                  size: DSSize.small,
-                ),
-              ],
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: DSIconButton(
+                icon: Icons.delete_outline,
+                customColor: DSColorsFoundations.error.withValues(alpha: 0.8),
+                onPressed: () => ondelete.call(product["id"]),
+                customSize: 25,
+              ),
             ),
           ],
         ),

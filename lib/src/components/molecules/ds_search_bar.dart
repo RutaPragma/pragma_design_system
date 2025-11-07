@@ -1,9 +1,10 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
 
 /// Molécula: DSSearchBar
 ///
-/// Barra de búsqueda con input y botón de limpiar.
+/// Barra de búsqueda con debounce incorporado.
 /// Permite personalizar el hint, controlar el texto y manejar eventos.
 ///
 /// Ejemplo de uso:
@@ -23,6 +24,9 @@ class DSSearchBar extends StatefulWidget {
   final bool autoFocus;
   final bool enabled;
 
+  /// Tiempo de espera antes de emitir `onChanged`
+  final Duration debounceDuration;
+
   const DSSearchBar({
     super.key,
     this.hintText = "Buscar...",
@@ -32,6 +36,7 @@ class DSSearchBar extends StatefulWidget {
     this.onSubmitted,
     this.autoFocus = false,
     this.enabled = true,
+    this.debounceDuration = const Duration(milliseconds: 500),
   });
 
   @override
@@ -41,25 +46,38 @@ class DSSearchBar extends StatefulWidget {
 class _DSSearchBarState extends State<DSSearchBar> {
   bool _hasFocus = false;
   late final TextEditingController _controller;
+  final FocusNode _focusNode = FocusNode();
+  Timer? _debounceTimer;
 
   @override
   void initState() {
     super.initState();
     _controller = widget.controller ?? TextEditingController();
 
-    // 👇 Escucha los cambios del texto
     _controller.addListener(() {
-      setState(
-        () {},
-      ); // actualiza el estado para redibujar el icono dinámicamente
+      setState(() {});
     });
   }
 
   @override
   void dispose() {
-    _controller.removeListener(() {}); // limpia el listener
+    _debounceTimer?.cancel();
+    _focusNode.dispose();
     if (widget.controller == null) _controller.dispose();
     super.dispose();
+  }
+
+  void _onTextChanged(String value) {
+    _debounceTimer?.cancel();
+
+    _debounceTimer = Timer(widget.debounceDuration, () {
+      if (widget.onChanged != null) {
+        widget.onChanged!(value);
+
+        _hasFocus = false;
+        _focusNode.unfocus();
+      }
+    });
   }
 
   @override
@@ -75,7 +93,7 @@ class _DSSearchBarState extends State<DSSearchBar> {
         : DSColorsFoundations.inputFill;
 
     final shadow = _hasFocus
-        ? DSShadowsFoundations.shadowMedium
+        ? DSShadowsFoundations.shadowSmall
         : DSShadowsFoundations.shadowSmall;
 
     return AnimatedContainer(
@@ -118,7 +136,10 @@ class _DSSearchBarState extends State<DSSearchBar> {
                 controller: _controller,
                 autofocus: widget.autoFocus,
                 enabled: widget.enabled,
-                onChanged: widget.onChanged,
+                enableSuggestions: false,
+                autocorrect: false,
+                onChanged: _onTextChanged,
+                focusNode: _focusNode,
                 onSubmitted: (_) => widget.onSubmitted?.call(),
                 style: DSTypographyFoundations.bodyMedium.copyWith(
                   color: isDark
@@ -138,13 +159,12 @@ class _DSSearchBarState extends State<DSSearchBar> {
               ),
             ),
           ),
-
-          // 👇 ahora este ícono aparecerá dinámicamente
           if (_controller.text.isNotEmpty)
             GestureDetector(
               onTap: () {
                 _controller.clear();
                 widget.onClear?.call();
+                widget.onChanged?.call(''); // opcional: limpia búsqueda
               },
               child: Padding(
                 padding: const EdgeInsets.only(left: 12.0),
