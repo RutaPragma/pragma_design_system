@@ -115,33 +115,34 @@ class DSPaymentButton extends StatelessWidget {
             key: const ValueKey("dsPaymentButtonRow"),
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Logo + Texto
-              Row(
-                key: const ValueKey("dsPaymentButtonContentRow"),
-                children: [
-                  if (logo != null) ...[
-                    SizedBox(
-                      key: const ValueKey("dsPaymentButtonLogoWrapper"),
-                      height: DSSizesFoundations.iconSizeLarge,
-                      child: logo!,
+              Expanded(
+                child: Wrap(
+                  key: const ValueKey("dsPaymentButtonContentRow"),
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: DSSizesFoundations.separatorSmall,
+                  children: [
+                    if (logo != null)
+                      SizedBox(
+                        key: const ValueKey("dsPaymentButtonLogoWrapper"),
+                        height: DSSizesFoundations.iconSizeLarge,
+                        child: logo!,
+                      ),
+                    Text(
+                      key: const ValueKey("dsPaymentButtonLabel"),
+                      label,
+                      overflow: TextOverflow.ellipsis,
+                      style: DSTypographyFoundations.labelLarge.copyWith(
+                        color: enabled
+                            ? txtColor
+                            : DSColorsFoundations.textHintDark,
+                        fontWeight: isSelected
+                            ? FontWeight.bold
+                            : FontWeight.w500,
+                      ),
                     ),
-                    const SizedBox(width: 12),
                   ],
-                  Text(
-                    key: const ValueKey("dsPaymentButtonLabel"),
-                    label,
-                    style: DSTypographyFoundations.labelLarge.copyWith(
-                      color: enabled
-                          ? txtColor
-                          : DSColorsFoundations.textHintDark,
-                      fontWeight: isSelected
-                          ? FontWeight.bold
-                          : FontWeight.w500,
-                    ),
-                  ),
-                ],
+                ),
               ),
-              // Icono de selección o flecha
               if (trailingIcon != null)
                 Icon(
                   key: const ValueKey("dsPaymentButtonTrailingIcon"),

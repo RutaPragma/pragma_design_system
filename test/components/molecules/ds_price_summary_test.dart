@@ -65,6 +65,24 @@ void main() {
       // Assert
       expect(find.byKey(const ValueKey<String>('dsPriceSummaryButton')), findsNothing);
     });
+
+    testWidgets('no debería mostrar fila de descuento cuando su valor es cero', (
+      WidgetTester tester,
+    ) async {
+      // Arrange
+      const Widget widget = DSPriceSummary(
+        subtotal: 5000,
+        shipping: 0,
+        discount: 0,
+        total: 5000,
+      );
+
+      // Act
+      await tester.pumpWidget(_buildTestable(widget));
+
+      // Assert
+      expect(find.textContaining('Descuento'), findsNothing);
+    });
   });
 }
 
