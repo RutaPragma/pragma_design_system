@@ -72,6 +72,7 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
             : DSColorsFoundations.textPrimary);
 
     return AppBar(
+      key: const ValueKey("dsAppBar"),
       elevation: elevation,
       backgroundColor: bg,
 
@@ -79,6 +80,7 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
       animateColor: true,
       leading: showBackButton
           ? IconButton(
+              key: const ValueKey("dsAppBarBackButton"),
               icon: Icon(
                 Icons.arrow_back_ios_new_rounded,
                 color: iconColor ?? colorText,
@@ -88,6 +90,7 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
             )
           : null,
       title: Column(
+        key: const ValueKey("dsAppBarTitleColumn"),
         crossAxisAlignment: centerTitle
             ? CrossAxisAlignment.center
             : CrossAxisAlignment.start,
@@ -95,6 +98,7 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           if (title != null)
             Text(
+              key: const ValueKey("dsAppBarTitleText"),
               title!,
               style: DSTypographyFoundations.displayMedium.copyWith(
                 color: colorText,
@@ -102,6 +106,7 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           if (subtitle != null)
             Text(
+              key: const ValueKey("dsAppBarSubtitleText"),
               subtitle!,
               style: DSTypographyFoundations.labelMedium.copyWith(
                 color: colorText.withValues(alpha: 0.7),
@@ -113,10 +118,12 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
           actions ??
           [
             Padding(
+              key: const ValueKey("dsAppBarDefaultActionPadding"),
               padding: EdgeInsets.only(
                 right: DSSizesFoundations.separatorMedium,
               ),
               child: DSIcon(
+                key: const ValueKey("dsAppBarDefaultActionIcon"),
                 size: DSSize.medium,
                 icon: Icons.shopping_cart_outlined,
                 color: DSIconColor.primary,

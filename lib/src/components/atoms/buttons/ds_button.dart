@@ -145,14 +145,17 @@ class DSButton extends StatelessWidget {
     final Color effectiveTextColor = _getTextColor(isDark);
 
     return ConstrainedBox(
+      key: const ValueKey("dsButtonConstrainedBox"),
       constraints: BoxConstraints(
         minWidth: 0,
         maxWidth:
             customWidth ?? (isFullWidth ? double.infinity : double.maxFinite),
       ),
       child: SizedBox(
+        key: const ValueKey("dsButtonSizedBox"),
         height: customHeigth ?? _getHeight(),
         child: ElevatedButton(
+          key: const ValueKey("dsButtonElevatedButton"),
           onPressed: isDisabled ? null : onPressed,
           style: ButtonStyle(
             backgroundColor: WidgetStatePropertyAll(effectiveBackground),
@@ -171,8 +174,10 @@ class DSButton extends StatelessWidget {
             ),
           ),
           child: FittedBox(
+            key: const ValueKey("dsButtonFittedBox"),
             fit: BoxFit.scaleDown,
             child: Row(
+              key: const ValueKey("dsButtonContentRow"),
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -183,6 +188,7 @@ class DSButton extends StatelessWidget {
                 ],
                 Flexible(
                   child: Text(
+                    key: const ValueKey("dsButtonLabel"),
                     label,
                     overflow: TextOverflow.ellipsis,
                     style: _getTextStyle().copyWith(color: effectiveTextColor),

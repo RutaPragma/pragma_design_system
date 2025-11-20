@@ -78,11 +78,14 @@ class DSIconCounter extends StatelessWidget {
             : DSColorsFoundations.textOnPrimary);
 
     return InkWell(
+      key: const ValueKey("dsIconCounterInkWell"),
       child: Stack(
+        key: const ValueKey("dsIconCounterStack"),
         clipBehavior: Clip.none,
         children: [
           // Icono base
           DSIcon(
+            key: const ValueKey("dsIconCounterIcon"),
             icon: icon,
             customColor: effectiveIconColor,
             customSize: iconSize ?? DSSizesFoundations.iconSizeLarge,
@@ -92,9 +95,11 @@ class DSIconCounter extends StatelessWidget {
           // Badge contador
           if (showBadge && count > 0)
             Positioned(
+              key: const ValueKey("dsIconCounterBadgePosition"),
               right: -6,
               top: -6,
               child: DSBadge(
+                key: const ValueKey("dsIconCounterBadge"),
                 size: badgeSize,
                 textSize: badgeTextSize,
                 label: count > 99 ? "99+" : count.toString(),

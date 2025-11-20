@@ -86,8 +86,10 @@ class DSPriceSummary extends StatelessWidget {
             : DSColorsFoundations.textHint.withValues(alpha: 0.2));
 
     return Card(
+      key: const ValueKey("dsPriceSummaryCard"),
       elevation: 4,
       child: Container(
+        key: const ValueKey("dsPriceSummaryContainer"),
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(DSRadiusFoundations.radiusMD),
@@ -95,6 +97,7 @@ class DSPriceSummary extends StatelessWidget {
         ),
         padding: EdgeInsets.all(DSSpacingFoundations.medium),
         child: Column(
+          key: const ValueKey("dsPriceSummaryColumn"),
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildRow(subtotalLabel, subtotal, baseTextColor),
@@ -104,7 +107,11 @@ class DSPriceSummary extends StatelessWidget {
               SizedBox(height: DSSpacingFoundations.xs),
               _buildRow(discountLabel, -discount, baseTextColor),
             ],
-            Divider(color: dividerCol, height: DSSpacingFoundations.medium),
+            Divider(
+              key: const ValueKey("dsPriceSummaryDivider"),
+              color: dividerCol,
+              height: DSSpacingFoundations.medium,
+            ),
             _buildRow(
               totalLabel,
               total,
@@ -115,6 +122,7 @@ class DSPriceSummary extends StatelessWidget {
             SizedBox(height: DSSpacingFoundations.medium),
             if (showBtnNest)
               DSButton(
+                key: const ValueKey("dsPriceSummaryButton"),
                 label: buttonLabel,
                 onPressed: onButtonPressed,
                 variant: DSButtonVariant.primary,
@@ -144,6 +152,7 @@ class DSPriceSummary extends StatelessWidget {
             );
 
     return Row(
+      key: ValueKey("dsPriceSummaryRow_$label"),
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(label, style: textStyle),

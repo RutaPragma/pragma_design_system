@@ -65,19 +65,25 @@ class DSCartTemplate extends StatelessWidget {
     final onContinueShopping = config["onContinueShopping"];
 
     return Scaffold(
+      key: const ValueKey("dsCartTemplateScaffold"),
       backgroundColor: bgColor,
 
       body: SafeArea(
+        key: const ValueKey("dsCartTemplateSafeArea"),
         child: products.isEmpty
             ? _buildEmptyState(accentColor, textColor)
             : Padding(
+                key: const ValueKey("dsCartTemplatePadding"),
                 padding: const EdgeInsets.all(
                   DSSizesFoundations.separatorLarge,
                 ),
                 child: Column(
+                  key: const ValueKey("dsCartTemplateColumn"),
                   children: [
                     Expanded(
+                      key: const ValueKey("dsCartTemplateListExpanded"),
                       child: ListView.separated(
+                        key: const PageStorageKey("dsCartTemplateListView"),
                         itemCount: products.length,
                         separatorBuilder: (_, __) => const SizedBox(height: 12),
                         itemBuilder: (context, index) {
@@ -97,6 +103,7 @@ class DSCartTemplate extends StatelessWidget {
 
                     const SizedBox(height: 24),
                     DSPriceSummary(
+                      key: const ValueKey("dsCartTemplateSummary"),
                       showBtnNest: false,
                       subtotal: summary.subtotal,
                       shipping: summary.shipping,
@@ -112,9 +119,11 @@ class DSCartTemplate extends StatelessWidget {
 
                     const SizedBox(height: 24),
                     Row(
+                      key: const ValueKey("dsCartTemplateActionRow"),
                       children: [
                         Expanded(
                           child: DSButton(
+                            key: const ValueKey("dsCartTemplateContinueButton"),
                             label:
                                 config["continueLabel"] ?? "Seguir comprando",
                             variant: DSButtonVariant.secondary,
@@ -124,6 +133,7 @@ class DSCartTemplate extends StatelessWidget {
                         const SizedBox(width: 12),
                         Expanded(
                           child: DSButton(
+                            key: const ValueKey("dsCartTemplateCheckoutButton"),
                             label:
                                 config["checkoutLabel"] ?? "Proceder al pago",
                             onPressed: onCheckout,
@@ -152,20 +162,26 @@ class DSCartTemplate extends StatelessWidget {
     required void Function(int id) ondelete,
   }) {
     return Card(
+      key: ValueKey("dsCartTemplateItemCard_${product["id"]}"),
       color: isDark
           ? DSColorsFoundations.surfaceDark
           : DSColorsFoundations.surfaceLight,
       elevation: 4,
       child: Padding(
+        key: ValueKey("dsCartTemplateItemPadding_${product["id"]}"),
         padding: const EdgeInsets.all(8.0),
         child: Stack(
+          key: ValueKey("dsCartTemplateItemStack_${product["id"]}"),
           children: [
             Positioned(
+              key: ValueKey("dsCartTemplateItemImagePosition_${product["id"]}"),
               child: ClipRRect(
+                key: ValueKey("dsCartTemplateItemImageClip_${product["id"]}"),
                 borderRadius: BorderRadius.circular(
                   DSRadiusFoundations.radiusSM,
                 ),
                 child: Image.network(
+                  key: ValueKey("dsCartTemplateItemImage_${product["id"]}"),
                   product["imageUrl"],
                   width: 70,
                   height: 70,
@@ -175,9 +191,11 @@ class DSCartTemplate extends StatelessWidget {
             ),
 
             Positioned(
+              key: ValueKey("dsCartTemplateItemTitlePosition_${product["id"]}"),
               left: 80,
               right: 0,
               child: Text(
+                key: ValueKey("dsCartTemplateItemTitle_${product["id"]}"),
                 product["title"] ?? "",
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -188,9 +206,11 @@ class DSCartTemplate extends StatelessWidget {
               ),
             ),
             Positioned(
+              key: ValueKey("dsCartTemplateItemPricePosition_${product["id"]}"),
               left: 80,
               top: 35,
               child: Text(
+                key: ValueKey("dsCartTemplateItemPrice_${product["id"]}"),
                 product["price"] ?? "",
                 style: DSTypographyFoundations.bodyMedium.copyWith(
                   color: accentColor,
@@ -201,18 +221,24 @@ class DSCartTemplate extends StatelessWidget {
             ),
 
             Positioned(
+              key:
+                  ValueKey("dsCartTemplateItemQuantityPosition_${product["id"]}"),
               bottom: 0,
               left: 150,
               right: 100,
               child: Row(
+                key: ValueKey("dsCartTemplateItemQuantityRow_${product["id"]}"),
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   DSIconButton(
+                    key:
+                        ValueKey("dsCartTemplateItemDecrease_${product["id"]}"),
                     icon: Icons.remove,
                     onPressed: () => onRemove.call(product["id"]),
                     size: DSSize.xs,
                   ),
                   Text(
+                    key: ValueKey("dsCartTemplateItemQuantityValue_${product["id"]}"),
                     '${product["amount"]}',
                     style: DSTypographyFoundations.bodyMedium.copyWith(
                       color: accentColor,
@@ -221,6 +247,8 @@ class DSCartTemplate extends StatelessWidget {
                     ),
                   ),
                   DSIconButton(
+                    key:
+                        ValueKey("dsCartTemplateItemIncrease_${product["id"]}"),
                     icon: Icons.add,
                     onPressed: () => onAdd.call(product["id"]),
                     size: DSSize.xs,
@@ -233,9 +261,11 @@ class DSCartTemplate extends StatelessWidget {
             ),
 
             Positioned(
+              key: ValueKey("dsCartTemplateItemDeletePosition_${product["id"]}"),
               bottom: 0,
               right: 0,
               child: DSIconButton(
+                key: ValueKey("dsCartTemplateItemDelete_${product["id"]}"),
                 icon: Icons.delete_outline,
                 customColor: DSColorsFoundations.error.withValues(alpha: 0.8),
                 onPressed: () => ondelete.call(product["id"]),
@@ -250,16 +280,20 @@ class DSCartTemplate extends StatelessWidget {
 
   Widget _buildEmptyState(Color accentColor, Color textColor) {
     return Center(
+      key: const ValueKey("dsCartTemplateEmptyCenter"),
       child: Column(
+        key: const ValueKey("dsCartTemplateEmptyColumn"),
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           DSIcon(
+            key: const ValueKey("dsCartTemplateEmptyIcon"),
             icon: Icons.shopping_cart_outlined,
             customColor: accentColor,
             customSize: 100,
           ),
           const SizedBox(height: 16),
           Text(
+            key: const ValueKey("dsCartTemplateEmptyTitle"),
             "Tu carrito está vacío",
             style: DSTypographyFoundations.displayMedium.copyWith(
               color: textColor,
@@ -267,6 +301,7 @@ class DSCartTemplate extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
+            key: const ValueKey("dsCartTemplateEmptySubtitle"),
             "Agrega productos para continuar con tu compra",
             textAlign: TextAlign.center,
             style: DSTypographyFoundations.bodyMedium.copyWith(

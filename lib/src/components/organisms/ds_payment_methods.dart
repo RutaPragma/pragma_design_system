@@ -69,6 +69,7 @@ class DSPaymentMethods extends StatelessWidget {
             : DSColorsFoundations.textPrimary);
 
     return Container(
+      key: const ValueKey("dsPaymentMethodsContainer"),
       decoration: BoxDecoration(
         color: bgColor,
         borderRadius: BorderRadius.circular(DSRadiusFoundations.radiusMD),
@@ -76,9 +77,11 @@ class DSPaymentMethods extends StatelessWidget {
       ),
       padding: EdgeInsets.all(DSSizesFoundations.separatorLarge),
       child: Column(
+        key: const ValueKey("dsPaymentMethodsColumn"),
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
+            key: const ValueKey("dsPaymentMethodsTitle"),
             title,
             style: DSTypographyFoundations.displayMedium.copyWith(
               color: txtColor,
@@ -89,13 +92,17 @@ class DSPaymentMethods extends StatelessWidget {
             final method = methods[index];
             var isSelected = index == selectedIndex;
             return Padding(
+              key: ValueKey("dsPaymentMethodItem_$index"),
               padding: EdgeInsets.only(
                 bottom: DSSizesFoundations.separatorMedium,
               ),
               child: Stack(
+                key: ValueKey("dsPaymentMethodStack_$index"),
                 children: [
                   DSPaymentButton(
+                    key: ValueKey("dsPaymentMethodButton_$index"),
                     logo: Image.asset(
+                      key: ValueKey("dsPaymentMethodLogo_$index"),
                       method.iconPath,
                       height: 24,
                       color: isDark
@@ -109,9 +116,11 @@ class DSPaymentMethods extends StatelessWidget {
                   ),
                   if (method.badge != null)
                     Positioned(
+                      key: ValueKey("dsPaymentMethodBadgePosition_$index"),
                       right: DSSizesFoundations.separatorSmall,
                       top: DSSizesFoundations.separatorSmall,
                       child: DSBadge(
+                        key: ValueKey("dsPaymentMethodBadge_$index"),
                         label: method.badge!,
                         backgroundColor: DSColorsFoundations.brandSecondary,
                         textColor: DSColorsFoundations.textOnPrimaryDark,

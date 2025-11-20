@@ -77,19 +77,24 @@ class _DSLoaderState extends State<DSLoader> with TickerProviderStateMixin {
     final String dots = "." * _dotCount;
 
     return Center(
+      key: const ValueKey("dsLoaderCenter"),
       child: SizedBox(
+        key: const ValueKey("dsLoaderSizedBox"),
         width: widget.size,
         height: widget.size,
         child: Stack(
+          key: const ValueKey("dsLoaderStack"),
           alignment: Alignment.center,
           children: [
             // Círculo giratorio (externo)
             AnimatedBuilder(
+              key: const ValueKey("dsLoaderAnimatedBuilder"),
               animation: _rotationController,
               builder: (context, child) {
                 return Transform.rotate(
                   angle: _rotationController.value * 0.01 * math.pi,
                   child: CustomPaint(
+                    key: const ValueKey("dsLoaderCustomPaint"),
                     size: Size(widget.size, widget.size),
                     painter: _LoaderPainter(
                       progress: _controller.value,
@@ -102,6 +107,7 @@ class _DSLoaderState extends State<DSLoader> with TickerProviderStateMixin {
 
             // Texto centrado con animación de puntos
             Text(
+              key: const ValueKey("dsLoaderText"),
               "$text$dots",
               textAlign: TextAlign.center,
               style: DSTypographyFoundations.bodyMedium.copyWith(

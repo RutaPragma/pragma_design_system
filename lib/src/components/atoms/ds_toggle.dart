@@ -96,16 +96,20 @@ class _DSToggleState extends State<DSToggle>
             : DSColorsFoundations.textOnPrimary);
 
     return Row(
+      key: const ValueKey("dsToggleRow"),
       mainAxisSize: MainAxisSize.min,
       children: [
         GestureDetector(
+          key: const ValueKey("dsToggleGesture"),
           onTap: () => widget.onChanged(widget.value),
           child: AnimatedBuilder(
+            key: const ValueKey("dsToggleAnimatedBuilder"),
             animation: _animation,
             builder: (context, child) {
               final value = _animation.value;
 
               return Container(
+                key: const ValueKey("dsToggleTrack"),
                 width: widget.width,
                 height: widget.height,
                 padding: EdgeInsets.all(widget.height * 0.1),
@@ -122,6 +126,7 @@ class _DSToggleState extends State<DSToggle>
                   value,
                 ),
                 child: Container(
+                  key: const ValueKey("dsToggleThumb"),
                   width: widget.height * 0.7,
                   height: widget.height * 0.7,
                   decoration: BoxDecoration(
@@ -137,6 +142,7 @@ class _DSToggleState extends State<DSToggle>
         if (widget.showLabel && widget.label != null) ...[
           SizedBox(width: DSSizesFoundations.separatorSmall),
           Text(
+            key: const ValueKey("dsToggleLabel"),
             widget.label!,
             style: DSTypographyFoundations.bodyMedium.copyWith(
               color: isDark

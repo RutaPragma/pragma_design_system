@@ -85,6 +85,7 @@ class DSPaymentButton extends StatelessWidget {
         : const <BoxShadow>[];
 
     return AnimatedContainer(
+      key: const ValueKey("dsPaymentButtonAnimatedContainer"),
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeOut,
       decoration: BoxDecoration(
@@ -99,29 +100,35 @@ class DSPaymentButton extends StatelessWidget {
         boxShadow: shadow,
       ),
       child: InkWell(
+        key: const ValueKey("dsPaymentButtonInkWell"),
         borderRadius: BorderRadius.circular(
           borderRadius ?? DSRadiusFoundations.radiusMD,
         ),
         onTap: enabled ? onPressed : null,
         child: Padding(
+          key: const ValueKey("dsPaymentButtonPadding"),
           padding: EdgeInsets.symmetric(
             horizontal: DSSizesFoundations.separatorMedium,
             vertical: DSSizesFoundations.separatorSmall,
           ),
           child: Row(
+            key: const ValueKey("dsPaymentButtonRow"),
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               // Logo + Texto
               Row(
+                key: const ValueKey("dsPaymentButtonContentRow"),
                 children: [
                   if (logo != null) ...[
                     SizedBox(
+                      key: const ValueKey("dsPaymentButtonLogoWrapper"),
                       height: DSSizesFoundations.iconSizeLarge,
                       child: logo!,
                     ),
                     const SizedBox(width: 12),
                   ],
                   Text(
+                    key: const ValueKey("dsPaymentButtonLabel"),
                     label,
                     style: DSTypographyFoundations.labelLarge.copyWith(
                       color: enabled
@@ -137,6 +144,7 @@ class DSPaymentButton extends StatelessWidget {
               // Icono de selección o flecha
               if (trailingIcon != null)
                 Icon(
+                  key: const ValueKey("dsPaymentButtonTrailingIcon"),
                   trailingIcon,
                   color: enabled
                       ? (isSelected

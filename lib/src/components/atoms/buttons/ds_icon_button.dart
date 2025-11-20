@@ -80,11 +80,13 @@ class DSIconButton extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return InkWell(
+      key: const ValueKey("dsIconButtonInkWell"),
       borderRadius: BorderRadius.circular(
         isCircular ? customSize ?? dimension / 2 : DSRadiusFoundations.radiusSM,
       ),
       onTap: isDisabled ? null : onPressed,
       child: Container(
+        key: const ValueKey("dsIconButtonContainer"),
         height: customSize ?? dimension,
         width: customSize ?? dimension,
         alignment: Alignment.center,
@@ -100,6 +102,7 @@ class DSIconButton extends StatelessWidget {
           boxShadow: DSShadowsFoundations.shadowSmall,
         ),
         child: Icon(
+          key: const ValueKey("dsIconButtonIcon"),
           icon,
           color: disabled
               ? DSColorsFoundations.textHint

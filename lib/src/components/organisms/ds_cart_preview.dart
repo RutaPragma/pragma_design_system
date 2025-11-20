@@ -85,6 +85,7 @@ class DSCartPreview extends StatelessWidget {
             : DSColorsFoundations.brandPrimary);
 
     return Container(
+      key: const ValueKey("dsCartPreviewContainer"),
       padding: EdgeInsets.all(DSSizesFoundations.separatorLarge),
       decoration: BoxDecoration(
         color: bg,
@@ -92,22 +93,27 @@ class DSCartPreview extends StatelessWidget {
         boxShadow: DSShadowsFoundations.shadowMedium,
       ),
       child: Column(
+        key: const ValueKey("dsCartPreviewContent"),
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: compact ? MainAxisSize.min : MainAxisSize.max,
         children: [
           // Encabezado con ícono de carrito + contador
           Row(
+            key: const ValueKey("dsCartPreviewHeaderRow"),
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
+                key: const ValueKey("dsCartPreviewTitleRow"),
                 children: [
                   Icon(
+                    key: const ValueKey("dsCartPreviewHeaderIcon"),
                     Icons.shopping_cart_rounded,
                     color: accent,
                     size: DSSizesFoundations.iconSizeLarge,
                   ),
                   const SizedBox(width: 8),
                   Text(
+                    key: const ValueKey("dsCartPreviewTitleText"),
                     "Tu carrito",
                     style: DSTypographyFoundations.displayMedium.copyWith(
                       color: text,
@@ -117,6 +123,7 @@ class DSCartPreview extends StatelessWidget {
                 ],
               ),
               DSIconCounter(
+                key: const ValueKey("dsCartPreviewItemCounter"),
                 onTap: () {},
                 icon: Icons.shopping_bag_rounded,
                 iconColor: isDark
@@ -130,6 +137,7 @@ class DSCartPreview extends StatelessWidget {
           if (showDivider) ...[
             const SizedBox(height: 12),
             Divider(
+              key: const ValueKey("dsCartPreviewDivider"),
               thickness: 1,
               color: isDark
                   ? DSColorsFoundations.surfaceLight.withValues(alpha: 0.1)
@@ -140,6 +148,7 @@ class DSCartPreview extends StatelessWidget {
           // Resumen de precios
           const SizedBox(height: 8),
           DSPriceSummary(
+            key: const ValueKey("dsCartPreviewPriceSummary"),
             subtotal: subtotal,
             shipping: showShipping ? shipping : 0,
             total: total,
@@ -155,9 +164,11 @@ class DSCartPreview extends StatelessWidget {
 
           // Acciones principales
           Column(
+            key: const ValueKey("dsCartPreviewActionsColumn"),
             children: [
               if (onCheckout != null)
                 DSButton(
+                  key: const ValueKey("dsCartPreviewCheckoutButton"),
                   label: checkoutLabel ?? "Finalizar compra",
                   onPressed: onCheckout,
                   variant: DSButtonVariant.primary,
@@ -166,6 +177,7 @@ class DSCartPreview extends StatelessWidget {
               if (onViewCart != null) ...[
                 const SizedBox(height: 8),
                 DSButton(
+                  key: const ValueKey("dsCartPreviewViewCartButton"),
                   label: viewCartLabel ?? "Ver carrito",
                   onPressed: onViewCart,
                   variant: DSButtonVariant.secondary,

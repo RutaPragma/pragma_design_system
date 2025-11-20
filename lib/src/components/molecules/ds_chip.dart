@@ -89,11 +89,14 @@ class _DSChipState extends State<DSChip> {
             : DSColorsFoundations.inputBorder);
 
     return MouseRegion(
+      key: const ValueKey("dsChipMouseRegion"),
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: GestureDetector(
+        key: const ValueKey("dsChipGestureDetector"),
         onTap: widget.enabled ? widget.onTap : null,
         child: AnimatedContainer(
+          key: const ValueKey("dsChipAnimatedContainer"),
           duration: const Duration(milliseconds: 250),
           curve: Curves.easeOut,
           padding:
@@ -115,10 +118,12 @@ class _DSChipState extends State<DSChip> {
             boxShadow: _isHovered ? DSShadowsFoundations.shadowSmall : const [],
           ),
           child: Row(
+            key: const ValueKey("dsChipContentRow"),
             mainAxisSize: MainAxisSize.min,
             children: [
               if (widget.icon != null) ...[
                 DSIcon(
+                  key: const ValueKey("dsChipIcon"),
                   icon: widget.icon!,
                   customColor: txtColor,
                   customSize: DSSizesFoundations.iconSizeSmall,
@@ -126,6 +131,7 @@ class _DSChipState extends State<DSChip> {
                 const SizedBox(width: 6),
               ],
               Text(
+                key: const ValueKey("dsChipLabel"),
                 widget.label,
                 style: DSTypographyFoundations.labelMedium.copyWith(
                   color: txtColor,

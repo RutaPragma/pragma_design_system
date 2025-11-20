@@ -45,15 +45,18 @@ class FadeImage extends StatelessWidget {
     );
 
     return SizedBox(
+      key: const ValueKey("fadeImageSizedBox"),
       width: double.infinity,
       height: height,
       child: ShaderMask(
+        key: const ValueKey("fadeImageShaderMask"),
         shaderCallback: (rect) {
           return gradient.createShader(rect);
         },
         blendMode:
             BlendMode.dstIn, // importante: aplica el gradient como máscara alfa
         child: Image(
+          key: const ValueKey("fadeImageImage"),
           image: image,
           fit: fit,
           alignment: alignment,

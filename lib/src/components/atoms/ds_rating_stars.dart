@@ -66,7 +66,11 @@ class DSRatingStars extends StatelessWidget {
       }
     });
 
-    return Row(mainAxisSize: MainAxisSize.min, children: stars);
+    return Row(
+      key: const ValueKey("dsRatingStarsRow"),
+      mainAxisSize: MainAxisSize.min,
+      children: stars,
+    );
   }
 
   Widget _buildStar(
@@ -75,11 +79,17 @@ class DSRatingStars extends StatelessWidget {
     Color color,
     int value,
   ) {
-    final star = Icon(icon, color: color, size: size);
+    final star = Icon(
+      icon,
+      key: ValueKey("dsRatingStar_$value"),
+      color: color,
+      size: size,
+    );
 
     if (!isInteractive) return star;
 
     return GestureDetector(
+      key: ValueKey("dsRatingStarGesture_$value"),
       onTap: () => onChanged?.call(value.toDouble()),
       child: star,
     );

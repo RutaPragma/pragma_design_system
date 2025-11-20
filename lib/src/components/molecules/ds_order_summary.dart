@@ -91,6 +91,7 @@ class DSOrderSummary extends StatelessWidget {
             : DSColorsFoundations.textPrimary);
 
     return Container(
+      key: const ValueKey("dsOrderSummaryContainer"),
       margin: EdgeInsets.symmetric(
         vertical: DSSizesFoundations.separatorMedium,
         horizontal: DSSizesFoundations.separatorSmall,
@@ -101,15 +102,19 @@ class DSOrderSummary extends StatelessWidget {
         boxShadow: showShadow ? DSShadowsFoundations.shadowMedium : const [],
       ),
       child: Padding(
+        key: const ValueKey("dsOrderSummaryPadding"),
         padding: EdgeInsets.all(DSSizesFoundations.separatorMedium),
         child: Column(
+          key: const ValueKey("dsOrderSummaryColumn"),
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Encabezado con ID y estado
             Row(
+              key: const ValueKey("dsOrderSummaryHeaderRow"),
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
+                  key: const ValueKey("dsOrderSummaryTitle"),
                   "Orden #$orderId",
                   style: DSTypographyFoundations.bodyLarge.copyWith(
                     fontWeight: FontWeight.bold,
@@ -117,6 +122,7 @@ class DSOrderSummary extends StatelessWidget {
                   ),
                 ),
                 DSBadge(
+                  key: const ValueKey("dsOrderSummaryStatusBadge"),
                   label: orderStatus,
                   backgroundColor: _statusColor(orderStatus),
                   textColor: DSColorsFoundations.textOnPrimary,
@@ -125,6 +131,7 @@ class DSOrderSummary extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             Text(
+              key: const ValueKey("dsOrderSummaryDate"),
               orderDate,
               style: DSTypographyFoundations.bodySmall.copyWith(
                 color: DSColorsFoundations.textSecondary,
@@ -133,18 +140,23 @@ class DSOrderSummary extends StatelessWidget {
             const SizedBox(height: 12),
 
             // Lista de productos resumida
-            ...products.map((p) {
+            ...products.asMap().entries.map((entry) {
+              final p = entry.value;
               return Padding(
+                key: ValueKey("dsOrderSummaryProductPadding_${entry.key}"),
                 padding: EdgeInsets.only(
                   bottom: DSSizesFoundations.separatorSmall,
                 ),
                 child: Row(
+                  key: ValueKey("dsOrderSummaryProductRow_${entry.key}"),
                   children: [
                     ClipRRect(
+                      key: ValueKey("dsOrderSummaryProductImageClip_${entry.key}"),
                       borderRadius: BorderRadius.circular(
                         DSRadiusFoundations.radiusSM,
                       ),
                       child: Image.network(
+                        key: ValueKey("dsOrderSummaryProductImage_${entry.key}"),
                         p['imageUrl'],
                         loadingBuilder:
                             (
@@ -153,7 +165,11 @@ class DSOrderSummary extends StatelessWidget {
                               ImageChunkEvent? loadingProgress,
                             ) {
                               if (loadingProgress == null) return child;
-                              return DSLoader();
+                              return const DSLoader(
+                                key: ValueKey(
+                                  "dsOrderSummaryProductImageLoader",
+                                ),
+                              );
                             },
                         width: 50,
                         height: 50,
@@ -163,6 +179,7 @@ class DSOrderSummary extends StatelessWidget {
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
+                        key: ValueKey("dsOrderSummaryProductTitle_${entry.key}"),
                         "${p['title']} (x${p['quantity']})",
                         style: DSTypographyFoundations.bodyMedium.copyWith(
                           color: effectiveTextColor,
@@ -171,6 +188,7 @@ class DSOrderSummary extends StatelessWidget {
                       ),
                     ),
                     Text(
+                      key: ValueKey("dsOrderSummaryProductPrice_${entry.key}"),
                       p['price'],
                       style: DSTypographyFoundations.bodyMedium.copyWith(
                         fontWeight: FontWeight.bold,
@@ -181,7 +199,10 @@ class DSOrderSummary extends StatelessWidget {
               );
             }),
 
-            const Divider(height: 24),
+            const Divider(
+              key: ValueKey("dsOrderSummaryDivider"),
+              height: 24,
+            ),
 
             // Totales
             _buildPriceRow("Subtotal", subtotal, effectiveTextColor),
@@ -194,6 +215,7 @@ class DSOrderSummary extends StatelessWidget {
             // Botón de acción
             if (onAction != null)
               DSButton(
+                key: const ValueKey("dsOrderSummaryActionButton"),
                 label: actionLabel,
                 onPressed: onAction,
                 variant: DSButtonVariant.primary,
@@ -211,8 +233,9 @@ class DSOrderSummary extends StatelessWidget {
     bool isBold = false,
   }) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 2), 
+      padding: EdgeInsets.symmetric(vertical: 2),
       child: Row(
+        key: ValueKey("dsOrderSummaryPriceRow_$label"),
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(

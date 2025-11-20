@@ -79,14 +79,18 @@ class DSProductDetailPage extends StatelessWidget {
     final itemsCar = int.parse(config['itemsCar'].toString());
 
     return Scaffold(
+      key: const ValueKey("dsProductDetailScaffold"),
       backgroundColor: bgColor,
       appBar: DSAppBar(
+        key: const ValueKey("dsProductDetailAppBar"),
         title: config['appBarTitle'] ?? 'Detalle del Producto',
         centerTitle: true,
         actions: [
           Padding(
+            key: const ValueKey("dsProductDetailCartPadding"),
             padding: const EdgeInsets.only(right: 8.0),
             child: DSIconCounter(
+              key: const ValueKey("dsProductDetailCartCounter"),
               onTap: () {},
               icon: Icons.shopping_cart_outlined,
               // iconSize: 20,
@@ -97,13 +101,16 @@ class DSProductDetailPage extends StatelessWidget {
       ),
 
       body: SingleChildScrollView(
+        key: const ValueKey("dsProductDetailScroll"),
         padding: const EdgeInsets.all(DSSizesFoundations.separatorLarge),
         child: Column(
+          key: const ValueKey("dsProductDetailColumn"),
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /// Banner promocional opcional
             if (promoConfig != null) ...[
               DSPromoBanner(
+                key: const ValueKey("dsProductDetailPromoBanner"),
                 title: promoConfig['title'] ?? '',
                 subtitle: promoConfig['subtitle'] ?? '',
                 imageUrl: promoConfig['imageUrl'] ?? '',
@@ -120,12 +127,15 @@ class DSProductDetailPage extends StatelessWidget {
 
             /// Imagen + badge
             Stack(
+              key: const ValueKey("dsProductDetailImageStack"),
               children: [
                 ClipRRect(
+                  key: const ValueKey("dsProductDetailImageClip"),
                   borderRadius: BorderRadius.circular(
                     DSRadiusFoundations.radiusXL,
                   ),
                   child: Image.network(
+                    key: const ValueKey("dsProductDetailImage"),
                     imageUrl,
                     fit: imageBoxFit,
                     width: double.infinity,
@@ -134,9 +144,11 @@ class DSProductDetailPage extends StatelessWidget {
                 ),
                 if (badgeText != null)
                   Positioned(
+                    key: const ValueKey("dsProductDetailBadgePosition"),
                     top: 16,
                     left: 16,
                     child: DSBadge(
+                      key: const ValueKey("dsProductDetailBadge"),
                       label: badgeText,
                       isMedal: true,
                       backgroundColor: accentColor,
@@ -149,6 +161,7 @@ class DSProductDetailPage extends StatelessWidget {
             const SizedBox(height: 20),
 
             Text(
+              key: const ValueKey("dsProductDetailTitle"),
               title,
               style: DSTypographyFoundations.displayMedium.copyWith(
                 color: textColor,
@@ -158,6 +171,7 @@ class DSProductDetailPage extends StatelessWidget {
             const SizedBox(height: 8),
 
             Text(
+              key: const ValueKey("dsProductDetailPrice"),
               price,
               style: DSTypographyFoundations.bodyLarge.copyWith(
                 color: textColor,
@@ -172,6 +186,7 @@ class DSProductDetailPage extends StatelessWidget {
             const SizedBox(height: 16),
 
             Text(
+              key: const ValueKey("dsProductDetailDescriptionTitle"),
               config['descriptionTitle'] ?? 'Descripción',
               style: DSTypographyFoundations.labelLarge.copyWith(
                 color: textColor.withValues(alpha: 0.8),
@@ -180,6 +195,7 @@ class DSProductDetailPage extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
+              key: const ValueKey("dsProductDetailDescription"),
               description,
               style: DSTypographyFoundations.bodyMedium.copyWith(
                 color: textColor.withValues(alpha: 0.9),
@@ -189,9 +205,11 @@ class DSProductDetailPage extends StatelessWidget {
             const SizedBox(height: 24),
 
             Row(
+              key: const ValueKey("dsProductDetailButtonsRow"),
               children: [
                 Expanded(
                   child: DSButton(
+                    key: const ValueKey("dsProductDetailAddToCartButton"),
                     label: config['addToCartLabel'] ?? 'Agregar al carrito',
                     onPressed: () => onAddToCart.call(),
                     backgroundColor: accentColor,
@@ -201,6 +219,7 @@ class DSProductDetailPage extends StatelessWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: DSButton(
+                    key: const ValueKey("dsProductDetailBuyNowButton"),
                     label: config['buyNowLabel'] ?? 'Comprar ahora',
                     onPressed: () => onBuyNow.call(),
                     variant: DSButtonVariant.secondary,
@@ -215,6 +234,7 @@ class DSProductDetailPage extends StatelessWidget {
 
             if (relatedProducts != null && relatedProducts.isNotEmpty) ...[
               Text(
+                key: const ValueKey("dsProductDetailRelatedTitle"),
                 config['relatedTitle'] ?? 'Productos relacionados',
                 style: DSTypographyFoundations.labelLarge.copyWith(
                   color: textColor,
@@ -223,6 +243,7 @@ class DSProductDetailPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               DSProductList(
+                key: const ValueKey("dsProductDetailRelatedList"),
                 products: ProductItemMapper().fromMap(relatedProducts),
                 isGrid: config['grid'] ?? true,
                 showImageTopSpacing: true,

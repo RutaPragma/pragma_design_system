@@ -87,6 +87,7 @@ class _DSRegisterUserFormState extends State<DSRegisterUserForm> {
     final minPassLength = _getInt("minPasswordLength", 6);
 
     return Container(
+      key: const ValueKey("dsRegisterFormContainer"),
       padding: EdgeInsets.all(DSSizesFoundations.separatorLarge),
       decoration: BoxDecoration(
         color: bgColor,
@@ -96,9 +97,11 @@ class _DSRegisterUserFormState extends State<DSRegisterUserForm> {
       child: Form(
         key: _formKey,
         child: Column(
+          key: const ValueKey("dsRegisterFormColumn"),
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
+              key: const ValueKey("dsRegisterFormTitle"),
               _get("title", "Crear cuenta"),
               style: DSTypographyFoundations.displaySmall.copyWith(
                 color: textColor,
@@ -107,6 +110,7 @@ class _DSRegisterUserFormState extends State<DSRegisterUserForm> {
             if (_get("subtitle").isNotEmpty) ...[
               const SizedBox(height: 4),
               Text(
+                key: const ValueKey("dsRegisterFormSubtitle"),
                 _get("subtitle"),
                 style: DSTypographyFoundations.bodySmall.copyWith(
                   color: textColor.withValues(alpha: 0.7),
@@ -116,6 +120,7 @@ class _DSRegisterUserFormState extends State<DSRegisterUserForm> {
             SizedBox(height: DSSizesFoundations.separatorLarge),
 
             DSInputField(
+              key: const ValueKey("dsRegisterFormNameField"),
               label: _get("nameLabel", "Nombre completo"),
               hintText: _get("nameHint", "Ingresa tu nombre"),
               controller: _nameCtrl,
@@ -129,6 +134,7 @@ class _DSRegisterUserFormState extends State<DSRegisterUserForm> {
             SizedBox(height: DSSizesFoundations.separatorMedium),
 
             DSInputField(
+              key: const ValueKey("dsRegisterFormEmailField"),
               label: _get("emailLabel", "Correo electrónico"),
               hintText: _get("emailHint", "tu@correo.com"),
               controller: _emailCtrl,
@@ -147,12 +153,14 @@ class _DSRegisterUserFormState extends State<DSRegisterUserForm> {
             SizedBox(height: DSSizesFoundations.separatorMedium),
 
             DSInputField(
+              key: const ValueKey("dsRegisterFormPasswordField"),
               label: _get("passwordLabel", "Contraseña"),
               hintText: _get("passwordHint", "••••••••"),
               controller: _passwordCtrl,
               obscureText: _obscurePassword,
               suffixIcon: widget.showPasswordToggle
                   ? IconButton(
+                      key: const ValueKey("dsRegisterFormPasswordToggle"),
                       icon: Icon(
                         _obscurePassword
                             ? Icons.visibility_off
@@ -182,6 +190,7 @@ class _DSRegisterUserFormState extends State<DSRegisterUserForm> {
             SizedBox(height: DSSizesFoundations.separatorMedium),
 
             DSInputField(
+              key: const ValueKey("dsRegisterFormConfirmPasswordField"),
               label: _get("confirmPasswordLabel", "Confirmar contraseña"),
               hintText: _get(
                 "confirmPasswordHint",
@@ -191,6 +200,7 @@ class _DSRegisterUserFormState extends State<DSRegisterUserForm> {
               obscureText: _obscureConfirmPassword,
               suffixIcon: widget.showPasswordToggle
                   ? IconButton(
+                      key: const ValueKey("dsRegisterFormConfirmPasswordToggle"),
                       icon: Icon(
                         _obscureConfirmPassword
                             ? Icons.visibility_off
@@ -223,9 +233,13 @@ class _DSRegisterUserFormState extends State<DSRegisterUserForm> {
             SizedBox(height: DSSizesFoundations.separatorLarge),
 
             if (widget.isLoading)
-              DSLoader(label: _get("loadingText", "Registrando..."))
+              DSLoader(
+                key: const ValueKey("dsRegisterFormLoader"),
+                label: _get("loadingText", "Registrando..."),
+              )
             else
               DSButton(
+                key: const ValueKey("dsRegisterFormSubmitButton"),
                 label: _get("buttonLabel", "Crear cuenta"),
                 onPressed: () {
                   if (_formKey.currentState?.validate() ?? false) {

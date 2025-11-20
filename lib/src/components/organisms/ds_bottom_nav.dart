@@ -82,6 +82,7 @@ class _DSBottomNavState extends State<DSBottomNav> {
             : DSColorsFoundations.brandPrimary);
 
     return AnimatedContainer(
+      key: const ValueKey("dsBottomNavContainer"),
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeOutCubic,
       decoration: BoxDecoration(
@@ -96,31 +97,38 @@ class _DSBottomNavState extends State<DSBottomNav> {
         horizontal: DSSizesFoundations.separatorLarge,
       ),
       child: Row(
+        key: const ValueKey("dsBottomNavRow"),
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: List.generate(widget.items.length, (index) {
           final item = widget.items[index];
           var selected = index == widget.currentIndex;
 
           return Expanded(
+            key: ValueKey("dsBottomNavExpanded_$index"),
             child: InkWell(
+              key: ValueKey("dsBottomNavInkWell_$index"),
               borderRadius: BorderRadius.circular(DSRadiusFoundations.radiusLG),
               splashColor: active..withValues(alpha: 0.1),
               onTap: () {
                 widget.onItemSelected(index);
               },
               child: AnimatedContainer(
+                key: ValueKey("dsBottomNavAnimatedContainer_$index"),
                 duration: const Duration(milliseconds: 250),
                 curve: Curves.easeOut,
                 padding: EdgeInsets.symmetric(
                   vertical: DSSizesFoundations.separatorSmall,
                 ),
                 child: Column(
+                  key: ValueKey("dsBottomNavColumn_$index"),
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Stack(
+                      key: ValueKey("dsBottomNavIconStack_$index"),
                       clipBehavior: Clip.none,
                       children: [
                         DSIcon(
+                          key: ValueKey("dsBottomNavIcon_$index"),
                           icon: item.icon,
                           customColor: selected ? active : inactive,
                           size: DSSize.medium,
@@ -128,9 +136,11 @@ class _DSBottomNavState extends State<DSBottomNav> {
                         ),
                         if (item.badgeCount != null && item.badgeCount! > 0)
                           Positioned(
+                            key: ValueKey("dsBottomNavBadgePosition_$index"),
                             right: -6,
                             top: -4,
                             child: DSBadge(
+                              key: ValueKey("dsBottomNavBadge_$index"),
                               size: 16,
                               textSize: 9,
                               label: item.badgeCount! > 9
@@ -151,6 +161,7 @@ class _DSBottomNavState extends State<DSBottomNav> {
                     ),
                     if (widget.showLabels)
                       AnimatedDefaultTextStyle(
+                        key: ValueKey("dsBottomNavLabel_$index"),
                         duration: const Duration(milliseconds: 200),
                         style: DSTypographyFoundations.labelSmall.copyWith(
                           color: selected ? active : inactive,
@@ -160,7 +171,10 @@ class _DSBottomNavState extends State<DSBottomNav> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.only(top: 4),
-                          child: Text(item.label),
+                          child: Text(
+                            item.label,
+                            key: ValueKey("dsBottomNavLabelText_$index"),
+                          ),
                         ),
                       ),
                   ],

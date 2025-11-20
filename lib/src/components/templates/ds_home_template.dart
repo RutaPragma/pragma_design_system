@@ -91,8 +91,11 @@ class _DSHomeTemplateState extends State<DSHomeTemplate> {
     String emptyImagePath,
   ) {
     return Scaffold(
+      key: const ValueKey("dsHomeTemplateScaffold"),
       backgroundColor: bg,
       appBar: AppBar(
+        
+        key: const ValueKey("dsHomeTemplateAppBar"),
         
         bottomOpacity: 0,
         elevation: 0,
@@ -101,11 +104,13 @@ class _DSHomeTemplateState extends State<DSHomeTemplate> {
             ? DSColorsFoundations.backgroundPrimaryDark
             : DSColorsFoundations.backgroundPrimary,
         title: Padding(
+          key: const ValueKey("dsHomeTemplateSearchPadding"),
           padding: EdgeInsets.symmetric(
             horizontal: DSSizesFoundations.separatorSmall,
           ),
 
           child: DSSearchBar(
+            key: const ValueKey("dsHomeTemplateSearchBar"),
             hintText: "Buscar productos...",
             onChanged: (v) {
               widget.onSearch(v);
@@ -118,16 +123,20 @@ class _DSHomeTemplateState extends State<DSHomeTemplate> {
       ),
 
       body: SingleChildScrollView(
+        key: const ValueKey("dsHomeTemplateScroll"),
         padding: EdgeInsets.all(DSSizesFoundations.separatorMedium),
         child: Column(
+          key: const ValueKey("dsHomeTemplateColumn"),
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (banner != null)
               Padding(
+                key: const ValueKey("dsHomeTemplateBannerPadding"),
                 padding: EdgeInsets.only(
                   bottom: DSSizesFoundations.separatorLarge,
                 ),
                 child: DSPromoBanner(
+                  key: const ValueKey("dsHomeTemplatePromoBanner"),
                   title: banner["title"] ?? "Promoción especial",
                   subtitle: banner["subtitle"] ?? "",
                   imageUrl: banner["imageUrl"] ?? "",
@@ -139,14 +148,16 @@ class _DSHomeTemplateState extends State<DSHomeTemplate> {
                 ),
               ),
 
-            for (final section in sections) ...[
+            for (final entry in sections.asMap().entries) ...[
               Padding(
+                key: ValueKey("dsHomeTemplateSectionPadding_${entry.key}"),
                 padding: EdgeInsets.only(
                   top: DSSizesFoundations.separatorLarge,
                   bottom: DSSizesFoundations.separatorSmall,
                 ),
                 child: Text(
-                  section["title"] ?? "",
+                  key: ValueKey("dsHomeTemplateSectionTitle_${entry.key}"),
+                  entry.value["title"] ?? "",
                   style: DSTypographyFoundations.displaySmall.copyWith(
                     color: textColor,
                     fontWeight: FontWeight.bold,
@@ -154,11 +165,12 @@ class _DSHomeTemplateState extends State<DSHomeTemplate> {
                 ),
               ),
               DSProductList(
+                key: ValueKey("dsHomeTemplateSectionList_${entry.key}"),
                 onAddPressed: (productItem) => widget.onAddPressed(productItem),
                 onTapPressed: (productItem) => widget.onTapPressed(productItem),
                 boxFitImage: widget.boxFitImage,
-                products: ProductItemMapper().fromMap(section["products"]),
-                isGrid: section["grid"] ?? false,
+                products: ProductItemMapper().fromMap(entry.value["products"]),
+                isGrid: entry.value["grid"] ?? false,
                 emptyImagePath: emptyImagePath,
                 showImageTopSpacing: widget.showImageTopSpacing,
               ),

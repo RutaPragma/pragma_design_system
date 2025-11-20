@@ -52,6 +52,7 @@ class DSInputField extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     final field = TextFormField(
+      key: ValueKey("dsInputFieldText_${label ?? hintText ?? 'field'}"),
       controller: controller,
       keyboardType: keyboardType,
       obscureText: obscureText,
@@ -105,12 +106,15 @@ class DSInputField extends StatelessWidget {
     if (label == null) return field;
 
     return Column(
+      key: ValueKey("dsInputFieldColumn_${label ?? 'field'}"),
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
+          key: ValueKey("dsInputFieldLabelPadding_${label ?? 'field'}"),
           padding: EdgeInsets.only(bottom: DSSizesFoundations.separatorSmall),
           child: Text(
+            key: ValueKey("dsInputFieldLabelText_${label ?? 'field'}"),
             label!,
             style: DSTypographyFoundations.labelMedium.copyWith(
               color: enabled

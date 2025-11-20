@@ -22,6 +22,9 @@ class DSSepareted extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(height: separated * DSSizesFoundations.separatorSmall);
+    return SizedBox(
+      key: const ValueKey("dsSeparatedSizedBox"),
+      height: separated * DSSizesFoundations.separatorSmall,
+    );
   }
 }

@@ -120,6 +120,7 @@ class _DSShippingFormState extends State<DSShippingForm> {
     final shippingMethods = (widget.config["shippingMethods"] ?? []) as List;
 
     return Container(
+      key: const ValueKey("dsShippingFormContainer"),
       padding: EdgeInsets.all(
         widget.compact
             ? DSSizesFoundations.separatorMedium
@@ -133,10 +134,12 @@ class _DSShippingFormState extends State<DSShippingForm> {
       child: Form(
         key: _formKey,
         child: Column(
+          key: const ValueKey("dsShippingFormColumn"),
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (_getText("title").isNotEmpty)
               Text(
+                key: const ValueKey("dsShippingFormTitle"),
                 _getText("title"),
                 style: DSTypographyFoundations.displayMedium.copyWith(
                   color: text,
@@ -149,6 +152,7 @@ class _DSShippingFormState extends State<DSShippingForm> {
             for (var key in _controllers.keys)
               if (key != "city" && key != "zip") ...[
                 DSInputField(
+                  key: ValueKey("dsShippingFormField_$key"),
                   label: _getFieldLabel(key),
                   hintText: _getFieldHint(key),
                   controller: _controllers[key],
@@ -166,9 +170,11 @@ class _DSShippingFormState extends State<DSShippingForm> {
             if (_controllers.containsKey("city") &&
                 _controllers.containsKey("zip"))
               Row(
+                key: const ValueKey("dsShippingFormCityZipRow"),
                 children: [
                   Expanded(
                     child: DSInputField(
+                      key: const ValueKey("dsShippingFormField_city"),
                       label: _getFieldLabel("city"),
                       hintText: _getFieldHint("city"),
                       controller: _controllers["city"],
@@ -184,6 +190,7 @@ class _DSShippingFormState extends State<DSShippingForm> {
                   const SizedBox(width: 12),
                   Expanded(
                     child: DSInputField(
+                      key: const ValueKey("dsShippingFormField_zip"),
                       label: _getFieldLabel("zip"),
                       hintText: _getFieldHint("zip"),
                       controller: _controllers["zip"],
@@ -205,6 +212,7 @@ class _DSShippingFormState extends State<DSShippingForm> {
             if (shippingMethods.isNotEmpty) ...[
               const SizedBox(height: 8),
               Text(
+                key: const ValueKey("dsShippingFormShippingTitle"),
                 _getText("shippingTitle", "Método de envío"),
                 style: DSTypographyFoundations.labelMedium.copyWith(
                   color: text,
@@ -213,6 +221,7 @@ class _DSShippingFormState extends State<DSShippingForm> {
               ),
               const SizedBox(height: 8),
               Wrap(
+                key: const ValueKey("dsShippingFormShippingOptionsWrap"),
                 spacing: DSSizesFoundations.separatorSmall,
                 children: [
                   for (var method in shippingMethods)
@@ -228,6 +237,7 @@ class _DSShippingFormState extends State<DSShippingForm> {
 
             const SizedBox(height: 24),
             DSButton(
+              key: const ValueKey("dsShippingFormSubmitButton"),
               label: _getText("submitLabel", "Guardar dirección"),
               onPressed: _handleSubmit,
               backgroundColor: accent,
@@ -256,11 +266,13 @@ class _DSShippingFormState extends State<DSShippingForm> {
     }
     selectShippingIndex++;
     return GestureDetector(
+      key: ValueKey("dsShippingOptionGesture_$title"),
       onTap: () {
         isSelectShipping = '0';
         setState(() => _selectedShippingMethod = title);
       },
       child: DSChip(
+        key: ValueKey("dsShippingOptionChip_$title"),
         label: title,
         selected: isSelected,
         backgroundColor: isSelected

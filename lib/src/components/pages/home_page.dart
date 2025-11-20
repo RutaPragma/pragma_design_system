@@ -41,9 +41,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     if (_isLoading) {
       return const Scaffold(
+        key: ValueKey("homePageLoadingScaffold"),
         backgroundColor: Colors.white,
         body: Center(
+          key: ValueKey("homePageLoadingCenter"),
           child: DSLoader(
+            key: ValueKey("homePageLoader"),
             label: "Loading...",
             color: DSColorsFoundations.brandSecondary,
             size: DSSizesFoundations.imageSizeXL,
@@ -53,7 +56,9 @@ class _HomePageState extends State<HomePage> {
     }
 
     return SafeArea(
+      key: const ValueKey("homePageSafeArea"),
       child: DSHomeTemplate(
+        key: const ValueKey("homePageTemplate"),
         selectIndex: 0,
         onNavItemSelect: (_) {},
         onAddPressed: (_) {},

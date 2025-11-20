@@ -73,6 +73,7 @@ class DSFabButton extends StatelessWidget {
     final double dimension = getDsSizeIconButton(size);
 
     return Container(
+      key: const ValueKey("dsFabButtonContainer"),
       alignment: AlignmentGeometry.center,
       height: dimension,
       width: dimension,
@@ -80,6 +81,7 @@ class DSFabButton extends StatelessWidget {
       decoration: BoxDecoration(boxShadow: DSShadowsFoundations.shadowSmall),
 
       child: FloatingActionButton.large(
+        key: const ValueKey("dsFabFloatingButton"),
         onPressed: onPressed,
         backgroundColor: _getBackgroundColor(isDark),
         foregroundColor: _getForegroundColor(isDark),
@@ -89,7 +91,9 @@ class DSFabButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(getDSRadius(radius)),
         ),
         child: Center(
+          key: const ValueKey("dsFabButtonCenter"),
           child: Icon(
+            key: const ValueKey("dsFabButtonIcon"),
             icon,
             size: (customSize ?? getDsSizeIconButton(size)) * 0.6,
           ),

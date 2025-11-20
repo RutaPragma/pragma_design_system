@@ -48,18 +48,22 @@ class DSBadge extends StatelessWidget {
 
     if (isMedal) {
       return GestureDetector(
+        key: const ValueKey("dsBadgeMedalGesture"),
         onTap: onTap,
         child: CustomPaint(
+          key: const ValueKey("dsBadgeMedalPainter"),
           painter: _StarBadgePainter(
             color: bgColor,
             shadow: DSShadowsFoundations.shadowMedium,
           ),
           size: Size(badgeSize * 2, badgeSize * 2),
           child: SizedBox(
+            key: const ValueKey("dsBadgeMedalSizedBox"),
             width: badgeSize * 2,
             height: badgeSize * 2,
             child: Center(
               child: Text(
+                key: const ValueKey("dsBadgeLabelMedal"),
                 label.toUpperCase(),
                 textAlign: TextAlign.center,
                 style: DSTypographyFoundations.labelSmall.copyWith(
@@ -75,8 +79,10 @@ class DSBadge extends StatelessWidget {
     }
 
     return GestureDetector(
+      key: const ValueKey("dsBadgeGesture"),
       onTap: onTap,
       child: Container(
+        key: const ValueKey("dsBadgeContainer"),
         height: badgeSize,
         constraints: BoxConstraints(minWidth: badgeSize),
         padding: EdgeInsets.symmetric(
@@ -91,6 +97,7 @@ class DSBadge extends StatelessWidget {
         ),
         alignment: Alignment.center,
         child: Text(
+          key: const ValueKey("dsBadgeLabel"),
           label,
           textAlign: TextAlign.center,
           style: DSTypographyFoundations.bodySmall.copyWith(

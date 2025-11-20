@@ -97,6 +97,7 @@ class _DSSearchBarState extends State<DSSearchBar> {
         : DSShadowsFoundations.shadowSmall;
 
     return AnimatedContainer(
+      key: const ValueKey("dsSearchBarContainer"),
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeOut,
       decoration: BoxDecoration(
@@ -116,8 +117,10 @@ class _DSSearchBarState extends State<DSSearchBar> {
         vertical: DSSizesFoundations.separatorSmall / 2,
       ),
       child: Row(
+        key: const ValueKey("dsSearchBarRow"),
         children: [
           Icon(
+            key: const ValueKey("dsSearchBarLeadingIcon"),
             Icons.search_rounded,
             color: _hasFocus
                 ? (isDark
@@ -131,8 +134,10 @@ class _DSSearchBarState extends State<DSSearchBar> {
           const SizedBox(width: 8),
           Expanded(
             child: Focus(
+              key: const ValueKey("dsSearchBarFocus"),
               onFocusChange: (focus) => setState(() => _hasFocus = focus),
               child: TextField(
+                key: const ValueKey("dsSearchBarTextField"),
                 controller: _controller,
                 autofocus: widget.autoFocus,
                 enabled: widget.enabled,
@@ -161,14 +166,17 @@ class _DSSearchBarState extends State<DSSearchBar> {
           ),
           if (_controller.text.isNotEmpty)
             GestureDetector(
+              key: const ValueKey("dsSearchBarClearGesture"),
               onTap: () {
                 _controller.clear();
                 widget.onClear?.call();
                 widget.onChanged?.call(''); // opcional: limpia búsqueda
               },
               child: Padding(
+                key: const ValueKey("dsSearchBarClearPadding"),
                 padding: const EdgeInsets.only(left: 12.0),
                 child: Icon(
+                  key: const ValueKey("dsSearchBarClearIcon"),
                   Icons.close_rounded,
                   color: const Color.fromARGB(255, 130, 16, 16),
                   size: DSSizesFoundations.iconSizeSmall,

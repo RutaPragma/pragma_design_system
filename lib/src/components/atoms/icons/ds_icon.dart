@@ -83,8 +83,10 @@ class DSIcon extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return GestureDetector(
+      key: const ValueKey("dsIconGesture"),
       onTap: () => onPressed?.call(),
       child: Icon(
+        key: const ValueKey("dsIcon"),
         icon,
         size: customSize ?? _getSize(),
         color: disabled

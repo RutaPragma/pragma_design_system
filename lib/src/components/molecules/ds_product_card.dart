@@ -120,8 +120,10 @@ class DSProductCard extends StatelessWidget {
     final width = cardSize * 1.8;
     final heigth = cardSize * 3;
     return Card(
+      key: const ValueKey("dsProductCardRoot"),
       elevation: 2,
       child: Container(
+        key: const ValueKey("dsProductCardContainer"),
         width: width,
         height: heigth,
         decoration: BoxDecoration(
@@ -131,18 +133,23 @@ class DSProductCard extends StatelessWidget {
         ),
         clipBehavior: Clip.antiAlias,
         child: GestureDetector(
+          key: const ValueKey("dsProductCardTapArea"),
           onTap: onTapPressed,
           child: SizedBox(
+            key: const ValueKey("dsProductCardSizedBox"),
             height: double.infinity,
             width: double.infinity,
             child: Stack(
+              key: const ValueKey("dsProductCardStack"),
               children: [
                 Positioned(
+                  key: const ValueKey("dsProductCardImagePosition"),
                   top: showImageTopSpacing ? 10 : 0,
                   left: 0,
                   right: 0,
                   bottom: 100,
                   child: Image.network(
+                    key: const ValueKey("dsProductCardImage"),
                     imageUrl,
                     fit: boxFitImage,
                     loadingBuilder:
@@ -152,15 +159,19 @@ class DSProductCard extends StatelessWidget {
                           ImageChunkEvent? loadingProgress,
                         ) {
                           if (loadingProgress == null) return child;
-                          return DSLoader();
+                          return const DSLoader(
+                            key: ValueKey("dsProductCardImageLoader"),
+                          );
                         },
                   ),
                 ),
                 Positioned(
+                  key: const ValueKey("dsProductCardTitlePosition"),
                   bottom: 60,
                   left: 10,
                   right: 10,
                   child: Text(
+                    key: const ValueKey("dsProductCardTitle"),
                     title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -171,16 +182,23 @@ class DSProductCard extends StatelessWidget {
                 ),
           
                 Positioned(
+                  key: const ValueKey("dsProductCardPricePosition"),
                   bottom: 40,
                   left: 10,
-                  child: Text(price, style: effectivePriceTextStyle),
+                  child: Text(
+                    price,
+                    key: const ValueKey("dsProductCardPriceText"),
+                    style: effectivePriceTextStyle,
+                  ),
                 ),
-          
+
                 Positioned(
+                  key: const ValueKey("dsProductCardButtonPosition"),
                   bottom: 10,
                   left: 10,
                   right: 10,
                   child: DSButton(
+                    key: const ValueKey("dsProductCardButton"),
                     label: buttonLabel,
                     onPressed: onAddPressed,
                     backgroundColor: btnBackgroundColor,
@@ -192,9 +210,11 @@ class DSProductCard extends StatelessWidget {
                 ),
                 if (badgeText != null)
                   Positioned(
+                    key: const ValueKey("dsProductCardBadgePosition"),
                     top: 5,
                     left: 5,
                     child: DSBadge(
+                      key: const ValueKey("dsProductCardBadge"),
                       label: badgeText!,
                       backgroundColor: effectiveBadgeBg,
                       textColor: effectiveBadgeText,

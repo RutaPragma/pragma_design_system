@@ -82,6 +82,7 @@ class _DSAuthFormState extends State<DSAuthForm> {
     final minPassLength = _getInt("minPasswordLength", 6);
 
     return Container(
+      key: const ValueKey("dsAuthFormContainer"),
       padding: EdgeInsets.all(DSSizesFoundations.separatorLarge),
       decoration: BoxDecoration(
         color: bgColor,
@@ -91,9 +92,11 @@ class _DSAuthFormState extends State<DSAuthForm> {
       child: Form(
         key: _formKey,
         child: Column(
+          key: const ValueKey("dsAuthFormColumn"),
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
+              key: const ValueKey("dsAuthFormTitle"),
               _get("title", "Iniciar sesión"),
               style: DSTypographyFoundations.displaySmall.copyWith(
                 color: textColor,
@@ -102,6 +105,7 @@ class _DSAuthFormState extends State<DSAuthForm> {
             if (_get("subtitle").isNotEmpty) ...[
               const SizedBox(height: 4),
               Text(
+                key: const ValueKey("dsAuthFormSubtitle"),
                 _get("subtitle"),
                 style: DSTypographyFoundations.bodySmall.copyWith(
                   color: textColor..withValues(alpha: 0.7),
@@ -111,6 +115,7 @@ class _DSAuthFormState extends State<DSAuthForm> {
             SizedBox(height: DSSizesFoundations.separatorLarge),
 
             DSInputField(
+              key: const ValueKey("dsAuthFormEmailField"),
               label: _get("emailLabel", "Correo electrónico"),
               hintText: _get("emailHint", "tu@correo.com"),
               controller: _emailCtrl,
@@ -130,12 +135,14 @@ class _DSAuthFormState extends State<DSAuthForm> {
             SizedBox(height: DSSizesFoundations.separatorMedium),
 
             DSInputField(
+              key: const ValueKey("dsAuthFormPasswordField"),
               label: _get("passwordLabel", "Contraseña"),
               hintText: _get("passwordHint", "••••••••"),
               controller: _passwordCtrl,
               obscureText: _obscurePassword,
               suffixIcon: widget.showPasswordToggle
                   ? IconButton(
+                      key: const ValueKey("dsAuthFormPasswordToggle"),
                       icon: Icon(
                         _obscurePassword
                             ? Icons.visibility_off
@@ -168,8 +175,10 @@ class _DSAuthFormState extends State<DSAuthForm> {
 
             if (widget.showForgotPassword)
               Align(
+                key: const ValueKey("dsAuthFormForgotPasswordAlign"),
                 alignment: Alignment.centerRight,
                 child: TextButton(
+                  key: const ValueKey("dsAuthFormForgotPasswordButton"),
                   onPressed: widget.onForgotPassword,
                   child: Text(
                     _get("forgotPasswordText", "¿Olvidaste tu contraseña?"),
@@ -185,9 +194,13 @@ class _DSAuthFormState extends State<DSAuthForm> {
             SizedBox(height: DSSizesFoundations.separatorLarge),
 
             if (widget.isLoading)
-              DSLoader(label: _get("loadingText", "Verificando..."))
+              DSLoader(
+                key: const ValueKey("dsAuthFormLoader"),
+                label: _get("loadingText", "Verificando..."),
+              )
             else
               DSButton(
+                key: const ValueKey("dsAuthFormSubmitButton"),
                 label: _get("buttonLabel", "Entrar"),
                 onPressed: () {
                   if (_formKey.currentState?.validate() ?? false) {

@@ -117,33 +117,46 @@ class _DSAuthTemplateState extends State<DSAuthTemplate> {
     final registerConfig = widget.config["registerConfig"] ?? {};
 
     return Scaffold(
+      key: const ValueKey("dsAuthTemplateScaffold"),
       backgroundColor: bgColor,
       body: SafeArea(
+        key: const ValueKey("dsAuthTemplateSafeArea"),
         child: LayoutBuilder(
           builder: (context, constraints) {
             return Row(
+              key: const ValueKey("dsAuthTemplateRow"),
               children: [
                 Expanded(
+                  key: const ValueKey("dsAuthTemplateFormExpanded"),
                   flex: 1,
                   child: Center(
+                    key: const ValueKey("dsAuthTemplateCenter"),
                     child: SingleChildScrollView(
+                      key: const ValueKey("dsAuthTemplateScroll"),
                       padding: const EdgeInsets.all(
                         DSSizesFoundations.separatorLarge,
                       ),
                       child: Column(
+                        key: const ValueKey("dsAuthTemplateColumn"),
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           // Logo opcional
                           if (logoUrl != null)
                             Padding(
+                              key: const ValueKey("dsAuthTemplateLogoPadding"),
                               padding: const EdgeInsets.only(
                                 bottom: 32,
                                 top: 16,
                               ),
-                              child: Image.asset(logoUrl, height: 80),
+                              child: Image.asset(
+                                logoUrl,
+                                key: const ValueKey("dsAuthTemplateLogo"),
+                                height: 80,
+                              ),
                             ),
 
                           Text(
+                            key: const ValueKey("dsAuthTemplateTitle"),
                             _isLogin
                                 ? (widget.config["loginTitle"] ??
                                       "Iniciar Sesión")
@@ -156,6 +169,7 @@ class _DSAuthTemplateState extends State<DSAuthTemplate> {
                           const SizedBox(height: 24),
 
                           AnimatedSwitcher(
+                            key: const ValueKey("dsAuthTemplateSwitcher"),
                             duration: const Duration(milliseconds: 350),
                             transitionBuilder: (child, animation) =>
                                 FadeTransition(
@@ -179,9 +193,12 @@ class _DSAuthTemplateState extends State<DSAuthTemplate> {
                           const SizedBox(height: 24),
 
                           Row(
+                            key: const ValueKey("dsAuthTemplateToggleRow"),
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
+                                key:
+                                    const ValueKey("dsAuthTemplateToggleText"),
                                 _isLogin
                                     ? "¿No tienes cuenta?"
                                     : "¿Ya tienes cuenta?",
@@ -194,6 +211,9 @@ class _DSAuthTemplateState extends State<DSAuthTemplate> {
                                   setState(() => _isLogin = !_isLogin);
                                 },
                                 child: Text(
+                                  key: const ValueKey(
+                                    "dsAuthTemplateToggleAction",
+                                  ),
                                   _isLogin ? "Regístrate" : "Inicia sesión",
                                   style: DSTypographyFoundations.bodySmall
                                       .copyWith(
@@ -210,9 +230,13 @@ class _DSAuthTemplateState extends State<DSAuthTemplate> {
                           // Divider decorativo
                           if (listSocialButtons.isNotEmpty)
                             Row(
+                              key: const ValueKey("dsAuthTemplateDividerRow"),
                               children: [
                                 Expanded(
                                   child: Divider(
+                                    key: const ValueKey(
+                                      "dsAuthTemplateDividerLeft",
+                                    ),
                                     color: textColor.withValues(alpha: 0.3),
                                     thickness: 0.8,
                                   ),
@@ -222,6 +246,9 @@ class _DSAuthTemplateState extends State<DSAuthTemplate> {
                                     horizontal: 8,
                                   ),
                                   child: Text(
+                                    key: const ValueKey(
+                                      "dsAuthTemplateDividerLabel",
+                                    ),
                                     "o",
                                     style: DSTypographyFoundations.bodySmall
                                         .copyWith(color: textColor),
@@ -229,6 +256,9 @@ class _DSAuthTemplateState extends State<DSAuthTemplate> {
                                 ),
                                 Expanded(
                                   child: Divider(
+                                    key: const ValueKey(
+                                      "dsAuthTemplateDividerRight",
+                                    ),
                                     color: textColor.withValues(alpha: 0.3),
                                     thickness: 0.8,
                                   ),
@@ -241,6 +271,7 @@ class _DSAuthTemplateState extends State<DSAuthTemplate> {
                           // Botones sociales
                           if (listSocialButtons.isNotEmpty)
                             Wrap(
+                              key: const ValueKey("dsAuthTemplateSocialWrap"),
                               spacing: 12,
                               runSpacing: 8,
                               alignment: WrapAlignment.center,

@@ -95,7 +95,9 @@ class _DSProductListState extends State<DSProductList> {
 
     if (widget.products.isEmpty) {
       return Center(
+        key: const ValueKey("dsProductListEmptyState"),
         child: Image.asset(
+          key: const ValueKey("dsProductListEmptyImage"),
           widget.emptyImagePath,
           height: DSSizes.imageSizeXL,
           width: DSSizes.imageSizeXL,
@@ -104,13 +106,16 @@ class _DSProductListState extends State<DSProductList> {
     }
 
     return Column(
+      key: const ValueKey("dsProductListColumn"),
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         if (widget.showMenuChange)
           Padding(
+            key: const ValueKey("dsProductListTogglePadding"),
             padding: const EdgeInsets.only(right: 18),
             child: DSIconButton(
+              key: const ValueKey("dsProductListToggleButton"),
               icon: Icons.apps,
               size: DSSize.small,
               onPressed: () {
@@ -121,11 +126,13 @@ class _DSProductListState extends State<DSProductList> {
             ),
           ),
         Padding(
+          key: const ValueKey("dsProductListContentPadding"),
           padding:
               widget.padding ??
               EdgeInsets.all(DSSizesFoundations.separatorMedium),
           child: isGrid
               ? GridView.builder(
+                  key: const PageStorageKey("dsProductListGridView"),
                   itemCount: widget.products.length,
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -137,8 +144,10 @@ class _DSProductListState extends State<DSProductList> {
                   itemBuilder: (context, index) {
                     final product = widget.products[index];
                     return GestureDetector(
+                      key: ValueKey("dsProductListGridItem_$index"),
                       onTap: () => widget.onTapPressed?.call(product),
                       child: DSProductCard(
+                        key: ValueKey("dsProductListGridCard_$index"),
                         showImageTopSpacing: widget.showImageTopSpacing,
                         imageUrl: product.imageUrl,
                         title: product.title,
@@ -150,9 +159,15 @@ class _DSProductListState extends State<DSProductList> {
                         footer: widget.showAddButton
                             ? null
                             : Row(
+                                key: ValueKey(
+                                  "dsProductListGridRatingRow_$index",
+                                ),
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   DSRatingStars(
+                                    key: ValueKey(
+                                      "dsProductListGridRating_$index",
+                                    ),
                                     rating: product.rating,
                                     size: DSSizesFoundations.iconSizeSmall,
                                   ),
@@ -173,6 +188,7 @@ class _DSProductListState extends State<DSProductList> {
                   },
                 )
               : ListView.separated(
+                  key: const PageStorageKey("dsProductListListView"),
                   shrinkWrap: true,
                   itemCount: widget.products.length,
                   separatorBuilder: (_, __) =>
@@ -180,8 +196,10 @@ class _DSProductListState extends State<DSProductList> {
                   itemBuilder: (context, index) {
                     final product = widget.products[index];
                     return GestureDetector(
+                      key: ValueKey("dsProductListListItem_$index"),
                       onTap: () => widget.onAddPressed?.call(product),
                       child: DSProductCard(
+                        key: ValueKey("dsProductListListCard_$index"),
                         imageUrl: product.imageUrl,
                         title: product.title,
                         price: product.price,
@@ -192,6 +210,9 @@ class _DSProductListState extends State<DSProductList> {
                         footer: widget.showAddButton
                             ? null
                             : DSRatingStars(
+                                key: ValueKey(
+                                  "dsProductListListRating_$index",
+                                ),
                                 rating: product.rating,
                                 size: DSSizesFoundations.iconSizeSmall,
                               ),

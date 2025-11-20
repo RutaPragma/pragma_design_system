@@ -89,16 +89,20 @@ class _DSCheckoutTemplateState extends State<DSCheckoutTemplate> {
             : DSColorsFoundations.brandPrimary);
 
     return Scaffold(
+      key: const ValueKey("dsCheckoutTemplateScaffold"),
       backgroundColor: bgColor,
       appBar: DSAppBar(
+        key: const ValueKey("dsCheckoutTemplateAppBar"),
         title: checkoutTitle,
         centerTitle: true,
         backgroundColor: bgColor,
         textColor: textColor,
         actions: [
           Padding(
+            key: const ValueKey("dsCheckoutTemplateCartPadding"),
             padding: const EdgeInsets.only(right: 8.0),
             child: DSIconCounter(
+              key: const ValueKey("dsCheckoutTemplateCartCounter"),
               onTap: () {},
               icon: Icons.shopping_cart_outlined,
               count: itemsCar,
@@ -107,12 +111,15 @@ class _DSCheckoutTemplateState extends State<DSCheckoutTemplate> {
         ],
       ),
       body: SingleChildScrollView(
+        key: const ValueKey("dsCheckoutTemplateScroll"),
         padding: const EdgeInsets.all(DSSizesFoundations.separatorLarge),
         child: Column(
+          key: const ValueKey("dsCheckoutTemplateColumn"),
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (orderSummary.isNotEmpty) ...[
               DSOrderSummary(
+                key: const ValueKey("dsCheckoutTemplateOrderSummary"),
                 orderId: orderSummaryModel.orderId,
                 orderDate: orderSummaryModel.orderDate,
                 orderStatus: orderSummaryModel.orderStatus,
@@ -126,6 +133,7 @@ class _DSCheckoutTemplateState extends State<DSCheckoutTemplate> {
             ],
 
             Text(
+              key: const ValueKey("dsCheckoutTemplateContactTitle"),
               "Ingresa tus datos de contacto",
               style: DSTypographyFoundations.displaySmall.copyWith(
                 color: textColor,
@@ -134,6 +142,7 @@ class _DSCheckoutTemplateState extends State<DSCheckoutTemplate> {
             ),
             const SizedBox(height: 12),
             DSShippingForm(
+              key: const ValueKey("dsCheckoutTemplateShippingForm"),
               onSubmit: (data) => setState(() {
                 log(data.toString());
                 _shippingData = data;
@@ -148,6 +157,7 @@ class _DSCheckoutTemplateState extends State<DSCheckoutTemplate> {
 
             const SizedBox(height: 12),
             DSPaymentMethods(
+              key: const ValueKey("dsCheckoutTemplatePaymentMethods"),
               title: 'Método de pago',
               methods: paymentList,
               selectedIndex: currentIndex,
@@ -164,6 +174,7 @@ class _DSCheckoutTemplateState extends State<DSCheckoutTemplate> {
             const SizedBox(height: 32),
 
             DSButton(
+              key: const ValueKey("dsCheckoutTemplateConfirmButton"),
               label: buttonLabel,
               onPressed: () {
                 if (_shippingData.isEmpty) {
