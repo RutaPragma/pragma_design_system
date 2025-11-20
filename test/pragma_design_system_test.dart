@@ -1,5 +1,6 @@
-import 'package:flutter_test/flutter_test.dart';
+import 'main.dart' as design_system;
 
+/// Mantiene compatibilidad con el punto de entrada generado por Flutter.
 void main() {
-  test('adds one to input values', () {});
+  design_system.main();
 }
