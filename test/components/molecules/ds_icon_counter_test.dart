@@ -5,7 +5,7 @@ import 'package:pragma_design_system/src/components/molecules/ds_icon_counter.da
 /// Suite con los escenarios relevantes del `DSIconCounter`.
 void main() {
   group('DSIconCounter', () {
-    testWidgets('should hide the badge when the count is zero', (
+    testWidgets('debería ocultar el badge cuando el contador es cero', (
       WidgetTester tester,
     ) async {
       // Arrange
@@ -25,7 +25,7 @@ void main() {
       );
     });
 
-    testWidgets('should cap the visible amount to 99+', (
+    testWidgets('debería limitar la visualización a 99+ cuando excede', (
       WidgetTester tester,
     ) async {
       // Arrange
@@ -42,7 +42,7 @@ void main() {
       expect(find.text('99+'), findsOneWidget);
     });
 
-    testWidgets('should forward taps to the provided callback', (
+    testWidgets('debería propagar los taps al callback asignado', (
       WidgetTester tester,
     ) async {
       // Arrange

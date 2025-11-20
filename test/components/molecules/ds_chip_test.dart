@@ -5,7 +5,7 @@ import 'package:pragma_design_system/src/components/molecules/ds_chip.dart';
 /// Agrupa las pruebas de la molécula `DSChip`.
 void main() {
   group('DSChip', () {
-    testWidgets('should display icon and label when provided', (
+    testWidgets('debería mostrar el ícono y la etiqueta configurada', (
       WidgetTester tester,
     ) async {
       // Arrange
@@ -20,20 +20,20 @@ void main() {
       expect(find.text('Flutter'), findsOneWidget);
     });
 
-    testWidgets('should trigger onTap only when the chip is enabled', (
+    testWidgets('debería responder solo cuando el chip está habilitado', (
       WidgetTester tester,
     ) async {
       // Arrange
-      bool enabledTriggered = false;
-      bool disabledTriggered = false;
+      bool eventoHabilitado = false;
+      bool eventoDeshabilitado = false;
 
       final Widget widget = Column(
         children: <Widget>[
-          DSChip(label: 'Enabled', onTap: () => enabledTriggered = true),
+          DSChip(label: 'Habilitado', onTap: () => eventoHabilitado = true),
           DSChip(
-            label: 'Disabled',
+            label: 'Deshabilitado',
             enabled: false,
-            onTap: () => disabledTriggered = true,
+            onTap: () => eventoDeshabilitado = true,
           ),
         ],
       );
@@ -48,8 +48,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // Assert
-      expect(enabledTriggered, isTrue);
-      expect(disabledTriggered, isFalse);
+      expect(eventoHabilitado, isTrue);
+      expect(eventoDeshabilitado, isFalse);
     });
   });
 }

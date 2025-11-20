@@ -171,6 +171,27 @@ class DSOrderSummary extends StatelessWidget {
                                 ),
                               );
                             },
+                        errorBuilder:
+                            (
+                              BuildContext context,
+                              Object error,
+                              StackTrace? stackTrace,
+                            ) {
+                              return Container(
+                                key: ValueKey(
+                                  "dsOrderSummaryProductImageError_${entry.key}",
+                                ),
+                                width: 50,
+                                height: 50,
+                                color: DSColorsFoundations.surfaceSecondaryDark,
+                                alignment: Alignment.center,
+                                child: Icon(
+                                  Icons.image_not_supported_outlined,
+                                  color: DSColorsFoundations.textHint,
+                                  size: DSSizesFoundations.iconSizeSmall,
+                                ),
+                              );
+                            },
                         width: 50,
                         height: 50,
                         fit: BoxFit.scaleDown,
