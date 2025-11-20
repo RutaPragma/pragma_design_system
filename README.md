@@ -151,6 +151,16 @@ Cada componente está documentado y tiene ejemplos de uso en el código fuente y
 ### 5. Showcase
 App de ejemplo para visualizar y probar todos los componentes y templates del sistema. Útil como referencia y para pruebas visuales.
 
+## Test unitarios y coverage
+
+- **Tests unitarios con coverage minimal:** desde la raíz ejecuta `flutter test --coverage` para generar `coverage/lcov.info`.
+- **Correr tests, generar coverage y abrir el reporte HTML:** usa el comando compuesto:
+    ```sh
+    flutter test test/main.dart --coverage && \
+    genhtml coverage/lcov.info -o coverage/html && \
+    open coverage/html/index.html
+    ```
+
 ## Contribuir
 
 ¡Las contribuciones son bienvenidas! Si quieres mejorar el sistema, reportar bugs o proponer nuevos componentes, abre un issue o pull request.
