@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/src/components/atoms/atoms.dart';
+import 'package:pragma_design_system/src/core/core.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
 
 /// Formulario de autenticación parametrizable mediante un mapa de configuración.
@@ -26,15 +27,6 @@ import 'package:pragma_design_system/src/foundations/foundations.dart';
 /// )
 /// ```
 class DSAuthForm extends StatefulWidget {
-  final Map<String, dynamic> config;
-  final void Function(String email, String password)? onSubmit;
-  final VoidCallback? onForgotPassword;
-  final bool isLoading;
-  final bool showForgotPassword;
-  final Color? backgroundColor;
-  final Color? textColor;
-  final bool showPasswordToggle;
-
   const DSAuthForm({
     super.key,
     required this.config,
@@ -45,7 +37,18 @@ class DSAuthForm extends StatefulWidget {
     this.backgroundColor,
     this.textColor,
     this.showPasswordToggle = true,
+    this.accessibility,
   });
+
+  final Map<String, dynamic> config;
+  final void Function(String email, String password)? onSubmit;
+  final VoidCallback? onForgotPassword;
+  final bool isLoading;
+  final bool showForgotPassword;
+  final Color? backgroundColor;
+  final Color? textColor;
+  final bool showPasswordToggle;
+  final Map<String, dynamic>? accessibility;
 
   @override
   State<DSAuthForm> createState() => _DSAuthFormState();
@@ -95,11 +98,14 @@ class _DSAuthFormState extends State<DSAuthForm> {
           key: const ValueKey("dsAuthFormColumn"),
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              key: const ValueKey("dsAuthFormTitle"),
-              _get("title", "Iniciar sesión"),
-              style: DSTypographyFoundations.displaySmall.copyWith(
-                color: textColor,
+            Accessible(
+              config: widget.accessibility?['title'],
+              child: Text(
+                key: const ValueKey("dsAuthFormTitle"),
+                _get("title", "Iniciar sesión"),
+                style: DSTypographyFoundations.displaySmall.copyWith(
+                  color: textColor,
+                ),
               ),
             ),
             if (_get("subtitle").isNotEmpty) ...[
@@ -114,63 +120,73 @@ class _DSAuthFormState extends State<DSAuthForm> {
             ],
             SizedBox(height: DSSizesFoundations.separatorLarge),
 
-            DSInputField(
-              key: const ValueKey("dsAuthFormEmailField"),
-              label: _get("emailLabel", "Correo electrónico"),
-              hintText: _get("emailHint", "tu@correo.com"),
-              controller: _emailCtrl,
-              keyboardType: TextInputType.emailAddress,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return _get("emailRequired", "El correo es obligatorio");
-                }
-                final emailReg = RegExp(r'^[^@]+@[^@]+\.[^@]+');
-                if (!emailReg.hasMatch(value)) {
-                  return _get("emailInvalid", "Ingresa un correo válido");
-                }
-                return null;
-              },
+            Accessible(
+              config: AccessibilityMapper.fromMap(
+                widget.accessibility?['emailField'],
+              ),
+              child: DSInputField(
+                key: const ValueKey("dsAuthFormEmailField"),
+                label: _get("emailLabel", "Correo electrónico"),
+                hintText: _get("emailHint", "tu@correo.com"),
+                controller: _emailCtrl,
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return _get("emailRequired", "El correo es obligatorio");
+                  }
+                  final emailReg = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+                  if (!emailReg.hasMatch(value)) {
+                    return _get("emailInvalid", "Ingresa un correo válido");
+                  }
+                  return null;
+                },
+              ),
             ),
 
             SizedBox(height: DSSizesFoundations.separatorMedium),
 
-            DSInputField(
-              key: const ValueKey("dsAuthFormPasswordField"),
-              label: _get("passwordLabel", "Contraseña"),
-              hintText: _get("passwordHint", "••••••••"),
-              controller: _passwordCtrl,
-              obscureText: _obscurePassword,
-              suffixIcon: widget.showPasswordToggle
-                  ? IconButton(
-                      key: const ValueKey("dsAuthFormPasswordToggle"),
-                      icon: Icon(
-                        _obscurePassword
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                        color: DSColorsFoundations.textHint,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _obscurePassword = !_obscurePassword;
-                        });
-                      },
-                    )
-                  : null,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return _get(
-                    "passwordRequired",
-                    "La contraseña es obligatoria",
-                  );
-                }
-                if (value.length < minPassLength) {
-                  return _get(
-                    "passwordTooShort",
-                    "Debe tener al menos $minPassLength caracteres",
-                  );
-                }
-                return null;
-              },
+            Accessible(
+              config: AccessibilityMapper.fromMap(
+                widget.accessibility?['passwordField'],
+              ),
+              child: DSInputField(
+                key: const ValueKey("dsAuthFormPasswordField"),
+                label: _get("passwordLabel", "Contraseña"),
+                hintText: _get("passwordHint", "••••••••"),
+                controller: _passwordCtrl,
+                obscureText: _obscurePassword,
+                suffixIcon: widget.showPasswordToggle
+                    ? IconButton(
+                        key: const ValueKey("dsAuthFormPasswordToggle"),
+                        icon: Icon(
+                          _obscurePassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: DSColorsFoundations.textHint,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscurePassword = !_obscurePassword;
+                          });
+                        },
+                      )
+                    : null,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return _get(
+                      "passwordRequired",
+                      "La contraseña es obligatoria",
+                    );
+                  }
+                  if (value.length < minPassLength) {
+                    return _get(
+                      "passwordTooShort",
+                      "Debe tener al menos $minPassLength caracteres",
+                    );
+                  }
+                  return null;
+                },
+              ),
             ),
 
             if (widget.showForgotPassword)
@@ -180,12 +196,17 @@ class _DSAuthFormState extends State<DSAuthForm> {
                 child: TextButton(
                   key: const ValueKey("dsAuthFormForgotPasswordButton"),
                   onPressed: widget.onForgotPassword,
-                  child: Text(
-                    _get("forgotPasswordText", "¿Olvidaste tu contraseña?"),
-                    style: DSTypographyFoundations.bodySmall.copyWith(
-                      color: isDark
-                          ? DSColorsFoundations.brandPrimaryDark
-                          : DSColorsFoundations.brandPrimary,
+                  child: Accessible(
+                    config: AccessibilityMapper.fromMap(
+                      widget.accessibility?['forgotPasswordText'],
+                    ),
+                    child: Text(
+                      _get("forgotPasswordText", "¿Olvidaste tu contraseña?"),
+                      style: DSTypographyFoundations.bodySmall.copyWith(
+                        color: isDark
+                            ? DSColorsFoundations.brandPrimaryDark
+                            : DSColorsFoundations.brandPrimary,
+                      ),
                     ),
                   ),
                 ),
@@ -199,17 +220,22 @@ class _DSAuthFormState extends State<DSAuthForm> {
                 label: _get("loadingText", "Verificando..."),
               )
             else
-              DSButton(
-                key: const ValueKey("dsAuthFormSubmitButton"),
-                label: _get("buttonLabel", "Entrar"),
-                onPressed: () {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    widget.onSubmit?.call(
-                      _emailCtrl.text.trim(),
-                      _passwordCtrl.text.trim(),
-                    );
-                  }
-                },
+              Accessible(
+                config: AccessibilityMapper.fromMap(
+                  widget.accessibility?['submitButton'],
+                ),
+                child: DSButton(
+                  key: const ValueKey("dsAuthFormSubmitButton"),
+                  label: _get("buttonLabel", "Entrar"),
+                  onPressed: () {
+                    if (_formKey.currentState?.validate() ?? false) {
+                      widget.onSubmit?.call(
+                        _emailCtrl.text.trim(),
+                        _passwordCtrl.text.trim(),
+                      );
+                    }
+                  },
+                ),
               ),
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pragma_design_system/src/components/atoms/atoms.dart';
 import 'package:pragma_design_system/src/components/organisms/organisms.dart';
+import 'package:pragma_design_system/src/core/core.dart';
 import 'package:pragma_design_system/src/foundations/foundations.dart';
 
 /// Template de Autenticación (Login / Registro)
@@ -115,6 +116,7 @@ class _DSAuthTemplateState extends State<DSAuthTemplate> {
 
     final loginConfig = widget.config["loginConfig"] ?? {};
     final registerConfig = widget.config["registerConfig"] ?? {};
+    final accessibility = widget.config["loginAccessibility"] ?? {};
 
     return Scaffold(
       key: const ValueKey("dsAuthTemplateScaffold"),
@@ -148,23 +150,33 @@ class _DSAuthTemplateState extends State<DSAuthTemplate> {
                                 bottom: 32,
                                 top: 16,
                               ),
-                              child: Image.asset(
-                                logoUrl,
-                                key: const ValueKey("dsAuthTemplateLogo"),
-                                height: 80,
+                              child: Accessible(
+                                config: AccessibilityMapper.fromMap(
+                                  accessibility?['logo'],
+                                ),
+                                child: Image.asset(
+                                  logoUrl,
+                                  key: const ValueKey("dsAuthTemplateLogo"),
+                                  height: 80,
+                                ),
                               ),
                             ),
 
-                          Text(
-                            key: const ValueKey("dsAuthTemplateTitle"),
-                            _isLogin
-                                ? (widget.config["loginTitle"] ??
-                                      "Iniciar Sesión")
-                                : (widget.config["registerTitle"] ??
-                                      "Crear Cuenta"),
-                            style: DSTypographyFoundations.displayMedium
-                                .copyWith(color: textColor),
-                            textAlign: TextAlign.center,
+                          Accessible(
+                            config: AccessibilityMapper.fromMap(
+                              accessibility?['title'],
+                            ),
+                            child: Text(
+                              key: const ValueKey("dsAuthTemplateTitle"),
+                              _isLogin
+                                  ? (widget.config["loginTitle"] ??
+                                        "Iniciar Sesión")
+                                  : (widget.config["registerTitle"] ??
+                                        "Crear Cuenta"),
+                              style: DSTypographyFoundations.displayMedium
+                                  .copyWith(color: textColor),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                           const SizedBox(height: 24),
 
@@ -182,6 +194,7 @@ class _DSAuthTemplateState extends State<DSAuthTemplate> {
                                     config: loginConfig,
                                     onSubmit: (email, password) =>
                                         widget.onLogin.call(email, password),
+                                    accessibility: accessibility?['login'],
                                   )
                                 : DSRegisterUserForm(
                                     key: const ValueKey("register"),
@@ -197,8 +210,7 @@ class _DSAuthTemplateState extends State<DSAuthTemplate> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                key:
-                                    const ValueKey("dsAuthTemplateToggleText"),
+                                key: const ValueKey("dsAuthTemplateToggleText"),
                                 _isLogin
                                     ? "¿No tienes cuenta?"
                                     : "¿Ya tienes cuenta?",

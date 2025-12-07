@@ -187,7 +187,6 @@ class TemplatesShowcaseMenu extends StatelessWidget {
           },
           "validations": {"minPasswordLength": 6, "maxPasswordLength": 20},
         },
-
         "socialButtons": [
           {
             "label": "Continuar con Google",
@@ -205,6 +204,60 @@ class TemplatesShowcaseMenu extends StatelessWidget {
 
         "onLogin": (data) => log("Login -> $data"),
         "onRegister": (data) => log("Registro -> $data"),
+        "loginAccessibility": {
+          "logo": {
+            "label": "Logo",
+            "semantic": "Logo principal de icomers",
+            "identifier": "McCXErv8UmdGRfcAY8ecBjTZEiL4j5V",
+            "hint": "Login hint",
+            "order": 2,
+            "excludeSemantics": true,
+          },
+          "title": {
+            "label": "Bienvenido de nuevo",
+            "tooltip": "Título de bienvenida tooltip",
+            "order": 1,
+            "semantic": "Título de bienvenida",
+            "identifier": "McCXErv8UmdGRfcAecweBjTZEiL4j5V",
+            "hint": "Saludo hint",
+            "excludeSemantics": true,
+          },
+          "login": {
+            "emailField": {
+              "label": "Correo electrónico",
+              "tooltip": "Email ej: jhony@yopmail",
+              "order": 3,
+              "semantic":
+                  "Correo electrónico, con el que te registraste, doble cli para escribir",
+              "identifier": "McCXErv8UmdGRfcAeckaoeTZEiL4j5V",
+              "hint": "Saludo hint",
+              "excludeSemantics": true,
+            },
+            "passwordField": {
+              "label": "Contraseña",
+              "order": 4,
+              "semantic": "Tú clave de acceso, doble cli para escribir",
+              "identifier": "Mc<SJKrv34ndGRfcAecweBjTZEiL4j5V",
+              "excludeSemantics": true,
+            },
+            "forgotPasswordText": {
+              "label": "¿Olvidaste tu contraseña?",
+              "order": 5,
+              "semantic":
+                  "Link para recupoerar contraseña, doble cli para activar",
+              "identifier": "McWERrv34ndGRfcAecweBjTZEiL4j5V",
+              "excludeSemantics": true,
+            },
+            "submitButton": {
+              "label": "Entrar",
+              "order": 6,
+              "semantic":
+                  "Boton de ingreso a la plataforma, doble cli para activar",
+              "identifier": "McCXErv8UmdGRfcAecweBjTZEiL4j5V",
+              "excludeSemantics": true,
+            },
+          },
+        },
       },
     },
     {
